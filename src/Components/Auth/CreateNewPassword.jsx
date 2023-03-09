@@ -3,20 +3,13 @@ import mic_logo from "../../Images/mic_logo.png"
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import AuthContext from '../../Context/AuthContext/AuthContext'
 import Alert from '../Alert'
+import showToast from '../../Utils/showToast'
 
 const CreateNewPassword = () => {
     const { createPassword, setRedirectLogin } = useContext(AuthContext);
 
     const [alert, setAlert] = useState(null);
     const Navigate = useNavigate();
-    const showAlert = (type, message, time) =>
-        setAlert({
-            msg: message,
-            type: type
-        },
-            setTimeout(() => {
-                setAlert(null);
-            }, time));
 
     const params = useParams();
     const token = params.token;
@@ -28,18 +21,28 @@ const CreateNewPassword = () => {
     const submit = async (e) => {
         e.preventDefault();
         const json = await createPassword(user.password, token);
-        console.log(json);
         if (json.success) {
-            showAlert("success", "Password set successfully", 3000);
+            showToast({
+                msg:"Password Set Successfully",
+                type:"success",
+                duration:3000
+            })
             setRedirectLogin({isTrue:true, msg:"Account created Successfully. You can now login."})
             Navigate("/login");
         }
-        // console.log(json.details);
         else if (json.detail === "Error: Link already used.") {
-            showAlert("danger", "Link already used.", 3000);
+            showToast({
+                msg:"Link already used.",
+                type:"danger",
+                duration:5000
+            })
         }
         else if(json.detail === "TokenExpiredError: jwt expired"){
-            showAlert("danger", "Link expired", 3000);
+            showToast({
+                msg:"Link expired.",
+                type:"danger",
+                duration:5000
+            })
         }
         setUser({ password: "", confirmPassword: "" });
     }

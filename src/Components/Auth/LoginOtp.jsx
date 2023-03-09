@@ -3,69 +3,86 @@ import mic_logo from "../../Images/mic_logo.png"
 import { Link, useNavigate } from 'react-router-dom'
 import AuthContext from '../../Context/AuthContext/AuthContext'
 import Alert from '../Alert'
+import showToast from '../../Utils/showToast'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserProfile } from '../../Redux/authentication/authSlice'
+
+
 
 const LoginOtp = () => {
-    const {redirectOTP, setRedirectOTP, checkOTP, homePage, setHomePage, setRedirectLogin, redirectLogin} = useContext(AuthContext);
+    const { redirectOTP, setRedirectOTP, checkOTP, homePage, setHomePage, setRedirectLogin, redirectLogin } = useContext(AuthContext);
 
     const Navigate = useNavigate();
 
     const [alert, setAlert] = useState(null);
     const [otp, setOtp] = useState("");
-    const showAlert = (type, message, time) =>
-    setAlert({
-      msg: message,
-      type: type
-    },
-      setTimeout(() => {
-        setAlert(null);
-      }, time));
 
-    useEffect(()=>{
-        if(!localStorage.getItem('otp-token') && redirectLogin.isTrue === false){
-            setRedirectLogin({isTrue:true, msg:"Please login first"});
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!localStorage.getItem('otp-token') && redirectLogin.isTrue === false) {
+            setRedirectLogin({ isTrue: true, msg: "Please login first" });
             Navigate("/login");
         }
-        else if(redirectOTP.isTrue){
-            showAlert("success",redirectOTP.msg,3000);
-            setTimeout(() => {
-                setRedirectOTP({isTrue:false, msg:""});
-              }, 4000);
+        else if (redirectOTP.isTrue) {
+            // showAlert("success",redirectOTP.msg,3000);
+            showToast({
+                msg: redirectOTP.msg,
+                type: "success",
+                duration: 5000,
+            })
+            setRedirectOTP({ isTrue: false, msg: "" });
         }
-    },[]);
+    }, []);
 
-    const detectChange = (e)=>{
+    const detectChange = (e) => {
         setOtp(e.target.value);
     }
 
-    const submit = async()=>{
+    const submit = async () => {
 
-        if(localStorage.getItem('otp-token') === null){
-            showAlert("danger", "Inavlid Request", 3000);
+        if (localStorage.getItem('otp-token') === null) {
+            showToast({
+                msg: "Inavlid Request",
+                type: "error",
+                duration: 3000
+            })
             setOtp("");
         }
 
-        else{
+        else {
             const json = await checkOTP(otp);
-            console.log(json);
 
-            if(json.error === 'Error: Token Not Found'){
-                showAlert("danger", "Inavlid Request. Please login first", 3000);
+            if (json.error === 'Error: Token Not Found') {
+                showToast({
+                    msg: "Restricted Page",
+                    type: "error",
+                    duration: 3000
+                })
                 setOtp("");
             }
-            else if(json.error === 'TokenExpiredError: jwt expired'){
-                showAlert("danger", "OPT Expired", 3000);
+            else if (json.error === 'TokenExpiredError: jwt expired') {
+                showToast({
+                    msg: "OTP Expired",
+                    type: "error",
+                    duration: 5000
+                })
                 setOtp("");
             }
-            else if(json.detail === 'Error: Invalid OTP'){
-                showAlert("danger", "Invalid OTP", 3000);
+            else if (json.detail === 'Error: Invalid OTP') {
+                showToast({
+                    msg: "Invalid OTP",
+                    type: "error",
+                    duration: 4000
+                })
                 setOtp("");
             }
-            else if(json.success){
+            else if (json.success) {
                 localStorage.removeItem('otp-token');
-                localStorage.setItem('token',json.token);
-                showAlert("success", "Logged In", 3000);
+                localStorage.setItem('token', json.token);
                 setOtp("");
-                setHomePage({isTrue:true, msg:"Successfully Logged In"});
+                dispatch(getUserProfile());
+                setHomePage({ isTrue: true, msg: "Successfully Logged In."});
                 Navigate("/home")
             }
         }
@@ -74,7 +91,6 @@ const LoginOtp = () => {
     return (
         <>
             <title>Verify your account</title>
-            {alert && <Alert alert={alert} />}
             <section className="bg-gray-50 dark:bg-[#e6dad6] h-auto py-40 md:py-0">
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -92,22 +108,22 @@ const LoginOtp = () => {
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="items-start">
-                                    <Link to="/forgot-password" className="text-sm font-medium text-primary-600 hover:underline dark:text-white">Resend OTP</Link>
+                                        <Link to="/forgot-password" className="text-sm font-medium text-primary-600 hover:underline dark:text-white">Resend OTP</Link>
                                     </div>
 
                                     <div className="items-start">
-                                    <Link to="/forgot-password" className="text-sm font-medium text-primary-600 hover:underline dark:text-white">Forgot password?</Link>
+                                        <Link to="/forgot-password" className="text-sm font-medium text-primary-600 hover:underline dark:text-white">Forgot password?</Link>
                                     </div>
 
-                                    
+
                                 </div>
-                                {otp.length!==6?<button type="button" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 opacity-40">Submit</button>:<button type="button" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={submit}>Submit</button>}
-                                
+                                {otp.length !== 6 ? <button type="button" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 opacity-40">Submit</button> : <button type="button" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={submit}>Submit</button>}
+
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                     Don’t have an account yet? <Link to="/signup" className="font-medium text-blue-600 hover:underline dark:text-primary-500">Create One !</Link>
                                 </p>
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400"> Back to sign in page.
-                                     <Link to="/login" className="font-medium text-blue-600 hover:underline dark:text-primary-500">Sigin.</Link>
+                                    <Link to="/login" className="font-medium text-blue-600 hover:underline dark:text-primary-500">Sigin.</Link>
                                 </p>
                             </form>
                         </div>

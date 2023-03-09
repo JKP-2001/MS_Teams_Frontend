@@ -5,7 +5,13 @@ import Alert from '../Alert'
 import AuthContext from '../../Context/AuthContext/AuthContext'
 import Home from './Home'
 import RenderingFirst from '../RenderingPages/RenderingFirst'
+import { useDispatch } from 'react-redux'
+import showToast from '../../Utils/showToast'
+
+
+
 const Login = () => {
+  const dispatch = useDispatch();
   const { redirectLogin, setRedirectLogin, sendingdOTP, redirectOTP, setRedirectOTP, setHomePage } = useContext(AuthContext);
   const [alert, setAlert] = useState(null);
   const [user, setUser] = useState({ email: "", password: "" });
@@ -15,37 +21,46 @@ const Login = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   }
 
-  const showAlert = (type, message, time) =>
-    setAlert({
-      msg: message,
-      type: type
-    },
-      setTimeout(() => {
-        setAlert(null);
-      }, time));
-
+  
   useEffect(() => {
     if (localStorage.getItem('token')) {
       Navigate("/home");
     }
     if (redirectLogin.isTrue) {
       if (redirectLogin.msg === "Please login first") {
-        showAlert("danger", redirectLogin.msg, 3000);
+        // showAlert("danger", redirectLogin.msg, 3000);
+        showToast({
+          msg:redirectLogin.msg,
+          type:"error"
+        })
       }
       else {
-        showAlert("success", redirectLogin.msg, 3000);
-        setTimeout(() => {
-          setRedirectLogin({ isTrue: false, msg: "" });
-        }, 4000)
+        // showAlert("success", redirectLogin.msg, 3000);
+        showToast({
+          msg:redirectLogin.msg,
+          type:"success"
+        })
+        setRedirectLogin({ isTrue: false, msg: "" });
       }
     }
   }, [])
 
   const submit = async () => {
+    if(!user.email.includes('@')){
+      showToast({
+        msg:"Email must include @",
+        type:"error",
+        duration:3000
+      })
+      return;
+    }
+
     const json = await sendingdOTP(user.email, user.password);
-    console.log(json);
     if (json.detail === 'Error: Incorrect Password') {
-      showAlert("danger", "Incorrect Password", 5000);
+      showToast({
+        msg: "Wrong Credentials",
+        type: "error",
+      })
       setUser({ email: user.email, password: "" });
     }
     else if (json.success) {
@@ -55,7 +70,17 @@ const Login = () => {
       // showAlert("success","User Found", 3000);
       setUser({ email: "", password: "" });
     }
+    if (json.detail === 'Error: User not found') {
+      // showAlert("danger", "Incorrect Password", 5000);
+      showToast({
+        msg: "User Not Found",
+        type: "error",
+      })
+      setUser({ email: user.email, password: "" });
+    }
   }
+
+
 
   if (localStorage.getItem('token')) {
     setHomePage({ isTrue: true, msg: "Already logged in" });
@@ -77,7 +102,7 @@ const Login = () => {
                 Sign in
               </h1>
 
-              <form className="space-y-4 md:space-y-6" action>
+              <form className="space-y-4 md:space-y-6" >
                 <div>
                   <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                   <input type="email" name="email" value={user.email} id="email" onChange={detectChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />

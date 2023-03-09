@@ -3,6 +3,7 @@ import mic_logo from "../../Images/mic_logo.png"
 import { Link } from 'react-router-dom'
 import AuthContext from '../../Context/AuthContext/AuthContext'
 import Alert from '../Alert'
+import showToast from '../../Utils/showToast'
 
 const SignupForm = (props) => {
 
@@ -26,17 +27,28 @@ const SignupForm = (props) => {
     const submit = async (e) => {
         e.preventDefault();
         if(!user.email.includes("@")){
-            showAlert("danger","Invalid Email Id.",3000);
+            showToast({
+                msg:"Email must include @",
+                type:"error",
+                duration:3000
+            })
         }
         else{
             const json = await registerUser(user.firstName, user.lastName, user.email);
-            console.log(json);
             if(json.details === "Error: Email already taken."){
-                showAlert("danger","Email already taken.",3000);
+                showToast({
+                    msg:"Email already taken.",
+                    type:"error",
+                    duration:3000
+                })  
                 setUser({firstName:user.firstName, lastName:user.lastName, email:""})
             }
             else if(json.details === "Sent"){
-                showAlert("success",`Link sent, please check your inbox.`,3000);
+                showToast({
+                    msg:"Registration link sent, please check your inbox.",
+                    type:"success",
+                    duration:3000
+                })
                 setUser({firstName:"", lastName:"", email:""})
             }
         }

@@ -8,9 +8,15 @@ const Logout = () => {
 
     useEffect(() => {
         if(redirectLogin.isTrue === false){
-            setRedirectLogin({isTrue:true, msg:"Successfully Logged out."})
-            localStorage.removeItem('token');
-            Navigate("/login");
+            if(localStorage.getItem('token')){
+                setRedirectLogin({isTrue:true, msg:"Successfully Logged out."})
+                localStorage.removeItem('token')
+                Navigate("/login");
+            }
+            else{
+                setRedirectLogin({isTrue:true, msg:"Please log in first."})
+                Navigate("/login");
+            }
         }
     }, [])
     

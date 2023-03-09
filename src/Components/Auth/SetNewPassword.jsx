@@ -3,6 +3,7 @@ import mic_logo from "../../Images/mic_logo.png"
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import AuthContext from '../../Context/AuthContext/AuthContext'
 import Alert from '../Alert'
+import showToast from '../../Utils/showToast'
 
 const SetNewPassword = () => {
     const { resetPassword, setRedirectLogin } = useContext(AuthContext);
@@ -28,9 +29,12 @@ const SetNewPassword = () => {
 
     const submit = async () => {
         const json = await resetPassword(user.password, token);
-        console.log(json);
         if (json.detail === "TokenExpiredError: jwt expired") {
-            showAlert("danger","Link expired",3000);
+            showToast({
+                msg:"Link Expires",
+                type:"error",
+                duration:4000
+            })
             setUser({ password: "", confPassword: "" });
         }
         else if(json.success){

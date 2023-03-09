@@ -7,7 +7,9 @@ import GoToTop from "../GoToTop";
 import Alert from "../Alert";
 import AuthContext from "../../Context/AuthContext/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import showToast from "../../Utils/showToast";
+import { getUserProfile, userGroups } from "../../Redux/authentication/authSlice";
 
 export default function RenderingFirst() {
 
@@ -16,57 +18,50 @@ export default function RenderingFirst() {
   const { redirectLogin, setRedirectLogin } = useContext(AuthContext);
   const Navigate = useNavigate();
 
-  const showAlert = (type, message, time) =>
-    setAlert(
-      {
-        msg: message,
-        type: type,
-      },
-      setTimeout(() => {
-        setAlert(null);
-      }, time)
-    );
+  const dispatch = useDispatch();
+
+  const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (localStorage.getItem("token") === null) {
       setRedirectLogin({ isTrue: true, msg: "Please Logged In First" });
       Navigate("/login");
-    } 
+    }
 
     if (homePage.isTrue) {
-      showAlert("Success", homePage.msg, 3000);
+      showToast({
+        msg: homePage.msg,
+        type: "success",
+        duration: 3000
+      })
       setHomePage({ isTrue: false, msg: "" });
     }
+    dispatch(getUserProfile());
+    dispatch(userGroups());
   }, []);
 
-  return (
-    <div>
-      <Universal_Navbar />
+  if (auth.data) {
+    return (
       <div>
-        <SideBarComponent />
-      </div>
-      {alert && <Alert alert={alert} />}
-      <div className="ml-[90px] sm:ml-[100px] mt-[60px] grid-cols-1 ">
+        <Universal_Navbar />
         <div>
-          <SecondNav />
+          <SideBarComponent />
         </div>
-        <div className=" md:my-[27px] grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  px-3">
-          <NewCard />
-          <NewCard />
-          <NewCard />
-          <NewCard />
-          <NewCard />
-          <NewCard />
-          <NewCard />
-          <NewCard />
-          <NewCard />
-          <NewCard />
-          <NewCard />
-          <NewCard />
-        </div>
-      </div>
+        {alert && <Alert alert={alert} />}
+        <div className="ml-[90px] sm:ml-[100px] mt-[60px] grid-cols-1 ">
+          <div>
+            <SecondNav />
+          </div>
+          <div className=" md:my-[27px] grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  px-3">
 
-      <GoToTop />
-    </div>
-  );
+            {auth.user_groups.map((grp) => (
+              <NewCard key={grp._id} grp_id ={grp._id} grpName={grp.name}/>
+            ))}
+          </div>
+        </div>
+
+        <GoToTop />
+      </div>
+    );
+  }
 }

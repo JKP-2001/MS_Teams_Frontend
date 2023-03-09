@@ -7,6 +7,7 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import FileCopyOutlinedIcon from '@mui/icons-material/FileCopyOutlined';
 import { useNavigate } from 'react-router';
+import { getDummyUser } from '../Redux/authentication/authSlice';
 
 export default function Universal_left_bar() {
     const navigate=useNavigate();
@@ -17,7 +18,7 @@ export default function Universal_left_bar() {
                     <div className='flex justify-center items-center'>
                         <NotificationsNoneIcon/>
                     </div>
-                    <div className=' text-center' style={{"fontSize":"12px"}}>
+                    <div className=' text-center' style={{"fontSize":"12px"}} >
                         Activity
                     </div>
                 </div>

@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
+
 import Avatar from "../Images/profile.jpg"
+import { getDummyUser } from '../Redux/authentication/authSlice';
 
 export default function Universal_Navbar() {
     const [focused,setFocused]=useState(false);
@@ -10,10 +12,11 @@ export default function Universal_Navbar() {
     const onBlur=()=>{
         setFocused(false);
     }
+
   return (
-    <div className='fixed top-0 right-[0px] left-0 max-w-screen bg-[#444791] h-[48px] flex justify-between items-center'>
+    <div className='fixed top-0 right-[0px] left-0 max-w-screen bg-[#444791] h-[48px] flex justify-between items-center z-50'>
       <div id='un_left' className='hidden  w-1/6 sm:w-1/4 h-full md:flex justify-center items-center'>
-        <div className=' text-white font-bold text-lg'>
+        <div className=' text-white font-bold text-lg' >
             Microsoft Teams
         </div>
       </div>

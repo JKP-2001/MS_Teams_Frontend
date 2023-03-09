@@ -16,7 +16,6 @@ const ForgotPassword = () => {
     const submit = async (e)=>{
         e.preventDefault();
         const json = await sendResetEmail(email);
-        console.log({json});
         if(json.success){
             showAlert("success","Reset link sent, please check the inbox.", 3000);
             setEmail("");

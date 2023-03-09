@@ -7,10 +7,10 @@ import { Link } from 'react-router-dom';
 
 export default function SecondNav() {
   return (
-    <div class="z-50 grid grid-cols-2 mx-5 mb-10">
-        <div class='text-left font-medium text-xl mx-5 p-1'>Teams</div>
-        {/* <div class="text-right grid grid-cols-3"> */}
-        <div class="flex ml-auto space-x-4">
+    <div className="z-50 grid grid-cols-2 mx-5 mb-10">
+        <div className='text-left font-medium text-xl mx-5 p-1'>Teams</div>
+        {/* <div className="text-right grid grid-cols-3"> */}
+        <div className="flex ml-auto space-x-4">
             {/* <div><button><FilterListIcon/></button></div> */}
             <div className="p-1"><button><SettingsOutlinedIcon color='primary'/></button></div>
             <div>
@@ -18,5 +18,5 @@ export default function SecondNav() {
             </div>
         </div>
     </div>
-  )
+  ) 
 }

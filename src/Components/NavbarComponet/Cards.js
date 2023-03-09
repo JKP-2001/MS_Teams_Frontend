@@ -1,8 +1,8 @@
 import React from 'react'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import cardImage from "../../images/image2.jpeg";
+import cardImage from "../.././Images/image2.jpeg";
 import { Link } from 'react-router-dom';
-import GS from "../../images/GS.jpg"
+import GS from "../.././Images/GS.jpg"
 
 export default function Cards() {
   return (
