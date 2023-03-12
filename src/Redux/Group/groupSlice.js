@@ -9,7 +9,8 @@ const initialState = {
     members:[],
     admins:[],
     owner:null,
-    grpName:''
+    grpName:'',
+    grpItems:[],
 }
 
 
@@ -29,12 +30,15 @@ const grpSlice = createSlice({
         setGrpName(state,action){
             state.grpName = action.payload
         },
+        setGrpItems(state,action){
+            state.grpItems = action.payload
+        }
     }
 })
 
 const {reducer,actions} = grpSlice;
 
-const {setMembers, setAdmins, setOwner, setGrpName} = actions;
+const {setMembers, setAdmins, setOwner, setGrpName, setGrpItems} = actions;
 
 export default reducer;
 
@@ -83,6 +87,32 @@ export function getGrpDetails(id){
                 throw new Error(json.error);
             }
             dispatch(setGrpName(json.details.name));
+        }catch(err){
+            // dispatch(setError(err.toString()));
+            console.log(err.toString());
+            return;
+        }
+    }
+}
+
+
+export function getGrpItems(id){
+    return async function fetchProductThunk(dispatch,getState){
+        try{
+            const response = await fetch(`${url}/group/allitems`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'security-key': key,
+                    'auth-token':localStorage.getItem('token')
+                },
+                body: JSON.stringify({group_id:id})
+            });
+            const json = await response.json();
+            if(!json.success){
+                throw new Error(json.error);
+            }
+            dispatch(setGrpItems(json.details));
         }catch(err){
             // dispatch(setError(err.toString()));
             console.log(err.toString());

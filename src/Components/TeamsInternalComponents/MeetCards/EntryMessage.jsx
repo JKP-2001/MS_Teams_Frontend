@@ -16,7 +16,7 @@ const EntryMessage = () => {
   },[])
 
   return (
-    <div className="container ml-[82px] mt-[200px] mr-auto text-center justify-center min-[946px]:ml-[370px] min-[946px]:w-[70%] mb-2 pr-[40px] w-auto" >
+    <div className="container ml-[82px] mt-[200px] mr-auto text-center justify-center min-[946px]:ml-[400px] min-[946px]:w-auto mb-2 pr-[40px]" >
         <div className="text1 font-semibold text-2xl text-[#424242] mb-2 ml-auto mr-auto px-3 ">
             Welcome to {GrpState.grpName}
         </div>

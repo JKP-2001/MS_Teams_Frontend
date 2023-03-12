@@ -9,7 +9,7 @@ import AuthContext from "../../Context/AuthContext/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import showToast from "../../Utils/showToast";
-import { getUserProfile, userGroups } from "../../Redux/authentication/authSlice";
+import { getUserProfile, setUserAuthState, userGroups } from "../../Redux/authentication/authSlice";
 
 export default function RenderingFirst() {
 
@@ -28,7 +28,7 @@ export default function RenderingFirst() {
       Navigate("/login");
     }
 
-    if (homePage.isTrue) {
+    else if (homePage.isTrue) {
       showToast({
         msg: homePage.msg,
         type: "success",

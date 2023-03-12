@@ -11,6 +11,7 @@ const initialState = {
     status: 'idle',
     error: "none",
     loading: false,
+    authenticated:false
 }
 
 
@@ -37,13 +38,16 @@ const authSlice = createSlice({
         },
         setUserGroups(state,action){
             state.user_groups = action.payload
+        },
+        setAuthenticated(state,action){
+            state.authenticated = action.payload
         }
     }
 })
 
 const { reducer, actions } = authSlice;
 
-export const {setData, setError, setLoading, setStatus, setUserGroups} = actions;
+export const {setData, setError, setLoading, setStatus, setUserGroups, setAuthenticated} = actions;
 
 export default reducer;
 
@@ -92,6 +96,31 @@ export function userGroups(){
             dispatch(setUserGroups(json.details));
         }catch(err){
             dispatch(setError(err.toString()));
+        }
+    }
+}
+
+
+export function setUserAuthState(){
+    return async function fetchProductThunk(dispatch,getState){
+        try{
+            dispatch(setLoading(true));
+            const response = await fetch(`${url}/account/auth/checktoken`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'security-key': key,
+                    'auth-token':localStorage.getItem('token')
+                },
+            });
+            const json = await response.json();
+            dispatch(setLoading(false));
+            if(!json.success){
+                throw new Error(json.error);
+            }
+            dispatch(setAuthenticated(true));
+        }catch(err){
+            console.log(err);
         }
     }
 }

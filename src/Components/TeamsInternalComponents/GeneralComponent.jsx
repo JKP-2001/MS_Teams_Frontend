@@ -17,7 +17,7 @@ import GeneralNavBar from './MeetCards/GeneralNavBar'
 import GeneralContent from './MeetCards/GeneralContent'
 import GrpContext from '../../Context/GrpContext/GrpContext'
 import AssignmentCard from './AssignmentCard'
-import { getGrpDetails, getMembers } from '../../Redux/Group/groupSlice'
+import { getGrpDetails, getGrpItems, getMembers } from '../../Redux/Group/groupSlice'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import MemberCard from './MeetCards/MemberCard'
@@ -31,14 +31,17 @@ export default function GeneralComponent(props) {
 
   const [isassign, setIsAssign] = useState(false);
 
-  const GrpState = useSelector((state) => state.group);
-
-
   const params = useParams();
   const grpid = params.id;
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getGrpDetails(grpid));
+    dispatch(getMembers(grpid));
+    // dispatch(getGrpItems(grpid));
+  }, [])
 
+  const Grpstate = useSelector((state) => state.group);
 
   const clickAssign = () => {
     setIsAssign(true);
@@ -49,11 +52,6 @@ export default function GeneralComponent(props) {
     setIsAssign(false);
     window.scrollTo(0, 0);
   }
-
-  useEffect(() => {
-    dispatch(getGrpDetails(grpid));
-    dispatch(getMembers(grpid));
-  }, [grpState])
 
   return (
     <div>
@@ -103,7 +101,7 @@ export default function GeneralComponent(props) {
 
             <AllMembers id={grpid} />
         }
-        {grpState === "general" ? <GeneralContent /> : <div className="cards ml-[150px] w-[70%] min-[946px]:ml-[450px] mb-4"><h1></h1></div>}
+        {grpState === "general" ? <GeneralContent itemsArray = {Grpstate.grpItems}/> : <div className="cards ml-[150px] w-[70%] min-[946px]:ml-[450px] mb-4"><h1></h1></div>}
       </div>
     </div>
   )

@@ -7,7 +7,6 @@ export default function GoToBottom() {
   const onTop = () => {
     window.scrollTo({
         top: document.documentElement.scrollHeight,
-        
       });
   }
   useEffect(() => {

@@ -15,7 +15,7 @@ const MeetingCard = (props) => {
                 <div className="upper bg-white">
                     <div className="flex">
                         <div className="authorname pl-3 pt-1 font-semibold">
-                            JKP_6957
+                            {props.firstName} {props.lastNamez}
                         </div>
                         <div className="date pt-[5.55px] pl-4 font-normal text-sm">
                             31/08/2021, 14:41
@@ -30,11 +30,18 @@ const MeetingCard = (props) => {
                         </div>
                         <div className="details">
                         <div className="msg pl-3 pt-2 text-white text-base">
-                            Quiz 2 ME 214 (Section A Group 1)
+                            {/* Quiz 2 ME 214 (Section A Group 1) */}
+                            {props.meetTitle}
+                        </div>
+                        <div className="msg text-sm pl-3  text-white">
+                            {/* Tuesday, 2 November 2021 @ 08:55 */}
+                            Date: {props.meetDate}
                         </div>
                         <div className="msg text-sm pl-3 pb-2 text-white">
-                            Tuesday, 2 November 2021 @ 08:55
+                            {/* Tuesday, 2 November 2021 @ 08:55 */}
+                            Time: {props.meetTime}
                         </div>
+
                         </div>
                     </div>
                 </div>

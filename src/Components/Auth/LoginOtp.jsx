@@ -5,7 +5,7 @@ import AuthContext from '../../Context/AuthContext/AuthContext'
 import Alert from '../Alert'
 import showToast from '../../Utils/showToast'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserProfile } from '../../Redux/authentication/authSlice'
+import { getUserProfile, setAuthenticated } from '../../Redux/authentication/authSlice'
 
 
 
@@ -79,6 +79,7 @@ const LoginOtp = () => {
             }
             else if (json.success) {
                 localStorage.removeItem('otp-token');
+                dispatch(setAuthenticated(true));
                 localStorage.setItem('token', json.token);
                 setOtp("");
                 dispatch(getUserProfile());

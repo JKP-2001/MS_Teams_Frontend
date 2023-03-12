@@ -34,7 +34,7 @@ const SideBar = () => {
   },[])
 
   return (
-    <div className="ml-[72px] mt-[48px] grid-cols-1 w-[300px] h-full fixed z-30 bg-[#f0f0f0] shadow-2xl  hidden min-[946px]:block">
+    <div className=" z-10 ml-[72px] mt-[48px] grid-cols-1 w-[300px] h-full fixed bg-[#f0f0f0] shadow-2xl  hidden min-[946px]:block">
       <div className="sidecompo mt-5 text-sm font-normal">
         <div className="back my-6 hover:cursor-pointer ml-[20px] text-[#616161]">
           <ChevronLeftIcon fontSize='small' /><Link to="/"> All Teams</Link>
