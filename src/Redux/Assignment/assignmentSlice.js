@@ -5,7 +5,7 @@ const initialState = {
     data:null
 };
 
-const url = "http://localhost:5000/teams_clone/v1"
+const url = process.env.REACT_APP_BASE_URL;
 const key = "PLACEMENT-PROJECT"
 
 

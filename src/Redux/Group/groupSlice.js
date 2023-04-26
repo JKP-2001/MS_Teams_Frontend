@@ -3,7 +3,7 @@ import showToast from "../../Utils/showToast";
 import { userGroups } from "../authentication/authSlice";
 
 
-const url = "http://localhost:5000/teams_clone/v1"
+const url = process.env.REACT_APP_BASE_URL;
 const key = "PLACEMENT-PROJECT"
 
 const initialState = {

@@ -10,7 +10,8 @@ const GrpState=(props)=>{
 
     const [click, setClick] = useState("");
 
-    const url = "http://localhost:5000/teams_clone/v1"
+    const url = process.env.REACT_APP_BASE_URL;
+
     const key = "PLACEMENT-PROJECT";
 
     const joinTeamByCode = async (code) => {

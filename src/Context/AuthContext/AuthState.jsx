@@ -4,7 +4,8 @@ import { useState } from "react";
 
 const AuthState = (props) => {
 
-    const url = "http://localhost:5000/teams_clone/v1"
+    const url = process.env.REACT_APP_BASE_URL;
+
     const key = "PLACEMENT-PROJECT";
 
     const [redirectLogin, setRedirectLogin] = useState({ isTrue: false, msg: "" });

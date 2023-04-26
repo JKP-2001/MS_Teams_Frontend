@@ -6,7 +6,7 @@ import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 const AssignmentMaterial = (props) => {
 
     const gotToLink = (link)=>{
-        {link && window.open('http://localhost:5000/'+link, '_blank', 'noreferrer')};
+        {link && window.open(' https://ms-teams.onrender.com/'+link, '_blank', 'noreferrer')};
     }
     return (
         <div className="flex bg-white rounded-lg pt-1 hover:cursor-pointer hover:shadow-lg my-2 border-[3px]" onClick={()=>gotToLink(props.link)}>
