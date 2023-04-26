@@ -26,10 +26,10 @@ function Home() {
                 <div className="left w-screen">
                     <div className="text-l4 text-[#4b53bc] text-[1.8125rem] md:text-6xl font-semibold items-baseline px-3 md:w-10">Microsoft Teams</div>
                     <div className="textl3 text-[1.2rem] md:text-2xl px-3 font-semibold my-4 md:w-64">Make amazing things happen together at home, work, and school.</div>
-                    <Link to="/signup"><button className="bg-[#4b53bc] hover:bg-[#2a307f] text-white font-bold w-full md:w-3/5 my-3 py-2 px-4 border border-blue-700 rounded">
+                    <Link to="/signup"><button className="bg-[#4b53bc] hover:bg-[#2a307f] text-white font-bold ml-6 w-11/12 md:w-3/5 my-3 py-2 px-4 border border-blue-700 rounded">
                         SignUp For Free
                     </button></Link>
-                    <Link to="/login"><button className="bg-[#4b53bc] hover:bg-[#2a307f] text-white font-bold w-full md:w-3/5 my-3 py-2 px-4 border border-blue-700 rounded">
+                    <Link to="/login"><button className="bg-[#4b53bc] hover:bg-[#2a307f] text-white font-bold ml-6 w-11/12 md:w-3/5 my-3 py-2 px-4 border border-blue-700 rounded">
                         Signin 
                     </button></Link>
                     {/* <div className="textl3 text-[#4b53bc] text-[1.2rem] px-3 font-semibold my-4 w-24"><Link to="/login">Sign in.</Link></div> */}

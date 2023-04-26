@@ -12,7 +12,14 @@ export const fetchUser=(name)=>async (dispatch)=>{
             }
         })
         const response=await result.json();
-        dispatch(fetchUserSuccess(response.user));
+        if(response.success)
+        {
+            dispatch(fetchUserSuccess(response.user));
+        }
+        else
+        {
+            dispatch(fetchUserFail(response.message))
+        }
 
     }catch(error){
         dispatch(fetchUserFail(error.message))

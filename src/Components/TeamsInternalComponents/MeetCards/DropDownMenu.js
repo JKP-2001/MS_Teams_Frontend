@@ -8,6 +8,7 @@ import GrpContext from '../../../Context/GrpContext/GrpContext'
 import { useDispatch } from 'react-redux'
 import { getGrpItems } from '../../../Redux/Group/groupSlice'
 import showToast from '../../../Utils/showToast'
+import { getPostItemsArray } from '../../../Redux/Post/postSlice'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -41,12 +42,17 @@ export default function DropDownMenu(props) {
         dispatch(getGrpItems(id));
       }
 
+      const handleEdit = ()=>{
+        dispatch(getPostItemsArray(props.index));
+        toggleModal();
+      }
+
   return (
     <>
-    <Menu as="div" className="relative inline-block text-left pb-2">
+    <Menu as="div" className="relative inline-block text-left pb-2 z-0">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white pr-1 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-          <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+        <Menu.Button className="z-0 inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white pr-1 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+          <ChevronDownIcon className="-mr-1 h-5 z-0 w-5 text-gray-400" />
         </Menu.Button>
       </div>
 
@@ -66,8 +72,8 @@ export default function DropDownMenu(props) {
                 <div
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )} onClick={()=>toggleModal()}
+                    'block px-4 py-2 text-sm hover:cursor-pointer'
+                  )} onClick={()=>handleEdit()}
                 >
                   Edit
                 </div>
@@ -78,7 +84,7 @@ export default function DropDownMenu(props) {
                 <div
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm text-red-500'
+                    'block px-4 py-2 text-sm text-red-500 hover:cursor-pointer'
                   )} onClick={()=> deleteAItem()}
                 >
                   Delete
@@ -89,7 +95,7 @@ export default function DropDownMenu(props) {
         </Menu.Items>
       </Transition>
     </Menu>
-    <EditPostCard hidden={hidden} setHidden={setHidden} toggleModal={toggleModal} content={props.content} id={props.id}/>
+    <EditPostCard hidden={hidden} setHidden={setHidden} toggleModal={toggleModal} content={props.content} id={props.id} index={props.index}/>
     </>
   )
 }

@@ -81,11 +81,16 @@ const Login = () => {
   }
 
 
-
-  if (localStorage.getItem('token')) {
-    setHomePage({ isTrue: true, msg: "Already logged in" });
-    return <RenderingFirst />
+  const func = ()=>{
+    if (localStorage.getItem('token')) {
+      setHomePage({ isTrue: true, msg: "Already logged in" });
+      return <RenderingFirst />
+    }
   }
+
+  useEffect(()=>{
+    func();
+  },[])
 
   return (
     <>

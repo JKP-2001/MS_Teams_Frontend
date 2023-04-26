@@ -48,7 +48,7 @@ const GeneralNavBar = () => {
       <div className="flex">
         <div className="side"><SideBar /></div>
         <div className="teamsnav">
-          <div className="assignmentcontainer justify-start pb-4 fixed translate-x-[352px] w-screen border-2 bg-[#f5f5f5] hidden min-[950px]:block my-2">
+          <div className=" z-40 assignmentcontainer justify-start pb-4 fixed translate-x-[372px] w-screen border-2 bg-[#f5f5f5] hidden min-[950px]:block my-2">
             <div className="grpimage ml-[40px] mt-[54px] flex space-x-4">
               <img src={GS} alt="" className='rounded-md w-8 h-8' />
               <div className="name font-medium text-xl ">General</div>
@@ -60,7 +60,7 @@ const GeneralNavBar = () => {
       </div>
 
 
-      <div className=" assignmentcontainer justify-start w-screen fixed translate-x-[72px] bg-[#f5f5f5] border-2 w-90 pb-2 max-[1000px]:block hidden border-l-0">
+      <div className=" assignmentcontainer justify-start w-screen fixed translate-x-[72px] bg-[#f5f5f5] border-2 w-90 pb-2 max-[1000px]:block hidden border-l-0 z-40">
         <div className="grpimage ml-[20px] mt-[60px] flex space-x-4">
           {click === "post" ? <div className="name mt-1 border-b-[2.5px] border-b-[#444791] z-100 cursor-pointer " onClick={() => clickpost()}>Posts</div> : <div className="name mt-1 hover:border-b-[2.5px]  z-100 cursor-pointer" onClick={() => clickpost()}>Posts</div>}
           {click === "assig" ? <div className="name mt-1 cursor-pointer border-b-[2.5px] border-b-[#444791]" onClick={() => clickAssig()}>Assignments</div> : <div className="name mt-1 cursor-pointer hover:border-b-[2.5px]" onClick={() => clickAssig()}>Assignments</div>}

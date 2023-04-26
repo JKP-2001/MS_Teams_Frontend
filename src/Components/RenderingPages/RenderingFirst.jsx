@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import showToast from "../../Utils/showToast";
 import { getUserProfile, setUserAuthState, userGroups } from "../../Redux/authentication/authSlice";
+import NavbarCoponent from "../NavbarComponet/NavbarCoponent";
 
 export default function RenderingFirst() {
 
@@ -43,7 +44,7 @@ export default function RenderingFirst() {
   if (auth.data) {
     return (
       <div>
-        <Universal_Navbar />
+        < NavbarCoponent/>
         <div>
           <SideBarComponent />
         </div>

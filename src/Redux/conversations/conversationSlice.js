@@ -19,7 +19,7 @@ const conversationSlice = createSlice({
             state.conversations = payload.conversations;
             state.friends=payload.friends;
         },
-        fetchConversationFail: (state, { payload }) => { state.isLoading = false; state.error = payload }
+        fetchConversationFail: (state, { payload }) => { state.isLoading = false; state.error = payload },
     }
 })
 

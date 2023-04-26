@@ -11,7 +11,7 @@ function Chat_sidebar() {
     const {conversations}=useSelector(state=>{return state.conversations});
     return (
         <div>
-            <div id='chatSideBar' className='shadow-inner  border-[#b7b3b36d] fixed left-[75px] top-[48px] w-[230px] md:w-[320px] flex flex-col bg-[#ebebeb97] min-h-screen border-r-2 border-['>
+            <div id='chatSideBar' className='shadow-inner  border-[#b7b3b36d] fixed left-[72px] top-[48px] w-[230px] md:w-[320px] flex flex-col bg-[#ebebeb97] min-h-screen border-r-2 border-['>
                 <div id='chatSideBarTop' className='flex items-center border-b-[1px] border-gray-300 p-4' style={{ "color": "#242424" }}>
                     <div className='w-1/2 justify-start px-3 text-2xl font-bold'>
                         Chat

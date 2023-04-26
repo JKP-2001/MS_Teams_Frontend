@@ -2,6 +2,8 @@ import React from 'react'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Link } from 'react-router-dom';
 import user from "../../Images/user.png"
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 
 export default function NavbarCoponent() {
   return (
@@ -17,10 +19,11 @@ export default function NavbarCoponent() {
           <input type="search" className="form-control relative min-w-0 block w-full h-1/6 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Search" aria-label="Search" aria-describedby="button-addon2 " />
         </div>
 
-        <div className="image flex pr-6">
-          <Link to="/login"><div className="account flex w-4 md:w-6 "><img src={user} alt="" /></div></Link>
-      </div>
+        <div className="image flex">
+          <Link to="/login"><PersonOutlineOutlinedIcon /></Link>
 
+          <Link to="/logout" className='hover:cursor-pointer'><LogoutOutlinedIcon className='mx-10'/></Link>
+        </div>
       </div>
     </>
   )

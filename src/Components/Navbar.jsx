@@ -12,7 +12,7 @@ const Navbar = () => {
   const [humbClicked, sethumbClicked] = useState(false);
   return (
     <>
-      <div className="md:navbar flex items-center p-2 md:my-3 justify-between  relative md:static">
+      <div className="z-50 md:navbar flex items-center p-2 md:my-3 justify-between  relative md:static">
         {!humbClicked ? (
           <div className="hamburger inline-block p-2 md:hidden cursor-pointer" onClick={()=>{sethumbClicked(true)}}>
             <div className="line h-0.5 w-6 my-1 bg-black"></div>

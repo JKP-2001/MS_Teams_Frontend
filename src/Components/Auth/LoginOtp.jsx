@@ -6,6 +6,7 @@ import Alert from '../Alert'
 import showToast from '../../Utils/showToast'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserProfile, setAuthenticated } from '../../Redux/authentication/authSlice'
+import { fetchUser } from '../../Redux/user.js/userActions'
 
 
 
@@ -83,6 +84,7 @@ const LoginOtp = () => {
                 localStorage.setItem('token', json.token);
                 setOtp("");
                 dispatch(getUserProfile());
+                dispatch(fetchUser());
                 setHomePage({ isTrue: true, msg: "Successfully Logged In."});
                 Navigate("/home")
             }

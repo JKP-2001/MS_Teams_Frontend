@@ -27,6 +27,7 @@ const SideBar = () => {
   const clickMember = ()=>{
     setClick('member')
     setgrpState("member");
+    
   }
 
   useEffect(()=>{
