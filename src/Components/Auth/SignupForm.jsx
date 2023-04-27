@@ -20,7 +20,7 @@ const SignupForm = (props) => {
 
     const { registerUser } = useContext(AuthContext);
     const [user, setUser] = useState({ firstName: "", lastName: "", email: "" });
-    const [loading, setLoading] = useState(FlashlightOffRounded);
+    const [loading, setLoading] = useState(false);
 
     const detectChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
