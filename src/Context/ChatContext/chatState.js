@@ -13,7 +13,8 @@ import { Socket } from "../../SocketClient";
 
 function ChatState(props) {
   const dispatch=useDispatch();
-  let BaseUrl=process.env.REACT_APP_BASE_URL;
+  // let BaseUrl=process.env.REACT_APP_BASE_URL;
+  let BaseUrl = process.env.REACT_APP_BASE_DEV_URL;
   // const socket=useRef();
 
  const createConversation=async ({friend,friends,conversations})=>{

@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import showToast from "../../Utils/showToast";
 import { userGroups } from "../authentication/authSlice";
+import { toast } from "react-hot-toast";
 
 
-const url = process.env.REACT_APP_BASE_URL;
+// const url = process.env.REACT_APP_BASE_URL;
+const url = process.env.REACT_APP_BASE_DEV_URL;
 const key = "PLACEMENT-PROJECT"
 
 const initialState = {
@@ -155,30 +157,13 @@ export function addMemberToGroup(id,email,query){
                 },
                 body: JSON.stringify({email})
             });
+
             const json = await response.json();
-            if(!json.success){
-                showToast({
-                    msg:json.error.substring(json.error.indexOf(':') + 1),
-                    type:'error',
-                    duration:3000
-                })
-                throw new Error(json.error);
-            }
-            if(query==='add'){
-                showToast({
-                    msg:'Successfully added to the group.',
-                    type:'success',
-                    duration:3000
-                })
-            }else{
-                showToast({
-                    msg:'Successfully removed from the group.',
-                    type:'success',
-                    duration:3000
-                })
-            }
-            dispatch(getMembers(id));
-            dispatch(userGroups());
+
+            return json;
+
+            
+
         }catch(err){
             // dispatch(setError(err.toString()));
             console.log(err);

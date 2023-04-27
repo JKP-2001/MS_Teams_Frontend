@@ -8,6 +8,7 @@ import GrpContext from '../../../Context/GrpContext/GrpContext'
 import { useDispatch, useSelector } from 'react-redux'
 import { addMemberToGroup, getGrpItems, getMembers } from '../../../Redux/Group/groupSlice'
 import showToast from '../../../Utils/showToast'
+import { toast } from 'react-hot-toast'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -31,38 +32,53 @@ export default function MemberDropDown(props) {
 
   const handleAdd = async () => {
 
-    const result = await addAdmin(props.grpid, props.email)
-    dispatch(getGrpItems(id));
-    dispatch(getMembers(props.grpid));
-    if (result.success) {
-      showToast({
-        msg: `${props.email} added to admin.`,
-        type: "success",
-        duration: 3000
-      })
-    }
+    const result = addAdmin(props.grpid, props.email);
+
+    toast.promise(result, {
+      loading: 'Loading ...',
+      success: (data) => {
+        if (!data.success) return;
+        dispatch(getGrpItems(id));
+        dispatch(getMembers(props.grpid));
+        return `${props.email} added to admin.`;
+      },
+      error: 'Uh oh, there was an error!',
+      duration:1000
+    });
+
   }
 
   const handleDel = async () => {
+    const result = removeAdmin(props.grpid, props.email);
+    
+    
+    toast.promise(result, {
+      loading: 'Loading ...',
 
-    const result = await removeAdmin(props.grpid, props.email)
+      success: (data) => {
+        if (!data.success) return;
+        dispatch(getGrpItems(id));
+        dispatch(getMembers(props.grpid));
+        return `${props.email} removed from admin.`;
+      },
+      error: 'Uh oh, there was an error!',
+      duration:1000
+    });
 
-    dispatch(getGrpItems(id));
-    dispatch(getMembers(props.grpid));
-    if (result.success) {
-      showToast({
-        msg: `${props.email} removed from admin.`,
-        type: "success",
-        duration: 3000
-      })
-    }
+    // if (result.success) {
+    //   showToast({
+    //     msg: `${props.email} removed from admin.`,
+    //     type: "success",
+    //     duration: 3000
+    //   })
+    // }
   }
 
   const Navigate = useNavigate();
 
   const handleLeaveOrRemove = (email) => {
     dispatch(addMemberToGroup(id, email, 'delete'));
-    if(email===authState.data.email){
+    if (email === authState.data.email) {
       Navigate('/home');
     }
   }
@@ -122,7 +138,7 @@ export default function MemberDropDown(props) {
                         className={classNames(
                           active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                           'block px-4 py-2 text-sm hover:cursor-pointer text-red-600'
-                        )} onClick={()=>handleLeaveOrRemove(props.email)}
+                        )} onClick={() => handleLeaveOrRemove(props.email)}
                       >
                         Remove
                       </div>
@@ -171,7 +187,7 @@ export default function MemberDropDown(props) {
                         className={classNames(
                           active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                           'block px-4 py-2 text-sm hover:cursor-pointer text-red-600'
-                        )} onClick={()=>handleLeaveOrRemove(authState.data.email)}
+                        )} onClick={() => handleLeaveOrRemove(authState.data.email)}
                       >
                         Leave
                       </div>

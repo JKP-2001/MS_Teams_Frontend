@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import showToast from "../../Utils/showToast"
 
-const url = process.env.REACT_APP_BASE_URL;
+// const url = process.env.REACT_APP_BASE_URL;
+const url = process.env.REACT_APP_BASE_DEV_URL;
 const key = "PLACEMENT-PROJECT"
 
 

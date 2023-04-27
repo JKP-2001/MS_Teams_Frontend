@@ -3,10 +3,12 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 
+
+
 const Item = (props) => {
     
     const gotToLink = (link)=>{
-        {link && window.open('https://ms-teams.onrender.com/'+link, '_blank', 'noreferrer')};
+        {link && window.open('http://localhost:5000/'+link, '_blank', 'noreferrer')};
     }
     return (
         <div className="item flex mr-4 hover:cursor-pointer hover:bg-[#f5f5f5]" onClick={()=>gotToLink(props.link)}>

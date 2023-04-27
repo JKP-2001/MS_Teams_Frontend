@@ -5,7 +5,7 @@ const initialState = {
     data:null
 };
 
-const url = process.env.REACT_APP_BASE_URL;
+const url = process.env.REACT_APP_BASE_DEV_URL;
 const key = "PLACEMENT-PROJECT"
 
 

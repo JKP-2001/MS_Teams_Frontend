@@ -17,6 +17,8 @@ export default function RenderingFirst() {
   const [alert, setAlert] = useState(null);
   const { homePage, setHomePage } = useContext(AuthContext);
   const { redirectLogin, setRedirectLogin } = useContext(AuthContext);
+  const [loading,setLoading] = useState(true);
+
   const Navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -38,7 +40,9 @@ export default function RenderingFirst() {
       setHomePage({ isTrue: false, msg: "" });
     }
     dispatch(getUserProfile());
+    setLoading(true);
     dispatch(userGroups());
+    setLoading(false);
   }, []);
 
   if (auth.data) {
@@ -49,16 +53,24 @@ export default function RenderingFirst() {
           <SideBarComponent />
         </div>
         {alert && <Alert alert={alert} />}
-        <div className="ml-[90px] sm:ml-[100px] mt-[60px] grid-cols-1 ">
+        <div className={`ml-[90px] sm:ml-[100px] mt-[60px] grid-cols-1 `}>
           <div>
             <SecondNav />
           </div>
-          <div className=" md:my-[27px] grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  px-3">
+          {!loading?<div className="md:my-[27px] grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  px-3">
 
             {auth.user_groups.map((grp) => (
               <NewCard key={grp._id} grp_id ={grp._id} grpName={grp.name}/>
             ))}
-          </div>
+          </div>:
+          <div className="md:my-[27px] grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  px-3">
+            <NewCard key={1} grp_id ={2} grpName={""}/>
+            <NewCard key={2} grp_id ={2} grpName={""}/>
+            <NewCard key={3} grp_id ={2} grpName={""}/>
+            <NewCard key={4} grp_id ={2} grpName={""}/>
+            <NewCard key={5} grp_id ={2} grpName={""}/>
+        </div>
+          }
         </div>
 
         <GoToTop />

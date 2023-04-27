@@ -58,7 +58,7 @@ const ParticularAssignment = () => {
 
     const AssignmentState = useSelector((state)=> state.assignment)
     const UserState = useSelector((state)=> state.auth)
-    console.log({UserState})
+    // console.log({UserState})
     if (AssignmentState.data) {
         date = new Date(AssignmentState.data.dueDateTime);
     }

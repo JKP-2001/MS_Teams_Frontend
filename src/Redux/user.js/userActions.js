@@ -1,9 +1,11 @@
-
 import {fetchUserLoading,fetchUserSuccess,fetchUserFail} from "./userSlice";
+
+const BASE_URL = process.env.REACT_APP_BASE_DEV_URL;
+
 export const fetchUser=(name)=>async (dispatch)=>{
     dispatch (fetchUserLoading());
     try{
-        let result=await fetch(`${process.env.REACT_APP_BASE_URL}/account/getUser`,{
+        let result=await fetch(`${BASE_URL}/account/getUser`,{
             method:"post",
             headers:{
                 "Content-Type":"application/josn",
