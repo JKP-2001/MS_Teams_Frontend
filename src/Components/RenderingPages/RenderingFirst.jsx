@@ -53,7 +53,7 @@ export default function RenderingFirst() {
           <SideBarComponent />
         </div>
         {alert && <Alert alert={alert} />}
-        <div className={`ml-[90px] sm:ml-[100px] mt-[60px] grid-cols-1 `}>
+        <div className={`min-[768px]:ml-[90px] mt-[60px] grid-cols-1 `}>
           <div>
             <SecondNav />
           </div>
@@ -63,7 +63,7 @@ export default function RenderingFirst() {
               <NewCard key={grp._id} grp_id ={grp._id} grpName={grp.name}/>
             ))}
           </div>:
-          <div className="md:my-[27px] grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  px-3">
+          <div className="animate-pulse md:my-[27px] grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  px-3">
             <NewCard key={1} grp_id ={2} grpName={""}/>
             <NewCard key={2} grp_id ={2} grpName={""}/>
             <NewCard key={3} grp_id ={2} grpName={""}/>

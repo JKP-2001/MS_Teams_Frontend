@@ -44,10 +44,10 @@ const AllMembers = (props) => {
 
     return (
         
-        <div className='container pl-[100px] pt-[90px] min-[946px]:pt-[130px]  min-[946px]:pl-[400px] mb-2 pr-10 w-screen'>
+        <div className='container px-5 min-[746px]:pl-[100px] pt-[90px] min-[946px]:pt-[130px]  min-[946px]:pl-[400px] mb-16 min-[746px]:pr-10 w-screen'>
             <div className="container min-[500px]:flex justify-between">
             <div className='text-4xl ml-2 mb-5 font-semibold'>{GrpState.grpName}</div>
-            {GrpState.owner.email === authstate.data.email || adminEmail.includes(authstate.data.email)?<button className="bg-[#5b5fc7] mx-2 md:mx-3  hover:bg-blue-700 text-white font-normal  mr-3  border border-blue-700 rounded w-[144.72px] h-auto" onClick={()=> toggleModal()}>Add Members</button>:null}
+            {GrpState.owner.email === authstate.data.email || adminEmail.includes(authstate.data.email)?<button className="bg-[#5b5fc7] mx-2 md:mx-3  hover:bg-blue-700 text-white font-normal  mr-3  border border-blue-700 rounded w-[144.72px] h-auto my-2" onClick={()=> toggleModal()}>Add Members</button>:null}
             </div>
             {/* <div className="flex space-x-4 pt-3 pl-2 "> */}
             <div className='text-lg ml-2 font-semibold'>Owner</div>

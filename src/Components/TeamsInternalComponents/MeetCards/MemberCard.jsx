@@ -7,7 +7,7 @@ const MemberCard = (props) => {
 
     return (
         <>
-        <div className="relative my-1 px-1 w-[50%]">
+        <div className="relative my-1 px-1 w-full">
             <article className="overflow-auto rounded-lg border-2 
             hover:shadow-xl">
                 <div className="absolute flex justify-between right-0 pb-2 pr-1">

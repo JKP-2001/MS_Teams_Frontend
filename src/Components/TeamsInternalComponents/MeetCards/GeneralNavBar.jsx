@@ -60,7 +60,7 @@ const GeneralNavBar = () => {
       </div>
 
 
-      <div className=" assignmentcontainer justify-start w-screen fixed translate-x-[72px] bg-[#f5f5f5] border-2 w-90 pb-2 max-[1000px]:block hidden border-l-0 z-40">
+      <div className=" assignmentcontainer justify-start fixed min-[746px]:translate-x-[72px] bg-[#f5f5f5] border-2 w-full pb-2 max-[1000px]:block hidden border-l-0 z-40">
         <div className="grpimage ml-[20px] mt-[60px] flex space-x-4">
           {click === "post" ? <div className="name mt-1 border-b-[2.5px] border-b-[#444791] z-100 cursor-pointer " onClick={() => clickpost()}>Posts</div> : <div className="name mt-1 hover:border-b-[2.5px]  z-100 cursor-pointer" onClick={() => clickpost()}>Posts</div>}
           {click === "assig" ? <div className="name mt-1 cursor-pointer border-b-[2.5px] border-b-[#444791]" onClick={() => clickAssig()}>Assignments</div> : <div className="name mt-1 cursor-pointer hover:border-b-[2.5px]" onClick={() => clickAssig()}>Assignments</div>}
