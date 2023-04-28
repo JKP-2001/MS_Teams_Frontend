@@ -27,9 +27,9 @@ const AllAssignment = () => {
         <div>
           <SideBarComponent />
         </div>
-        <div className="ml-[90px] mt-[48px] bg-[#f5f5f5]  justify-center items-center flex">
+        <div className="min-[713px]:ml-[90px] mt-[48px] bg-[#f5f5f5]  justify-center items-center flex">
           {/* <div ><SecondNav/></div> */}
-          <div className="p-2 ml-[70px] md:py-[10px] px-4 justify-center items-center fixed top-10 bg-[#f5f5f5] w-screen border-b-gray-200 border-b-[1px]">
+          <div className="p-2 min-[713px]:ml-[70px] px-4 justify-center items-center fixed top-10 bg-[#f5f5f5] w-screen border-b-gray-200 border-b-[1px]">
             <div className="flex space-x-4 pt-3 ">
               {isassign ? <div className="assigned">
                 <span className='text-[#444791] text-sm font-semibold cursor-pointer border-b-[3px] border-indigo-500' onClick={() => clickAssign()}>Assigned</span>
@@ -66,7 +66,7 @@ const AllAssignment = () => {
           <hr className="my-2 md:my-0 h-px bg-gray-50 border-2 dark:bg-gray-300"></hr>
         </div>
       </div>
-      {isassign ? <div className="ml-[100px] md:ml-[120px] mr-[20px] md:mr-[48px] mt-[80px] justify-center items-center pb-10">
+      {isassign ? <div className="min-[713px]:ml-[100px] mx-4 mt-10 min-[713px]:mt-[80px] justify-center items-center pb-20">
         <AssignmentCard />
         <AssignmentCard />
         <AssignmentCard />
@@ -80,7 +80,7 @@ const AllAssignment = () => {
         <AssignmentCard />
         <AssignmentCard />
         <AssignmentCard />
-      </div> : <div className="ml-[100px] md:ml-[120px] mr-[20px] md:mr-[48px] mt-[80px] justify-center items-center pb-10">
+      </div> : <div className="min-[713px]:ml-[100px] mx-4 mt-10 min-[713px]:mt-[80px] justify-center items-center pb-20">
         <AssignmentCard />
         <AssignmentCard />
       </div>}

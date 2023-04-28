@@ -71,10 +71,10 @@ const ParticularAssignment = () => {
                 <div>
                     <SideBarComponent />
                 </div>
-                <div className="flex ml-[30px] md:ml-[50px] mt-[48px] bg-[#f5f5f5] justify-between">
+                <div className="flex md-[746px]:ml-[30px] ml-2 mt-[48px] bg-[#f5f5f5] justify-between">
                     {/* <div ><SecondNav/></div> */}
 
-                    <div className="back pt-8 pl-14">
+                    <div className="back pt-8 min-[746px]:pl-14">
                         <span className='text-[#6064c9] font-semibold text-base font-["Segoe UI Web", "Segoe UI", "Segoe WP", "Segoe UI Emoji", Tahoma, Arial, sans-serif]'><Link to={`/grp/${params.grpid}`}><ChevronLeftIcon fontSize='large' /> <span>Back</span></Link></span>
                     </div>
 
@@ -84,11 +84,11 @@ const ParticularAssignment = () => {
                     </div>:null}
                 </div>
 
-                <div className="ml-[30px] md:ml-[50px] bg-[#f5f5f5]  justify-center items-center ">
+                <div className="min-[746px]:ml-[30px]  bg-[#f5f5f5]  justify-center items-center pb-32">
                     {/* <div ><SecondNav/></div> */}
-                    <div className=" px-12 justify-center items-center ">
+                    <div className=" px-5 justify-center items-center ">
                         <div className="flex space-x-8">
-                            <div className="back pt-10 pl-4 w-[100%] md:w-[60%]">
+                            <div className="back pt-4 min-[746px]:pl-16 w-[100%] md:w-[60%]">
                                 <div className='text-black font-semibold font-["Segoe UI Web", "Segoe UI", "Segoe WP", "Segoe UI Emoji", Tahoma, Arial, sans-serif] text-2xl pb-3 md:pb-0 md:text-3xl' ><span>{AssignmentState.data.title}</span></div>
                                 <div className='text-[#737373] font-base font-["Segoe UI Web", "Segoe UI", "Segoe WP", "Segoe UI Emoji", Tahoma, Arial, sans-serif] ' ><span className='text-blue-600'>Due {date.toLocaleDateString('en-GB', options)} {date.toLocaleTimeString('en-GB', { hour: "2-digit", minute: "2-digit" })}</span></div>
                                 <div className='pt-4' ><span></span></div>

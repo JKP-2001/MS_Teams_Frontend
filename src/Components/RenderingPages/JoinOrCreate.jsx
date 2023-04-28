@@ -74,19 +74,19 @@ const JoinOrCreate = () => {
                 <div>
                     <SideBarComponent />
                 </div>
-                <div className="ml-[80px] sm:ml-[100px] mt-[70px] grid-cols-1 mb-2">
+                <div className="min-[746px]:ml-[80px] sm:ml-[100px] mt-[70px] grid-cols-1 mb-2">
                     <span className='text-[#6064c9] font-semibold text-base font-["Segoe UI Web", "Segoe UI", "Segoe WP", "Segoe UI Emoji", Tahoma, Arial, sans-serif]'><Link to="/" ><ChevronLeftIcon fontSize='large' className="mb-[2px]" /> <span>Back</span></Link></span>
                 </div>
             </div>
-            <div className="container ml-[100px] w-auto">
-                <div className="name  text-2xl">
+            <div className="container px-6 min-[746px]:ml-[100px] w-auto pb-20">
+                <div className="name text-2xl">
                     Join or create a team
                 </div>
 
-                <div className="flex md:space-x-4 flex-wrap">
-                    <div className="createteambox border-2 mt-4 bg-white  max-[384px]:w-10/12 w-auto h-[260px] rounded-[0.4rem] hover:bg-[#f5f5f5] hover:border-[#f5f5f5]">
+                <div className="flex md:space-x-4 flex-wrap content-center ml-10">
+                    <div className="createteambox border-2 mt-4 bg-white  max-[384px]:w-11/12 w-auto h-[260px] rounded-[0.4rem] hover:bg-[#f5f5f5] hover:border-[#f5f5f5]">
                         <div className=" icon ml-[99px] mt-5">
-                            <img className='w-[64px] h-[64px] rounded-md' src={create_icon} alt="" />
+                            <img className='w-[80px] h-[64px] rounded-md' src={create_icon} alt="" />
                         </div>
                         <div className="title ml-[75px] pt-2 font-semibold text-lg">
                             Create a Team

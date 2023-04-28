@@ -14,7 +14,7 @@ export default function SecondNav() {
             {/* <div><button><FilterListIcon/></button></div> */}
             <div className="p-1"><button><SettingsOutlinedIcon color='primary'/></button></div>
             <div>
-              <Link to="/discover"><div className='jointeam bg-white mr-5 p-1 border-2 rounded-md font-semibold hover:shadow-xl'><button><GroupAddOutlinedIcon className="mr-2 mb-[0.6px]" fontSize='medium' color='primary'/>Join or create team</button></div></Link>
+              <Link to="/discover"><div className='jointeam bg-white mr-5 p-1 border-2 rounded-md font-semibold hover:shadow-xl'><button className='flex'><GroupAddOutlinedIcon className="mr-2 mb-[0.6px]" fontSize='medium' color='primary'/><div className='min-[746px]:block hidden'>Join or create team</div></button></div></Link>
             </div>
         </div>
     </div>

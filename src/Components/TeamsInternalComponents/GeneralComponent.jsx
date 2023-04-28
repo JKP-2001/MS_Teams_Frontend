@@ -104,9 +104,9 @@ export default function GeneralComponent(props) {
 
             // <div >
             //   <ReactForm /></div> :
-            <div className='min-[746px]:pl-[100px] pt-[90px] min-[946px]:pt-[130px]  min-[946px]:pl-[400px] mb-2 min-[746px]:pr-10 w-auto'>
+            <div className='min-[713px]:pl-[100px] pt-[90px] min-[946px]:pt-[130px]  min-[946px]:pl-[400px] mb-2 min-[746px]:pr-10 w-auto mx-3'>
               {Grpstate.adminsEmail.includes(authstate.data.email) || authstate.data.email === Grpstate.owner.email ?
-                <div className="flex space-x-4 pt-3 pl-2 justify-between">
+                <div className="flex space-x-4 pt-3 px-4 justify-between">
                   {isassign ? <div className="assigned">
                     <span className='text-[#444791] text-sm font-semibold cursor-pointer border-b-[3px] border-indigo-500' onClick={() => clickAssign()}>Assigned</span>
                   </div> : <div className="assigned">
@@ -155,7 +155,7 @@ export default function GeneralComponent(props) {
                   const date = new Date(item.dueDateTime);
                   return (<AssignmentCard key={i} title={item.title} grp_name={Grpstate.grpName} dueDate={date.toLocaleDateString('en-GB',options)} dueTime={date.toLocaleTimeString('en-GB',{ hour: "2-digit", minute: "2-digit" })} postId={item._id} grpId={grpid} points={item.points?item.points:null} date={date}/>)
                 })}
-              </div> : <div className="">
+              </div> : <div className="pt-3 pb-20">
                 <AssignmentCard />
                 <AssignmentCard />
               </div>}
