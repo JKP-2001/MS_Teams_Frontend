@@ -67,6 +67,7 @@ const AllAssignment = () => {
         </div>
       </div>
       {isassign ? <div className="min-[713px]:ml-[100px] mx-4 mt-10 min-[713px]:mt-[80px] justify-center items-center pb-20">
+        {/* <AssignmentCard />
         <AssignmentCard />
         <AssignmentCard />
         <AssignmentCard />
@@ -78,11 +79,16 @@ const AllAssignment = () => {
         <AssignmentCard />
         <AssignmentCard />
         <AssignmentCard />
-        <AssignmentCard />
-        <AssignmentCard />
+        <AssignmentCard /> */}
+        <div className='text-2xl font-mono '>
+          No forthcoming assignments right now.
+        </div>
       </div> : <div className="min-[713px]:ml-[100px] mx-4 mt-10 min-[713px]:mt-[80px] justify-center items-center pb-20">
-        <AssignmentCard />
-        <AssignmentCard />
+        {/* <AssignmentCard />
+        <AssignmentCard /> */}
+        <div className='text-2xl font-mono'>
+          No completed assignments to show.
+        </div>
       </div>}
       <GoToTop />
     </div>

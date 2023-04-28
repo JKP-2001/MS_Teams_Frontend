@@ -151,13 +151,15 @@ export default function GeneralComponent(props) {
                 <AssignmentCard />
                 <AssignmentCard />
                 <AssignmentCard /> */}
-                {assignmentPosted.map((item,i)=>{
+                {assignmentPosted.length==0?<div className='font-mono text-2xl ml-3'>No forthcoming Assignments to show.</div>:
+                assignmentPosted.map((item,i)=>{
                   const date = new Date(item.dueDateTime);
                   return (<AssignmentCard key={i} title={item.title} grp_name={Grpstate.grpName} dueDate={date.toLocaleDateString('en-GB',options)} dueTime={date.toLocaleTimeString('en-GB',{ hour: "2-digit", minute: "2-digit" })} postId={item._id} grpId={grpid} points={item.points?item.points:null} date={date}/>)
                 })}
               </div> : <div className="pt-3 pb-20">
-                <AssignmentCard />
-                <AssignmentCard />
+                {/* <AssignmentCard />
+                <AssignmentCard /> */}
+                <div className='font-mono text-2xl ml-3'>No Completed Assignments to show.</div>
               </div>}
             </div> :
             <AllMembers id={grpid} />
