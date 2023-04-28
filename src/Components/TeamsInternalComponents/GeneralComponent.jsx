@@ -104,7 +104,7 @@ export default function GeneralComponent(props) {
 
             // <div >
             //   <ReactForm /></div> :
-            <div className='min-[746px]:pl-[100px] pt-[90px] min-[946px]:pt-[130px]  min-[946px]:pl-[400px] mb-2 pr-10 w-auto'>
+            <div className='min-[746px]:pl-[100px] pt-[90px] min-[946px]:pt-[130px]  min-[946px]:pl-[400px] mb-2 min-[746px]:pr-10 w-auto'>
               {Grpstate.adminsEmail.includes(authstate.data.email) || authstate.data.email === Grpstate.owner.email ?
                 <div className="flex space-x-4 pt-3 pl-2 justify-between">
                   {isassign ? <div className="assigned">
@@ -137,7 +137,7 @@ export default function GeneralComponent(props) {
                   }
                 </div>
               }
-              {isassign ? <div className="w-11/12 mb-9">
+              {isassign ? <div className="w-full mt-6 px-4 pb-20">
                 {/* <AssignmentCard />
                 <AssignmentCard />
                 <AssignmentCard />

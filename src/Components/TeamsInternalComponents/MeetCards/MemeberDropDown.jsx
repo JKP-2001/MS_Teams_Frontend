@@ -86,9 +86,9 @@ export default function MemberDropDown(props) {
 
   return (
     <>
-      {props.isOwner ? <Menu as="div" className="relative z-30 inline-block text-left pb-2">
+      {props.isOwner ? <Menu as="div" className="relative inline-block text-left pb-2">
         <div>
-          <Menu.Button className="inline-flex w-full justify-center gap-x-1.5  bg-white pr-1 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+          <Menu.Button className="inline-flex w-full justify-center gap-x-1.5  bg-white pr-1 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 z-20">
             <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
           </Menu.Button>
         </div>
@@ -102,8 +102,8 @@ export default function MemberDropDown(props) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0  mt-0 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div className="py-1">
+          <Menu.Items className="absolute right-0  mb-20 mt-0 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-20">
+            <div className="py-1 z-10">
               {props.role && props.role == 'Member' ? <Menu.Item>
                 {({ active }) => (
                   <div
@@ -137,7 +137,7 @@ export default function MemberDropDown(props) {
                       <div
                         className={classNames(
                           active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'block px-4 py-2 text-sm hover:cursor-pointer text-red-600'
+                          'block px-4 py-2 text-sm hover:cursor-pointer z-20 text-red-600'
                         )} onClick={() => handleLeaveOrRemove(props.email)}
                       >
                         Remove
@@ -149,7 +149,7 @@ export default function MemberDropDown(props) {
                       <div
                         className={classNames(
                           active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'block px-4 py-2 text-sm hover:cursor-pointer text-red-600'
+                          'block px-4 py-2 text-sm hover:cursor-pointer z-20 text-red-600'
                         )} onClick={handleLeaveOrRemove}
                       >
                         Leave
@@ -162,7 +162,7 @@ export default function MemberDropDown(props) {
         </Transition>
       </Menu> :
         props.email === authState.data.email ?
-          <Menu as="div" className="relative inline-block text-left pb-2">
+          <Menu as="div" className="relative inline-block text-left pb-2 z-30">
             <div>
               <Menu.Button className="inline-flex w-full justify-center gap-x-1.5  bg-white pr-1 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                 <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -178,7 +178,7 @@ export default function MemberDropDown(props) {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0  mt-0 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute right-0  mt-0 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-20">
                 <div className="py-1">
 
                   <Menu.Item>
@@ -186,7 +186,7 @@ export default function MemberDropDown(props) {
                       <div
                         className={classNames(
                           active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                          'block px-4 py-2 text-sm hover:cursor-pointer text-red-600'
+                          'block px-4 py-2 text-sm hover:cursor-pointer text-red-600 z-20'
                         )} onClick={() => handleLeaveOrRemove(authState.data.email)}
                       >
                         Leave

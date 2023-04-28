@@ -89,18 +89,18 @@ export default function SideBarComponent() {
             </div>
 
             <div className="onless1024px min-[746px]:hidden ">
-                <div className="lowernavbar fixed bg-white overflow-hidden  bottom-0 left-0 right-0 z-50">
-                    <div className="flex justify-between h-14 border-t-[2px] border-[2px] space-x-9 shadow-lg px-7 ">
+                <div className="lowernavbar fixed bg-[#ebebeb] overflow-hidden  bottom-0 left-0 right-0 z-50">
+                    <div className="flex justify-between h-14 border-t-[2px]  rounded-t-[2px]  space-x-9 shadow-lg px-7 ">
                         {currloc.includes("home") || currloc.includes("grp") ?
                             <Link to="/home">
-                                <div className=" item1 bg-white text-[#444791] items-center" onClick={() => setgrpState("general")}>
+                                <div className=" item1  text-[#444791] items-center" onClick={() => setgrpState("general")}>
                                     <GroupsOutlinedIcon className='ml-2' fontSize='medium' />
                                     <div className='text-[10px] ml-[6px]'>Teams</div>
                                 </div>
                             </Link>
                             :
                             <Link to="/home">
-                                <div className=" item1 bg-white  items-center" onClick={() => setgrpState("general")}>
+                                <div className=" item1   items-center" onClick={() => setgrpState("general")}>
                                     <GroupsOutlinedIcon className='ml-2' fontSize='medium' />
                                     <div className='text-[10px] ml-[6px]'>Teams</div>
                                 </div>
@@ -109,14 +109,14 @@ export default function SideBarComponent() {
 
                         {currloc.includes("assignment") || currloc.includes("grp") ?
                             <Link to="/assignment">
-                                <div className=" item1 bg-white text-[#444791] items-center" onClick={() => setgrpState("general")}>
+                                <div className=" item1  text-[#444791] items-center" onClick={() => setgrpState("general")}>
                                     <AssignmentOutlinedIcon className='ml-4' fontSize='medium' />
                                     <div className='text-[10px] ml-1'>Assignment</div>
                                 </div>
                             </Link>
                             :
                             <Link to="/assignment">
-                                <div className=" item1 bg-white items-center" onClick={() => setgrpState("general")}>
+                                <div className=" item1  items-center" onClick={() => setgrpState("general")}>
                                     <AssignmentOutlinedIcon className='ml-4' fontSize='medium' />
                                     <div className='text-[10px] ml-1'>Assignment</div>
                                 </div>
