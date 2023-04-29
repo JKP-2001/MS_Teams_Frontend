@@ -78,7 +78,7 @@ export default function AssignmentDropDown(props) {
     // }
 
     useEffect(() => {
-        if (String(authState.data._id) === String(props.owner) || String(authState.data._id) === String(GRPState.owner._id)) {
+        if (String(authState.data._id) === String(props.owner) || String(authState.data._id) === String(GRPState.owner)) {
             setIsAllowed(true);
         }
     }, [props.owner, props.ass_id])

@@ -12,7 +12,8 @@ const initialState = {
     status: 'idle',
     error: "none",
     loading: false,
-    authenticated:false
+    authenticated:false,
+    user_assignements:[]
 }
 
 
@@ -42,13 +43,16 @@ const authSlice = createSlice({
         },
         setAuthenticated(state,action){
             state.authenticated = action.payload
+        },
+        setUserAssignments(state,action){
+            state.user_assignements = action.payload;
         }
     }
 })
 
 const { reducer, actions } = authSlice;
 
-export const {setData, setError, setLoading, setStatus, setUserGroups, setAuthenticated} = actions;
+export const {setData, setError, setLoading, setStatus, setUserGroups, setAuthenticated, setUserAssignments} = actions;
 
 export default reducer;
 
@@ -70,6 +74,31 @@ export function getUserProfile(){
                 throw new Error(json.error);
             }
             dispatch(setData(json.detail));
+        }catch(err){
+            dispatch(setError(err.toString()));
+        }
+    }
+}
+
+
+export function getUserAssignments(){
+    return async function fetchProductThunk(dispatch,getState){
+        try{
+            dispatch(setLoading(true));
+            const response = await fetch(`${url}/get-assignments`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'security-key': key,
+                    'auth-token':localStorage.getItem('token')
+                },
+            });
+            const json = await response.json();
+            dispatch(setLoading(false));
+            if(!json.success){
+                throw new Error(json.error);
+            }
+            dispatch(setUserAssignments(json.details));
         }catch(err){
             dispatch(setError(err.toString()));
         }

@@ -9,7 +9,7 @@ import AuthContext from "../../Context/AuthContext/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import showToast from "../../Utils/showToast";
-import { getUserProfile, setUserAuthState, userGroups } from "../../Redux/authentication/authSlice";
+import { getUserAssignments, getUserProfile, setUserAuthState, userGroups } from "../../Redux/authentication/authSlice";
 import NavbarCoponent from "../NavbarComponet/NavbarCoponent";
 
 export default function RenderingFirst() {
@@ -40,6 +40,7 @@ export default function RenderingFirst() {
       setHomePage({ isTrue: false, msg: "" });
     }
     dispatch(getUserProfile());
+    dispatch(getUserAssignments());
     setLoading(true);
     dispatch(userGroups());
     setLoading(false);

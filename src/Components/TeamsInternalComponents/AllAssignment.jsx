@@ -5,20 +5,42 @@ import NavbarCoponent from '../NavbarComponet/NavbarCoponent'
 import SideBarComponent from '../SideBarComponent/SideBarComponent'
 import AssignmentCard from './AssignmentCard'
 import { useLocation } from 'react-router-dom'
+import { getUserAssignments, getUserProfile, userGroups } from '../../Redux/authentication/authSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 const AllAssignment = () => {
 
   const [isassign, setIsAssign] = useState(true);
+  const dispatch = useDispatch();
 
   const clickAssign = () => {
     setIsAssign(true);
     window.scrollTo(0, 0);
   }
 
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
   const clickCompleted = () => {
     setIsAssign(false);
     window.scrollTo(0, 0);
   }
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      dispatch(getUserProfile());
+      dispatch(getUserAssignments());
+      dispatch(userGroups());
+    }
+  }, [])
+
+  const { auth } = useSelector((state) => {
+    return state;
+  })
 
   return (
     <div>
@@ -80,9 +102,15 @@ const AllAssignment = () => {
         <AssignmentCard />
         <AssignmentCard />
         <AssignmentCard /> */}
-        <div className='text-2xl font-mono '>
-          No forthcoming assignments right now.
-        </div>
+        {auth.user_assignements ? auth.user_assignements.length === 0 ?
+          <div className='text-2xl font-mono '>
+            No forthcoming assignments right now.
+          </div> : <div>
+            {auth.user_assignements.map((item, i) => {
+              const date = new Date(item.dueDateTime);
+              return (<AssignmentCard key={i} title={item.title} grp_name={item.grp_name} dueDate={date.toLocaleDateString('en-GB', options)} dueTime={date.toLocaleTimeString('en-GB', { hour: "2-digit", minute: "2-digit" })} postId={item._id} grpId={item.grpId} points={item.points ? item.points : null} owner={item.createdBy} date={date} />)
+            })}
+          </div> : null}
       </div> : <div className="min-[713px]:ml-[100px] mx-4 mt-10 min-[713px]:mt-[80px] justify-center items-center pb-20">
         {/* <AssignmentCard />
         <AssignmentCard /> */}
