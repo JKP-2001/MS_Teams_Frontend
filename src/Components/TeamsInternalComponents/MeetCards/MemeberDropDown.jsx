@@ -86,9 +86,9 @@ export default function MemberDropDown(props) {
 
   return (
     <>
-      {props.isOwner ? <Menu as="div" className="relative inline-block text-left pb-2">
+      {props.isOwner ? <Menu as="div" className="relative inline-block text-left ">
         <div>
-          <Menu.Button className="inline-flex w-full justify-center gap-x-1.5  bg-white pr-1 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 z-20">
+          <Menu.Button className="inline-flex w-full justify-center gap-x-1.5  bg-white pr-1 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 z-20 rounded-tr-md">
             <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
           </Menu.Button>
         </div>

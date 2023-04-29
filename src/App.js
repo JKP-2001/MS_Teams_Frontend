@@ -48,6 +48,7 @@ import { Socket } from './SocketClient';
 import chatContext from './Context/ChatContext/chatContext';
 import { fetchOnlineUsers } from './Redux/onlineUsers/onlineUserActions';
 import { fetchUserSuccess } from './Redux/user.js/userSlice';
+import Profile from './Components/TeamsInternalComponents/Profile';
 
 
 function App() {
@@ -112,6 +113,7 @@ function App() {
 
 
               <Route exact path="/home" element={<RenderingFirst />} />
+              <Route exact path="/profile" element={<Profile />} />
               <Route path='/chats' element={<Chats />}></Route>
               <Route path="/" element={<Home />}></Route>
               <Route path='/logout' element={<Logout />}></Route>

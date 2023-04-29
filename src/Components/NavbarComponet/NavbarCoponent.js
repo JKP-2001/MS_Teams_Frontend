@@ -20,7 +20,7 @@ export default function NavbarCoponent() {
         </div>
 
         <div className="image flex">
-          <Link to="/login"><PersonOutlineOutlinedIcon /></Link>
+          <Link to="/profile"><PersonOutlineOutlinedIcon /></Link>
 
           <Link to="/logout" className='hover:cursor-pointer'><LogoutOutlinedIcon className='mx-10'/></Link>
         </div>

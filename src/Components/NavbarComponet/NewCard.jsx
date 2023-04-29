@@ -12,7 +12,7 @@ const NewCard = (props) => {
     <Link to={`/grp/${grp_id}`}><div className="border-2 bg-white mx-2 pb-7 mb-3 justify-center items-center hover:bg-[#f5f5f5] hover:border-[0.1px] hover:border-slate-300 rounded-md">
             <div className="text-right"><MoreHorizIcon/></div>
             <div className='scale-75 justify-center items-center flex mb-4'><img className='rounded-md' src={GS} alt="Grp displayPicture"/></div>
-            <div className='text-center mb-6 mx-auto'>{props.grpName}</div>
+            <div className='text-center mb-6 mx-auto text-lg font-sans'>{props.grpName}</div>
             
         </div>
         </Link>

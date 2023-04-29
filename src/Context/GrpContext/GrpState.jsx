@@ -12,6 +12,7 @@ const GrpState = (props) => {
 
     // const url = process.env.REACT_APP_BASE_URL;
     const url = process.env.REACT_APP_BASE_DEV_URL;
+    // console.log(url)
 
     const key = "PLACEMENT-PROJECT";
 
@@ -311,10 +312,29 @@ const GrpState = (props) => {
 
     }
 
+    // const URL = process.env.REACT_APP_BASE_DEV_URL;
+
+    const deleteAssignment = async(id)=>{
+         
+        // const{}
+        let response = await fetch(`${url}/grp/assignment/del`, {
+            method: "delete",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": localStorage.getItem('token'),
+                "security-key": "PLACEMENT-PROJECT"
+            },
+            body: JSON.stringify({ assignmentId:id })
+        })
+        response = await response.json();
+        // console.log({response});
+        return response;
+    }
+
 
 
     return (
-        <GrpContext.Provider value={{ grpState, addMemberToGroup, setgrpState, joinTeamByCode, createAGrp, click, setClick, createGrpPost, delAPost, editAGrpPost, addAdmin, removeAdmin, resetGrpCode, postAssignment, getAssignmentById, fetchKeyWordUser, keywordUsers }}>
+        <GrpContext.Provider value={{ grpState, addMemberToGroup, setgrpState, joinTeamByCode, createAGrp, click, setClick, createGrpPost, delAPost, editAGrpPost, addAdmin, removeAdmin, resetGrpCode, postAssignment, getAssignmentById, fetchKeyWordUser, keywordUsers, deleteAssignment }}>
             {props.children}
         </GrpContext.Provider>
     );

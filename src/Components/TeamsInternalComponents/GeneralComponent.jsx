@@ -37,7 +37,7 @@ export default function GeneralComponent(props) {
   };
 
   const [topNav, setToNav] = useState(<GeneralNavBar />);
-  const { grpState } = useContext(GrpContext);
+  const { grpState, deleteAssignment } = useContext(GrpContext);
 
   const [isassign, setIsAssign] = useState(false);
   const [iscreate, setIsCreate] = useState(false);
@@ -154,7 +154,7 @@ export default function GeneralComponent(props) {
                 {assignmentPosted.length==0?<div className='font-mono text-2xl ml-3'>No forthcoming Assignments to show.</div>:
                 assignmentPosted.map((item,i)=>{
                   const date = new Date(item.dueDateTime);
-                  return (<AssignmentCard key={i} title={item.title} grp_name={Grpstate.grpName} dueDate={date.toLocaleDateString('en-GB',options)} dueTime={date.toLocaleTimeString('en-GB',{ hour: "2-digit", minute: "2-digit" })} postId={item._id} grpId={grpid} points={item.points?item.points:null} date={date}/>)
+                  return (<AssignmentCard key={i} title={item.title} grp_name={Grpstate.grpName} dueDate={date.toLocaleDateString('en-GB',options)} dueTime={date.toLocaleTimeString('en-GB',{ hour: "2-digit", minute: "2-digit" })} postId={item._id} grpId={grpid} points={item.points?item.points:null} owner={item.createdBy} date={date}/>)
                 })}
               </div> : <div className="pt-3 pb-20">
                 {/* <AssignmentCard />
