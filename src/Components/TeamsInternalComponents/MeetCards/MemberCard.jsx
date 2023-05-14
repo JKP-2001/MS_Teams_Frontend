@@ -7,10 +7,10 @@ const MemberCard = (props) => {
 
     return (
         <>
-        <div className="relative my-1 px-1 w-full">
+        <div className="relative my-1 px-1 w-full min-[713px]:w-6/12">
             <article className="overflow-auto rounded-lg border-2 
-            hover:shadow-xl">
-                <div className="absolute flex justify-between right-0 pr-1">
+            hover:shadow-xl bg-white">
+                <div className="absolute flex justify-between right-3 p-1">
                     <div></div>
                     {props.grpid?<MemberDropDown email={props.email} grpid={props.grpid} role={props.role} isOwner={props.isOwner}/>:null}
                 </div>
