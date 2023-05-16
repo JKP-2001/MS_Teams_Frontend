@@ -20,9 +20,14 @@ export const fetchUser=(name)=>async (dispatch)=>{
         }
         else
         {
-            dispatch(fetchUserFail(response.message))
-        }
+            const check = window.location.pathname;
 
+            if(response.error.includes("jwt malformed") && (check!=='/login' && check!=='/signup' && check!=='/verify-account' && check!=='/forgot-password' && check!=='/forgot-password' && !check.includes("set-new-password") && !check.includes("create-password") && check!=='/')){
+                window.location.href = '/logout'
+            }
+
+            dispatch(fetchUserFail(response.message));
+        }
     }catch(error){
         dispatch(fetchUserFail(error.message))
     }
