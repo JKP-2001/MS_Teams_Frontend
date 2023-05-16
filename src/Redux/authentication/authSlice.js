@@ -29,11 +29,11 @@ const authSlice = createSlice({
         },
         setError(state,action){
             state.error = action.payload
-            showToast({
-                msg:state.error,
-                type:"error",
-                duration:3000
-            })
+            // showToast({
+            //     msg:state.error,
+            //     type:"error",
+            //     duration:3000
+            // })
         },
         setLoading(state,action){
             state.loading = action.payload
