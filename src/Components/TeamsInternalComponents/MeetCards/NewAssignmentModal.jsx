@@ -170,8 +170,18 @@ const NewAssignmentModal = (props) => {
         var event = new Date(val.$d);
         let date = JSON.stringify(event)
         var isoDateTime = date.substring(1, 25);
+        console.log({isoDateTime})
         setLoading(true);
         const response = await postAssignment(id, data.title, value, isoDateTime, uploadedFiles);
+        if(!response){
+            showToast({
+                msg: "File too large.",
+                type: "error",
+                duration: 3000
+            })
+            setLoading(false);
+            return;    
+        }
         setLoading(false);
         dispatch(getAssignmentOfAGrp(id));
         setValue('');

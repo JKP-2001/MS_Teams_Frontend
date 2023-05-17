@@ -236,36 +236,43 @@ const GrpState = (props) => {
     }
 
     const postAssignment = async (id, title, instructions, deadline, uploadedFiles) => {
-        let formData = new FormData();    //formdata object
-        formData.append('grp_id', id);   //append the values with key, value pair
-        formData.append('title', title);
-        formData.append('instructions', instructions);
-        formData.append('deadline', deadline);
-        formData.append('points', 100);
 
-        uploadedFiles.map((file) => {
-            formData.append("assignments", file);
-        })
+        try {
+            let formData = new FormData();    //formdata object
+            formData.append('grp_id', id);   //append the values with key, value pair
+            formData.append('title', title);
+            formData.append('instructions', instructions);
+            formData.append('deadline', deadline);
+            formData.append('points', 100);
 
-        const response = await axios({
-            method: "post",
-            url: `${url}/grp/newassignment`,
-            data: formData,
-            headers: {
-                "Content-Type": "multipart/form-data", 'security-key': key,
-                'auth-token': localStorage.getItem('token')
-            },
-        })
-
-        const json = response.data;
-        if (!json.success) {
-            showToast({
-                msg: json.error.substring(json.error.indexOf(':') + 1),
-                type: "error",
-                duration: 3000
+            uploadedFiles.map((file) => {
+                formData.append("assignments", file);
             })
+
+            const response = await axios({
+                method: "post",
+                url: `${url}/grp/newassignment`,
+                data: formData,
+                headers: {
+                    "Content-Type": "multipart/form-data", 'security-key': key,
+                    'auth-token': localStorage.getItem('token')
+                },
+            })
+
+            const json = response.data;
+            console.log({ json });
+            if (!json.success) {
+                showToast({
+                    msg: json.error.substring(json.error.indexOf(':') + 1),
+                    type: "error",
+                    duration: 3000
+                })
+            }
+            return json;
+        } catch (err) {
+            // console.log({ err });
+            return false;
         }
-        return json;
     }
 
     const getAssignmentById = async (grpid, assid) => {
@@ -314,8 +321,8 @@ const GrpState = (props) => {
 
     // const URL = process.env.REACT_APP_BASE_DEV_URL;
 
-    const deleteAssignment = async(id)=>{
-         
+    const deleteAssignment = async (id) => {
+
         // const{}
         let response = await fetch(`${url}/grp/assignment/del`, {
             method: "delete",
@@ -324,7 +331,7 @@ const GrpState = (props) => {
                 "auth-token": localStorage.getItem('token'),
                 "security-key": "PLACEMENT-PROJECT"
             },
-            body: JSON.stringify({ assignmentId:id })
+            body: JSON.stringify({ assignmentId: id })
         })
         response = await response.json();
         // console.log({response});
