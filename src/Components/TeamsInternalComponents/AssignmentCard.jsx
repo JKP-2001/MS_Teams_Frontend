@@ -4,6 +4,7 @@ import grp_icon from "../.././Images/grp_icon.jpg"
 import GrpContext from '../../Context/GrpContext/GrpContext';
 import MemberDropDown from './MeetCards/MemeberDropDown';
 import AssignmentDropDown from './MeetCards/AssignmentDropDown';
+import { useDispatch, useSelector } from 'react-redux';
 
 const AssignmentCard = (props) => {
   const [date, setDate] = useState();
@@ -16,13 +17,13 @@ const AssignmentCard = (props) => {
   }, [])
 
   const ass_id = props.postId;
-  const owner = props.owner;
+  const owner = props.owner;  
 
   return (
     <div className="relative card my-[6px] rounded-xl bg-white hover:shadow-xl border-[3px] hover:cursor-pointer" >
       <div className="absolute flex justify-between right-2">
         <div></div>
-        {props.postId ? <AssignmentDropDown owner={owner} ass_id={ass_id} grpId={props.grpId} /> : null}
+        {props.postId ? <AssignmentDropDown ass_id={props.ass_id} owner={owner} deadline={props.deadline} title={props.title} files={props.files} inst={props.instruction}/> : null}
       </div>
       <Link to={`/assignment/${props.grpId}/${props.postId}`}>
         <div className=" flex item">

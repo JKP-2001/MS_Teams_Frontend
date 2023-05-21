@@ -18,10 +18,13 @@ const ParticularAssignment = () => {
 
     const dispatch = useDispatch();
     const params = useParams();
+    
+    const [see, setSee] = useState(false);
 
     useEffect(()=>{
         dispatch(fetchAssignment(params.grpid,params.postid))
         dispatch(getUserProfile());
+        setSee(true);
     },[])
 
     const options = {
@@ -38,6 +41,7 @@ const ParticularAssignment = () => {
     
 
     const [seeMore, setSeeMore] = useState(true);
+    
     // const grpId = params.grpid;
     // const postId = params.postid; 
 
@@ -64,7 +68,7 @@ const ParticularAssignment = () => {
     }
     
 
-    if (AssignmentState.data) {
+    if (AssignmentState.data && see) {
         return (
             <div>
                 <NavbarCoponent />
@@ -131,9 +135,9 @@ const ParticularAssignment = () => {
         )
     }
     else{
-        <div>
+        return(<div>
             Hello
-        </div>
+        </div>)
     }
 }
 

@@ -108,7 +108,7 @@ const AllAssignment = () => {
           </div> : <div>
             {auth.user_assignements.map((item, i) => {
               const date = new Date(item.dueDateTime);
-              return (<AssignmentCard key={i} title={item.title} grp_name={item.grp_name} dueDate={date.toLocaleDateString('en-GB', options)} dueTime={date.toLocaleTimeString('en-GB', { hour: "2-digit", minute: "2-digit" })} postId={item._id} grpId={item.grpId} points={item.points ? item.points : null} owner={item.createdBy} date={date} />)
+              return (<AssignmentCard key={i} title={item.title} grp_name={item.grp_name} dueDate={date.toLocaleDateString('en-GB', options)} dueTime={date.toLocaleTimeString('en-GB', { hour: "2-digit", minute: "2-digit" })} postId={item._id} grpId={item.grpId} points={item.points ? item.points : null} owner={item.createdBy} date={date}/>)
             })}
           </div> : null}
       </div> : <div className="min-[713px]:ml-[100px] mx-4 mt-10 min-[713px]:mt-[80px] justify-center items-center pb-20">

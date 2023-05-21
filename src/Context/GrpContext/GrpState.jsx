@@ -339,9 +339,55 @@ const GrpState = (props) => {
     }
 
 
+    const editAssignment = async(id,title,instructions,deadline,deletedItems, uploadedFiles)=>{
+        let formData = new FormData();    //formdata object
+        formData.append('title', title);
+        formData.append('instructions', instructions);
+        formData.append('deadline', deadline);
+        // const dele = ["apple", "ball", "cat"]
+        deletedItems.forEach((item) => formData.append("deletedItems[]", item))
+        // formData.append('deletedItems',deletedItems)
+
+
+        uploadedFiles.map((file) => {
+            formData.append("assignments", file);
+        })
+
+        const response = await axios({
+            method: "patch",
+            url: `${url}/grp/assignment/edit/${id}`,
+            data: formData,
+            headers: {
+                "Content-Type": "multipart/form-data", 'security-key': key,
+                'auth-token': localStorage.getItem('token')
+            },
+        })
+
+        // const response = await fetch(`${url}/grp/editpost`, {
+        //     method: 'PATCH',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'security-key': key,
+        //         'auth-token':localStorage.getItem('token')
+        //     },
+        //     body: JSON.stringify({grp_id:grpid, type:"post", postId:postid, content:content})
+        // });
+        const json = response.data;
+        // console.log(response)
+        if (!json.success) {
+            showToast({
+                msg: json.error.substring(json.error.indexOf(':') + 1),
+                type: "error",
+                duration: 3000
+            })
+        }
+        return json;
+    }
+
+
 
     return (
-        <GrpContext.Provider value={{ grpState, addMemberToGroup, setgrpState, joinTeamByCode, createAGrp, click, setClick, createGrpPost, delAPost, editAGrpPost, addAdmin, removeAdmin, resetGrpCode, postAssignment, getAssignmentById, fetchKeyWordUser, keywordUsers, deleteAssignment }}>
+        <GrpContext.Provider value={{ grpState, addMemberToGroup, setgrpState, joinTeamByCode, createAGrp, click, setClick, createGrpPost, delAPost, editAGrpPost, addAdmin, removeAdmin, resetGrpCode, postAssignment, getAssignmentById, fetchKeyWordUser, keywordUsers, deleteAssignment, editAssignment }}>
             {props.children}
         </GrpContext.Provider>
     );

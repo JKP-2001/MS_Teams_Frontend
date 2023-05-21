@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import showToast from "../../Utils/showToast";
 
 const initialState = {
-    data:null
+    data:null,
+    files:[]
 };
 
 const url = process.env.REACT_APP_BASE_DEV_URL;
@@ -10,20 +11,40 @@ const key = "PLACEMENT-PROJECT"
 
 
 const assignmentSlice = createSlice({
-    name:"auth",
+    name:"Assignment",
     initialState,
     reducers:{
         setAssignment(state,action){
             state.data = action.payload
+        },
+        setFiles(state,action){
+            state.files = action.payload;
         }
     }
 })
 
 const {reducer,actions} = assignmentSlice;
 
-export const {setAssignment} = actions;
+export const {setAssignment,setFiles} = actions;
 
 export default reducer;
+
+// export function deleteFromPostItemsArray(index){
+//     return async function fetchProductThunk(dispatch,getState){
+//         try{
+//             let postState = getState().assignment;
+//             let items = [...postState.items];
+//             items.splice(index,1);
+
+//             dispatch(setItems(items));
+
+//         }catch(err){
+//             // dispatch(setError(err.toString()));
+//             console.log(err.toString());
+//             return;
+//         }
+//     }
+// }
 
 
 
@@ -50,9 +71,30 @@ export function fetchAssignment(grpid,assid){
             }
             else{
                 dispatch(setAssignment(json.details));
+                dispatch(setFiles(json.details.files));
             }
         }catch(err){
             console.log(err);
         }
     }
 }
+
+
+export function deleteFromFileArray(index){
+    return async function fetchProductThunk(dispatch,getState){
+        try{
+            let assState = getState().assignment;
+            let items = [...assState.files];
+            items.splice(index,1);
+
+            dispatch(setFiles(items));
+
+        }catch(err){
+            // dispatch(setError(err.toString()));
+            console.log(err.toString());
+            return;
+        }
+    }
+}
+
+

@@ -9,15 +9,7 @@ import RenderingFirst from "./Components/RenderingPages/RenderingFirst";
 import Chats from './Pages/Chats';
 import ChatState from './Context/ChatContext/chatState';
 import Home from "./Components/Auth/Home"
-// import SignupForm from "./Components/Auth/SignupForm"
-// import Login from './Components/Auth/Login';
-// import ForgotPassword from "./Components/Auth/ForgotPassword";
-// import SetNewPassword from "./Components/Auth/SetNewPassword";
-// import CreateNewPassword from "./Components/Auth/CreateNewPassword";
-// import LoginOtp from './Components/Auth/LoginOtp';
-// import AuthState from "./Context/AuthContext/AuthState"
-// import Logout from "./Components/Auth/Logout"
-// import GrpState from './Context/GrpContext/GrpState';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from "./Redux/user.js/userActions";
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -29,7 +21,7 @@ import ParticularAssignment from './Components/TeamsInternalComponents/Particula
 import JoinOrCreate from './Components/RenderingPages/JoinOrCreate';
 import Second from './Components/RenderingPages/Second';
 import GrpState from './Context/GrpContext/GrpState';
-// import Home from "./components/Auth/Home"
+
 import SignupForm from "./Components/Auth/SignupForm"
 import Login from './Components/Auth/Login';
 import ForgotPassword from "./Components/Auth/ForgotPassword";
@@ -60,38 +52,38 @@ function App() {
 
   // const u = useRef(user)
 
-  useEffect(() => {
-    dispatch(fetchUser());
-    dispatch(fetchConversations());
-    // dispatch(fetchUserSuccess(u));
-  }, [])
+  // useEffect(() => {
+  //   dispatch(fetchUser());
+  //   dispatch(fetchConversations());
+  //   // dispatch(fetchUserSuccess(u));
+  // }, [])
 
-  useEffect(() => {
-    Socket?.on("getMessage", (message) => {
-      setArrivalMessage(message);
-    })
-  }, [])
+  // useEffect(() => {
+  //   Socket?.on("getMessage", (message) => {
+  //     setArrivalMessage(message);
+  //   })
+  // }, [])
 
-  useEffect(()=>{
-    if(arrivalMessage!==null)
-    {
-      let newMessages=[...messages,arrivalMessage];
-      dispatch(addmessage({newMessages}));
-      setArrivalMessage(null);
-    }
-  },[arrivalMessage])
+  // useEffect(()=>{
+  //   if(arrivalMessage!==null)
+  //   {
+  //     let newMessages=[...messages,arrivalMessage];
+  //     dispatch(addmessage({newMessages}));
+  //     setArrivalMessage(null);
+  //   }
+  // },[arrivalMessage])
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (user !== null) {
-      Socket?.emit("addUser", user.id);
-    }
+  //   if (user !== null) {
+  //     Socket?.emit("addUser", user.id);
+  //   }
 
-    Socket?.on("getUsers", (onlineUsers) => {
-      dispatch(fetchOnlineUsers(onlineUsers));
-    })
+  //   Socket?.on("getUsers", (onlineUsers) => {
+  //     dispatch(fetchOnlineUsers(onlineUsers));
+  //   })
 
-  }, [user])
+  // }, [user])
   
   
 

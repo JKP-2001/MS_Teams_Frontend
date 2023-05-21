@@ -13,9 +13,13 @@ import hljs from 'highlight.js'
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getGrpItems } from '../../../Redux/Group/groupSlice';
+import { deleteFromAssItemsArray, getAssignmentOfAGrp, getGrpItems } from '../../../Redux/Group/groupSlice';
 import Item from './Item';
 import { deleteFromPostItemsArray, getPostItemsArray } from '../../../Redux/Post/postSlice';
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { MobileDateTimePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
+import { deleteFromFileArray, fetchAssignment } from '../../../Redux/Assignment/assignmentSlice';
 
 const Quill = ReactQuill.Quill;
 var Font = Quill.import("formats/font");
@@ -58,18 +62,44 @@ const formats = [
 
 const MAX_COUNT = 30;
 
-const EditPostCard = (props) => {
+const EditAssignment = (props) => {
+
+    // const DATA = props.data;
+
+    const params = useParams();
+
+    const dispatch = useDispatch();
+    
+    const assState = useSelector((state)=>{
+        return state.assignment;
+    })
+
+    
+
+    // useEffect(() => {
+    //     // dispatch(getPostItemsArray(props.index));
+    //     const grpid = params.id;
+    //     // dispatch(fetchAssignment(grpid,props.ass_id));
+    //     // console.log({postState})
+    // }, [ref])
+
 
 
     const grpstate = useSelector((state) => state.group);
-    // console.log({grpstate})
 
-    const { createGrpPost, createAGrp, editAGrpPost } = useContext(GrpContext);
+
+    const [val,setVal] = useState(props.deadline);
+
+    const { createGrpPost, createAGrp, editAGrpPost, editAssignment } = useContext(GrpContext);
 
     const { hidden, setHidden, toggleModal } = props;
 
     const [isPrivate, setPrivate] = useState(false);
-    const [value, setValue] = useState(props.content);
+
+    const [title, setTitle] = useState(props.title);
+    const [inst, setInst] = useState(props.inst);
+    
+
 
     const [data, setData] = useState({ grpName: '', desc: '' });
 
@@ -77,7 +107,7 @@ const EditPostCard = (props) => {
         setData({ ...data, [e.target.name]: e.target.value });
     }
 
-    const [deletedItems,setDeleItem] = useState([]);
+    const [deletedItems, setDeleItem] = useState([]);
 
     const ref = useRef();
 
@@ -85,11 +115,11 @@ const EditPostCard = (props) => {
         setPrivate(!isPrivate);
     }
 
-    const params = useParams();
+    
     const id = params.id;
 
-    // console.log({id})
-    const dispatch = useDispatch();
+    
+    // item_index={props.item_index}
 
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [fileLimit, setFileLimit] = useState(false);
@@ -116,19 +146,20 @@ const EditPostCard = (props) => {
 
 
     const handleSubmit = async () => {
-        const response = await editAGrpPost(id, props.id, value, deletedItems, uploadedFiles);
+        const response = await editAssignment(props.ass_id, title, inst,val,deletedItems, uploadedFiles);
+        // id,title,instructions,deadline,deletedItems, uploadedFiles
         // window.scroll(0,0);
         toggleModal();
-        setValue(value);
-            showToast({
-                msg: "Post updated successfully.",
-                type: "success",
-                duration: 3000
+        setTitle(title);
+        showToast({
+            msg: "Post updated successfully.",
+            type: "success",
+            duration: 3000
         })
         setDeleItem([]);
         setUploadedFiles([]);
         dispatch(getGrpItems(id));
-        dispatch(getPostItemsArray(props.index));
+        dispatch(getAssignmentOfAGrp(id));
         // if(response.success){
         //     setValue(value);
         //     showToast({
@@ -139,40 +170,42 @@ const EditPostCard = (props) => {
         // }
         // itemsArray = grpstate.grpItems.push(response);
     }
-    const postState = useSelector((state)=> state.post);
+    const postState = useSelector((state) => state.post);
 
-    const RemoveIcon = (i,type,path) => {
-        if(type=="nup"){
+    const RemoveIcon = (i, type, path) => {
+        if (type == "nup") {
             uploadedFiles.splice(i, 1)
             setUploadedFiles([...uploadedFiles]);
             ref.current.value = "";
         }
-        else if(type=="up"){
+        else if (type == "up") {
             let arr = [...deletedItems];
             arr.push(path);
             setDeleItem(arr);
-            dispatch(deleteFromPostItemsArray(i));
+            dispatch(deleteFromFileArray(props.item_index,i));
             // dispatch(getPostItemsArray(props.index));
             // console.log({DelItem:deletedItems})
         }
     }
 
-    const stopPro = (e)=>{
+    const stopPro = (e) => {
         // e.stopPropagation();
         // dispatch(getPostItemsArray(props.index));
     }
 
-    const handleCancel = ()=>{
+    
+
+    const handleCancel = () => {
         toggleModal();
-        dispatch(getPostItemsArray(props.index));
+        const id = params.id;
+        dispatch(getAssignmentOfAGrp(id));
         setDeleItem([]);
     }
 
     
-   useEffect(()=>{
-        dispatch(getPostItemsArray(props.index));
-        // console.log({postState})
-   },[ref])
+
+
+    
 
     useEffect(() => {
         ref.current.value = '';
@@ -180,6 +213,8 @@ const EditPostCard = (props) => {
     }, [uploadedFiles.length])
 
 
+    // setTitle(assState.data.title);
+    // setInst(assState.data.instructions)
 
 
     return (
@@ -193,65 +228,78 @@ const EditPostCard = (props) => {
                     <div className="inline-block align-center bg-white rounded-lg text-left shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full overflow-auto" role="dialog" aria-modal="true" aria-labelledby="modal-headline" >
                         <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <div className='text-[1.3rem] font-medium mb-3 leading-[1.33333rem]'>
-                                Edit Post
+                                Edit Assignment.
                             </div>
-                            <p className='mb-4 text-xs'>
-                                Create a new post or announcement for the group.
-                            </p>
+                            <div className='mb-2'>
+                                <label className='text-sm font-[1.4rem] mb-2 '>Title</label>
+                                <input type="text" className="w-full bg-gray-100 p-2 mt-2 mb-1 rounded-xl" name='title' value={title} onChange={(e) => setTitle(e.target.value)} />
+                            </div>
                             <div className='flex justify-between'>
-                                <label className='text-sm font-[1.4rem] mb-2'>Content</label>
-                                {value.length>100000?<label className='text-sm font-[1.4rem] mr-[1rem] text-red-800'>Character limit reached</label>:null}
+                                <label className='text-sm font-[1.4rem] mb-2'>Instruction</label>
+                                {/* {title.length > 100000 ? <label className='text-sm font-[1.4rem] mr-[1rem] text-red-800'>Character limit reached</label> : null} */}
                             </div>
                             <div className='h-[150px] overflow-auto'>
-                                <ReactQuill className=' bg-white border-b-violet-500 border-b-[3px] rounded-lg mb-3' theme="snow" value={value} onChange={setValue} placeholder='Enter the content.' modules={modules}
+                                <ReactQuill className=' bg-white border-b-violet-500 border-b-[3px] rounded-lg mb-3' theme="snow" value={inst} onChange={setInst} placeholder='Enter the instruction.' modules={modules}
                                     formats={formats} /></div>
+                            <div className='mb-1'>
+                            {/* <BasicDateTimePicker /> */}
+                            <DemoContainer
+                                components={[
+                                    'MobileDateTimePicker',
+                                ]}>
+                                <DemoItem label="Deadline">
+                                    <MobileDateTimePicker className='bg-gray-100' ampm={false} value={dayjs(val)} onChange={(newValue) => setVal(newValue)} />
+                                </DemoItem>
+                            </DemoContainer>
+
+                        </div>
                         </div>
 
                         <div>
-                            <input id='fileUpload' ref={ref} className='ml-8 mb-2' type='file' multiple accept='application/pdf, image/png' onChange={handleFileEvent} disabled={fileLimit} /></div>
+                            <input id='fileUpload' ref={ref} className='ml-8' type='file' multiple accept='application/pdf, image/png' onChange={handleFileEvent} disabled={fileLimit} /></div>
 
-                        {uploadedFiles.length>0 || postState.items.length>0?<label htmlFor='fileUpload' className='ml-9'> <a className={`text-lg btn btn-primary ${!fileLimit ? '' : 'disabled'}`}>Upload Files</a></label>:null}
+                        {/* {uploadedFiles.length > 0 || props.files.length > 0 ? <label htmlFor='fileUpload' className='ml-9'> <a className={`text-lg btn btn-primary ${!fileLimit ? '' : 'disabled'}`}>Upload Files</a></label> : null} */}
 
-                        <div className="flex uploaded-files-list mb-2 ml-9 h-[50px] overflow-auto">
-                        {uploadedFiles.map((item,i)=> {
-                                if(item.type==='application/pdf'){
-                                    return(
+                        <div className="flex uploaded-files-list my-2 ml-9 h-[55px] overflow-auto">
+                            {uploadedFiles.map((item, i) => {
+                                if (item.type === 'application/pdf') {
+                                    return (
                                         <div className="flex" key={i}>
-                                            <Item body={item.name} type={"pdf"}/>
-                                            <CloseRoundedIcon className='hover:cursor-pointer' onClick={() => RemoveIcon(i,"nup","")} />   
+                                            <Item body={item.name} type={"pdf"} />
+                                            <CloseRoundedIcon className='hover:cursor-pointer' onClick={() => RemoveIcon(i, "nup", "")} />
                                         </div>)
                                     // <div>{item.name}</div>
                                 }
-                                else if(item.type==='image/png'){
-                                    return(
+                                else if (item.type === 'image/png') {
+                                    return (
                                         <div className="flex" key={i}>
                                             <Item body={item.name} type={"img"} key={i} />
-                                            <CloseRoundedIcon className='hover:cursor-pointer' onClick={() => RemoveIcon(i,"nup","")} />   
+                                            <CloseRoundedIcon className='hover:cursor-pointer' onClick={() => RemoveIcon(i, "nup", "")} />
                                         </div>)
                                     // <div>{item.name}</div>
                                 }
-                                
+
                             })}
                             {/* {console.log({items:uploadedFiles})} */}
-                            {postState.items.map((item,i)=>{
+                            {assState.files.map((item, i) => {
                                 // console.log(item)
-                                if(item.type==='application/pdf'){
-                                    return(
-                                    <div className="flex mx-1" key={i}>
-                                        {i+1}. <Item body={item.name} type={"pdf"} key={i} link={item.files}/>
-                                        <CloseRoundedIcon className='hover:cursor-pointer' onClick={() => RemoveIcon(i,"up",item.files)} />   
-                                    </div>)
-                                    // <div>{item.name}</div>
-                                }
-                                else if(item.type==='image/png'){
-                                    return(
+                                if (item.type === 'application/pdf') {
+                                    return (
                                         <div className="flex mx-1" key={i}>
-                                            {i+1}. <Item body={item.name} type={"img"} key={i} link={item.files}/>
-                                            <CloseRoundedIcon className='hover:cursor-pointer' onClick={() => RemoveIcon(i,"up",item.files)} />   
+                                            {i + 1}. <Item body={item.name} type={"pdf"} key={i} link={item.files} />
+                                            <CloseRoundedIcon className='hover:cursor-pointer' onClick={() => RemoveIcon(i, "up", item.files)} />
                                         </div>)
                                     // <div>{item.name}</div>
                                 }
-                                
+                                else if (item.type === 'image/png') {
+                                    return (
+                                        <div className="flex mx-1" key={i}>
+                                            {i + 1}. <Item body={item.name} type={"img"} key={i} link={item.files} />
+                                            <CloseRoundedIcon className='hover:cursor-pointer' onClick={() => RemoveIcon(i, "up", item.files)} />
+                                        </div>)
+                                    // <div>{item.name}</div>
+                                }
+
                             })}
                         </div>
 
@@ -265,9 +313,9 @@ const EditPostCard = (props) => {
 
 
                         <div className="bg-gray-200 px-4 py-3 text-right flex">
-                            <button className="bg-[#5b5fc7] mx-2 md:mx-3  hover:bg-blue-700 text-white font-semibold py-1  border border-blue-700 rounded w-[144.72px] h-[32px]" onClick={() => handleCancel()}>Cancel
+                            <button className="bg-[#5b5fc7] mb-3 mx-4 md:mx-3  hover:bg-blue-700 text-white font-semibold py-1  border border-blue-700 rounded w-[144.72px] h-[32px]" onClick={() => handleCancel()}>Cancel
                             </button>
-                            {value !== '<p><br></p>' && value !== '' ? <button className="bg-[#5b5fc7]  mx-2 md:mx-3  hover:bg-blue-700 text-white font-semibold py-1  border border-blue-700 rounded w-[144.72px] h-[32px]" onClick={() => handleSubmit()}>Post
+                            {title !== '<p><br></p>' && title !== '' ? <button className="bg-[#5b5fc7] mb-2 mx-2 md:mx-3  hover:bg-blue-700 text-white font-semibold py-1  border border-blue-700 rounded w-[144.72px] h-[32px]" onClick={() => handleSubmit()}>Post
                             </button> : null}
                         </div>
                     </div>
@@ -275,6 +323,7 @@ const EditPostCard = (props) => {
             </div>
         </>
     )
+    // return(<h1>Hello</h1>)
 }
 
-export default EditPostCard
+export default EditAssignment

@@ -16,7 +16,8 @@ const initialState = {
     grpItems:[],
     grpCode:"",
     adminsEmail:[],
-    assignmentPosted:[]
+    assignmentPosted:[],
+    assFile:[]
 }
 
 
@@ -47,6 +48,9 @@ const grpSlice = createSlice({
         },
         setAssignmentPosted(state,action){
             state.assignmentPosted = action.payload;
+        },
+        assignmentFile(state,action){
+            state.assFile = action.payload;
         }
     }
 })
@@ -200,6 +204,14 @@ export function getAssignmentOfAGrp(id){
                 throw new Error(json.error);
             }
             dispatch(setAssignmentPosted(json.details))
+            
+            let len = json.details.length;
+
+            let item = [];
+
+            // for(let i=0;i<len;i++){
+
+            // }
         }catch(err){
             // dispatch(setError(err.toString()));
             console.log(err);
@@ -212,3 +224,5 @@ export function getAssignmentOfAGrp(id){
         }
     }
 }
+
+
