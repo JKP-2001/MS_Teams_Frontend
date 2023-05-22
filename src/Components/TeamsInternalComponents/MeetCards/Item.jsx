@@ -10,6 +10,7 @@ const Item = (props) => {
     
     const gotToLink = (link)=>{
         {link && window.open(prod_url+link, '_blank', 'noreferrer')};
+        // {link && window.open(dev_url+link, '_blank', 'noreferrer')};
     }
     return (
         <div className="item flex mr-4 hover:cursor-pointer hover:bg-[#f5f5f5]" onClick={()=>gotToLink(props.link)}>
