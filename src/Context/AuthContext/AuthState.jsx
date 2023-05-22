@@ -98,8 +98,24 @@ const AuthState = (props) => {
         return json;
     }
 
+
+    const checkToken = async () =>{
+        const response = await fetch(`${url}/auth/check-token`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'security-key': key,
+                'auth-token':localStorage.getItem('token')
+            },
+        });
+        const json = await response.json();
+        return json;
+    }
+
+    
+
     return (
-        <AuthContext.Provider value={{ registerUser, createPassword, redirectLogin, setRedirectLogin, sendingdOTP, redirectOTP, setRedirectOTP, checkOTP, homePage, setHomePage, sendResetEmail, resetPassword}}>
+        <AuthContext.Provider value={{ registerUser, createPassword, redirectLogin, setRedirectLogin, sendingdOTP, redirectOTP, setRedirectOTP, checkOTP, homePage, setHomePage, sendResetEmail, resetPassword, checkToken}}>
             {props.children}
         </AuthContext.Provider>
     );

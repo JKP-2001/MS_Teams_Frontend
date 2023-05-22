@@ -63,11 +63,11 @@ export function fetchAssignment(grpid,assid){
             });
             const json = await response.json();
             if(!json.success){
-                showToast({
-                    msg:json.error.substring(json.error.indexOf(':') + 1),
-                    type:"error",
-                    duration:3000
-                })
+                // showToast({
+                //     msg:json.error.substring(json.error.indexOf(':') + 1),
+                //     type:"error",
+                //     duration:3000
+                // })
             }
             else{
                 dispatch(setAssignment(json.details));

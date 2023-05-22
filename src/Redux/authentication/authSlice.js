@@ -135,8 +135,8 @@ export function setUserAuthState(){
     return async function fetchProductThunk(dispatch,getState){
         try{
             dispatch(setLoading(true));
-            const response = await fetch(`${url}/account/auth/checktoken`, {
-                method: 'GET',
+            const response = await fetch(`${url}/auth/check-token`, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'security-key': key,
@@ -145,12 +145,39 @@ export function setUserAuthState(){
             });
             const json = await response.json();
             dispatch(setLoading(false));
-            if(!json.success){
-                throw new Error(json.error);
-            }
+            // if(!json.success){
+            //     throw new Error(json.error);
+            // }
             dispatch(setAuthenticated(true));
+            return json;
         }catch(err){
             console.log(err);
         }
     }
 }
+
+
+
+
+
+// export const checkToken = async ()=>{
+//     try{
+//         dispatch(setLoading(true));
+//         const response = await fetch(`${url}/account/auth/checktoken`, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'security-key': key,
+//                 'auth-token':localStorage.getItem('token')
+//             },
+//         });
+//         const json = await response.json();
+//         dispatch(setLoading(false));
+//         if(!json.success){
+//             throw new Error(json.error);
+//         }
+//         dispatch(setAuthenticated(true));
+//     }catch(err){
+//         console.log(err);
+//     }
+// }

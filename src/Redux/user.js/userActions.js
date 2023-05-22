@@ -2,6 +2,9 @@ import {fetchUserLoading,fetchUserSuccess,fetchUserFail} from "./userSlice";
 
 const BASE_URL = process.env.REACT_APP_BASE_DEV_URL;
 
+
+
+
 export const fetchUser=(name)=>async (dispatch)=>{
     dispatch (fetchUserLoading());
     try{
@@ -23,11 +26,11 @@ export const fetchUser=(name)=>async (dispatch)=>{
         {
             const check = window.location.pathname;
 
-            if(response.error.includes("jwt malformed") && (check!=='/login' && check!=='/signup' && check!=='/verify-account' && check!=='/forgot-password' && check!=='/forgot-password' && !check.includes("set-new-password") && !check.includes("create-password") && check!=='/')){
+            if((response.error.includes("jwt malformed") || response.error.includes("jwt expired")) && (check!=='/login' && check!=='/signup' && check!=='/verify-account' && check!=='/forgot-password' && check!=='/forgot-password' && !check.includes("set-new-password") && !check.includes("create-password") && check!=='/')){
                 window.location.href = '/logout'
             }
 
-            dispatch(fetchUserFail(response.message));
+            // dispatch(fetchUserFail(response.message));
         }
     }catch(error){
         dispatch(fetchUserFail(error.message))

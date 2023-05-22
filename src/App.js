@@ -41,10 +41,11 @@ import chatContext from './Context/ChatContext/chatContext';
 import { fetchOnlineUsers } from './Redux/onlineUsers/onlineUserActions';
 import { fetchUserSuccess } from './Redux/user.js/userSlice';
 import Profile from './Components/TeamsInternalComponents/Profile';
+import ProtectedRoute from './Utils/ProtectedRoute';
 
 
 function App() {
-  let [arrivalMessage,setArrivalMessage] = useState(null);
+  let [arrivalMessage, setArrivalMessage] = useState(null);
   // const { connectSocket, getMessage } = useContext(chatContext);
   const { user } = useSelector(state => { return state.user });
   const { messages } = useSelector(state => { return state.messages });
@@ -84,12 +85,12 @@ function App() {
   //   })
 
   // }, [user])
-  
 
-  useEffect(()=>{
-    dispatch(fetchUser());
-  },[])
-  
+
+  // useEffect(() => {
+  //   dispatch(fetchUser());
+  // }, [])
+
 
 
   return (
@@ -106,20 +107,26 @@ function App() {
               <Route path='/forgot-password' element={<ForgotPassword />}></Route>
               <Route path='/set-new-password/:token' element={<SetNewPassword />}></Route>
               <Route path='/create-password/:token' element={<CreateNewPassword />}></Route>
-
-
-              <Route exact path="/home" element={<RenderingFirst />} />
-              <Route exact path="/profile" element={<Profile />} />
-              <Route path='/chats' element={<Chats />}></Route>
               <Route path="/" element={<Home />}></Route>
-              <Route path='/logout' element={<Logout />}></Route>
-              <Route exact path="/home" element={<RenderingFirst />} />
-              <Route exact path="/grp/:id" element={<GeneralComponent />} />
-              <Route exact path="/assignment" element={<AllAssignment />} />
-              <Route exact path="/assignment/:grpid/:postid" element={<ParticularAssignment />} />
-              <Route exact path="/discover" element={<JoinOrCreate />} />
-              <Route exact path="/test" element={<Second />}/>
-              <Route exact path="/createassignment/:id" element={<CreateAssignment />}/>
+
+              
+                <Route exact path="/home" element={<ProtectedRoute ele={<RenderingFirst />}/>} />
+                <Route exact path="/profile" element={<ProtectedRoute ele={<Profile />}/>} />
+                <Route path='/chats' element={<ProtectedRoute ele={<Chats />}/>}></Route>
+                <Route path='/logout' element={<ProtectedRoute ele={<Logout />}/>}></Route>
+                
+                <Route exact path="/grp/:id" element={<ProtectedRoute ele={<GeneralComponent />}/>} />
+
+                <Route exact path="/assignment" element={<ProtectedRoute ele={<AllAssignment />}/>} />
+
+                <Route exact path="/assignment/:grpid/:postid" element={<ProtectedRoute ele={<ParticularAssignment />}/>} />
+                
+                <Route exact path="/discover" element={<ProtectedRoute ele={<JoinOrCreate />}/>} />
+
+                <Route exact path="/test" element={<ProtectedRoute ele={<Second />}/>} />
+
+                <Route exact path="/createassignment/:id" element={<ProtectedRoute ele={<CreateAssignment />}/>} />
+
             </Routes>
           </Router>
           {/* <Toaster /> */}
