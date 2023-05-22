@@ -52,8 +52,8 @@ const GeneralNavBar = () => {
             <div className="grpimage ml-[40px] mt-[54px] flex space-x-4">
               <img src={GS} alt="" className='rounded-md w-8 h-8' />
               <div className="name font-medium text-xl ">General</div>
-              {click === "post" ? <div className="name mt-1 border-b-[2.5px] border-b-[#444791] z-100 cursor-pointer text-violet-800 font-semibold" onClick={() => clickpost()}>Posts</div> : <div className="name mt-1 hover:border-b-[2.5px]  z-100 cursor-pointer" onClick={() => clickpost()}>Posts</div>}
-              {click === "member" ? <div className="name mt-1 cursor-pointer border-b-[2.5px] border-b-[#444791] text-violet-800 font-semibold" onClick={() => clickMember()}>Members</div> : <div className="name mt-1 cursor-pointer hover:border-b-[2.5px] " onClick={() => clickMember()}>Members</div>}
+              {click === "post" ? <div className="name mt-1 border-b-[2.5px] border-b-[#444791] z-100 cursor-pointer text-violet-900 font-semibold" onClick={() => clickpost()}>Posts</div> : <div className="name mt-1 hover:border-b-[2.5px]  z-100 cursor-pointer" onClick={() => clickpost()}>Posts</div>}
+              {click === "member" ? <div className="name mt-1 cursor-pointer border-b-[2.5px] border-b-[#444791] text-violet-900 font-semibold" onClick={() => clickMember()}>Members</div> : <div className="name mt-1 cursor-pointer hover:border-b-[2.5px] " onClick={() => clickMember()}>Members</div>}
             </div>
           </div>
         </div>
@@ -62,9 +62,9 @@ const GeneralNavBar = () => {
 
       <div className=" assignmentcontainer justify-start fixed min-[746px]:translate-x-[72px] bg-[#f5f5f5] border-2 w-full pb-2 max-[1000px]:block hidden border-l-0 z-40">
         <div className="grpimage ml-[20px] mt-[60px] flex space-x-4">
-          {click === "post" ? <div className="name mt-1 border-b-[2.5px] border-b-[#444791] z-100 cursor-pointer text-violet-800 font-semibold" onClick={() => clickpost()}>Posts</div> : <div className="name mt-1 hover:border-b-[2.5px]  z-100 cursor-pointer" onClick={() => clickpost()}>Posts</div>}
-          {click === "assig" ? <div className="name mt-1 cursor-pointer border-b-[2.5px] border-b-[#444791] text-violet-800 font-semibold" onClick={() => clickAssig()}>Assignments</div> : <div className="name mt-1 cursor-pointer hover:border-b-[2.5px]" onClick={() => clickAssig()}>Assignments</div>}
-          {click === "member" ? <div className="name mt-1 cursor-pointer border-b-[2.5px] border-b-[#444791] text-violet-800 font-semibold" onClick={() => clickMember()}>Members</div> : <div className="name mt-1 cursor-pointer hover:border-b-[2.5px]" onClick={() => clickMember()}>Members</div>}
+          {click === "post" ? <div className="name mt-1 border-b-[2.5px] border-b-[#444791] z-100 cursor-pointer text-violet-900 font-semibold" onClick={() => clickpost()}>Posts</div> : <div className="name mt-1 hover:border-b-[2.5px]  z-100 cursor-pointer" onClick={() => clickpost()}>Posts</div>}
+          {click === "assig" ? <div className="name mt-1 cursor-pointer border-b-[2.5px] border-b-[#444791] text-violet-900 font-semibold" onClick={() => clickAssig()}>Assignments</div> : <div className="name mt-1 cursor-pointer hover:border-b-[2.5px]" onClick={() => clickAssig()}>Assignments</div>}
+          {click === "member" ? <div className="name mt-1 cursor-pointer border-b-[2.5px] border-b-[#444791] text-violet-900 font-semibold" onClick={() => clickMember()}>Members</div> : <div className="name mt-1 cursor-pointer hover:border-b-[2.5px]" onClick={() => clickMember()}>Members</div>}
         </div>
       </div>
 

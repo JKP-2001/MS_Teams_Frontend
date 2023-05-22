@@ -14,6 +14,7 @@ export const fetchUser=(name)=>async (dispatch)=>{
             }
         })
         const response=await result.json();
+        console.log({responseFromFetchUser:response});
         if(response.success)
         {
             dispatch(fetchUserSuccess(response.user));

@@ -85,6 +85,10 @@ function App() {
 
   // }, [user])
   
+
+  useEffect(()=>{
+    dispatch(fetchUser());
+  },[])
   
 
 
