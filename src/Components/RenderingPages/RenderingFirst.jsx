@@ -27,7 +27,7 @@ export default function RenderingFirst() {
 
   useEffect(() => {
     if (localStorage.getItem("token") === null) {
-      setRedirectLogin({ isTrue: true, msg: "Please Logged In First" });
+      // setRedirectLogin({ isTrue: true, msg: "Please Logged In First" });
       Navigate("/login");
     }
 
