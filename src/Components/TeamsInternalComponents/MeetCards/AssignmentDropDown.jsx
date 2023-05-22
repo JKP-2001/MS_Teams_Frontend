@@ -50,6 +50,9 @@ export default function AssignmentDropDown(props) {
 
     }
 
+    const grpid = params.id;
+
+
     const handleDel = async () => {
         const result = deleteAssignment(props.ass_id);
         console.log(result)
@@ -59,18 +62,22 @@ export default function AssignmentDropDown(props) {
 
             success: (data) => {
                 console.log(data);
-                if (!data.success) return `${data.error}`;
-                dispatch(getAssignmentOfAGrp(props.grpId));
+                if (data && !data.success) return `${data.error}`;
+                // console.log()
+                dispatch(getAssignmentOfAGrp(grpid));
                 return `${data.details}`;
             },
 
             error: (data) => {
                 if (!data.success) {
+                    dispatch(getAssignmentOfAGrp(grpid));
                     return `${data.details}`
                 }
             },
             duration: 1000
         });
+
+
     }
 
     const Navigate = useNavigate();
