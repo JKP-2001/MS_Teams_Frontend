@@ -30,10 +30,11 @@ const ProtectedRoute = (props) => {
                 const json = await response.json();
                 
                 if(!json.success){
+                    localStorage.removeItem('token')
                     navigate("/login")
 
                     showToast({
-                        msg: "Please login first.",
+                        msg: "Session expired, please login again.",
                         type: "error",
                         duration: 3000
                     })
