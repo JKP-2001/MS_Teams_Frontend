@@ -61,8 +61,9 @@ export default function RenderingFirst() {
             <SecondNav />
           </div>
           
-          {auth.data && !loading ?
-            auth.user_groups ? auth.user_groups.length != 0 ? <div className="md:my-[27px] grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  px-3 mb-16">
+          {!loading ?
+
+            auth.data && auth.user_groups ? auth.user_groups.length != 0 ? <div className="md:my-[27px] grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  px-3 mb-16">
               {auth.user_groups.map((grp) => (
                 <NewCard key={grp._id} grp_id={grp._id} grpName={grp.name} />
               ))}</div> : <>
