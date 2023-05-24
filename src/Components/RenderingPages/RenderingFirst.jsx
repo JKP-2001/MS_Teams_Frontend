@@ -44,11 +44,11 @@ export default function RenderingFirst() {
     dispatch(getUserProfile());
     dispatch(getUserAssignments());
     dispatch(userGroups());
-    
+
     setLoading(false);
   }, []);
 
-  if (auth.data) {
+  
     return (
       <div>
         < NavbarCoponent />
@@ -60,7 +60,8 @@ export default function RenderingFirst() {
           <div>
             <SecondNav />
           </div>
-          {!loading ?
+          
+          {auth.data && !loading ?
             auth.user_groups ? auth.user_groups.length != 0 ? <div className="md:my-[27px] grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  px-3 mb-16">
               {auth.user_groups.map((grp) => (
                 <NewCard key={grp._id} grp_id={grp._id} grpName={grp.name} />
@@ -88,4 +89,4 @@ export default function RenderingFirst() {
       </div>
     );
   }
-}
+
