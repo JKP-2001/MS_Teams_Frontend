@@ -8,12 +8,12 @@ const key = "PLACEMENT-PROJECT"
 
 const initialState = {
     data:null,
-    user_groups:[],
+    user_groups:null,
     status: 'idle',
     error: "none",
     loading: false,
     authenticated:false,
-    user_assignements:[]
+    user_assignements:null
 }
 
 

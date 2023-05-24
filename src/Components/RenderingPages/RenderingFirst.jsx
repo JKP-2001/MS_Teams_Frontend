@@ -39,10 +39,12 @@ export default function RenderingFirst() {
       })
       setHomePage({ isTrue: false, msg: "" });
     }
+    setLoading(true);
+
     dispatch(getUserProfile());
     dispatch(getUserAssignments());
-    setLoading(true);
     dispatch(userGroups());
+    
     setLoading(false);
   }, []);
 
