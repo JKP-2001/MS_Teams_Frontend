@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import AuthContext from '../../Context/AuthContext/AuthContext'
 import { setLoading } from '../../Redux/authentication/authSlice'
 import { userGroups } from '../../Redux/authentication/authSlice'
+import { setToInitial } from '../../Redux/Group/groupSlice'
 
 const Profile = () => {
 
@@ -26,6 +27,7 @@ const Profile = () => {
         setLoading(true);
         dispatch(userGroups());
         setLoading(false);
+        dispatch(setToInitial());
     }, []);
 
     const { user } = useSelector(state => { return state.user });

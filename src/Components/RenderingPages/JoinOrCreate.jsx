@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import NavbarCoponent from '../NavbarComponet/NavbarCoponent'
 import SecondNav from '../NavbarComponet/SecondNav'
 import SideBarComponent from '../SideBarComponent/SideBarComponent'
@@ -14,9 +14,13 @@ import WorkspacesOutlinedIcon from '@mui/icons-material/WorkspacesOutlined';
 import GrpContext from '../../Context/GrpContext/GrpContext';
 import showToast from '../../Utils/showToast';
 import { JoinTeamForm } from '../TeamsInternalComponents/JoinTeamForm';
+import { setToInitial } from '../../Redux/Group/groupSlice';
+import { useDispatch } from 'react-redux';
 
 const JoinOrCreate = () => {
     const [joinCode, setJoinCode] = useState('');
+
+    const dispatch = useDispatch();
 
     const detectChange = (e) => {
         setJoinCode(e.target.value);
@@ -66,6 +70,10 @@ const JoinOrCreate = () => {
             }
         }
     }
+
+    useEffect(()=>{
+        dispatch(setToInitial());
+    },[])
 
     return (
         <div>

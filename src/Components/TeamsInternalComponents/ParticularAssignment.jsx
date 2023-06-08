@@ -13,6 +13,7 @@ import parse from "html-react-parser"
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAssignment } from '../../Redux/Assignment/assignmentSlice';
 import { getUserProfile } from '../../Redux/authentication/authSlice';
+import { setToInitial } from '../../Redux/Group/groupSlice';
 
 const ParticularAssignment = () => {
 
@@ -25,6 +26,7 @@ const ParticularAssignment = () => {
         dispatch(fetchAssignment(params.grpid,params.postid))
         dispatch(getUserProfile());
         setSee(true);
+        dispatch(setToInitial());
     },[])
 
     const options = {

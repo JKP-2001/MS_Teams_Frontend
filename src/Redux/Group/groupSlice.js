@@ -25,6 +25,8 @@ const grpSlice = createSlice({
     name:"group",
     initialState,
     reducers:{
+        
+
         setMembers(state,action){
             state.members = action.payload
         },
@@ -51,15 +53,24 @@ const grpSlice = createSlice({
         },
         assignmentFile(state,action){
             state.assFile = action.payload;
+        },
+        setToInitialState(state,action){
+            return initialState
         }
     }
 })
 
 const {reducer,actions} = grpSlice;
 
-const {setMembers, setAdmins, setOwner, setGrpName, setGrpItems, setGrpCode, setAdminsEmail, setAssignmentPosted} = actions;
+const {setMembers, setAdmins, setOwner, setGrpName, setGrpItems, setGrpCode, setAdminsEmail, setAssignmentPosted,setToInitialState, reset} = actions;
 
 export default reducer;
+
+export function setToInitial(){
+    return async function fetchProductThunk(dispatch,getState){
+        dispatch(setToInitialState(initialState));
+    }
+}
 
 
 export function getMembers(id){

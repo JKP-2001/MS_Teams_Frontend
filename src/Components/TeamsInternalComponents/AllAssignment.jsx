@@ -7,6 +7,7 @@ import AssignmentCard from './AssignmentCard'
 import { useLocation } from 'react-router-dom'
 import { getUserAssignments, getUserProfile, userGroups } from '../../Redux/authentication/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { setToInitial } from '../../Redux/Group/groupSlice'
 
 const AllAssignment = () => {
 
@@ -35,6 +36,7 @@ const AllAssignment = () => {
       dispatch(getUserProfile());
       dispatch(getUserAssignments());
       dispatch(userGroups());
+      dispatch(setToInitial());
     }
   }, [])
 

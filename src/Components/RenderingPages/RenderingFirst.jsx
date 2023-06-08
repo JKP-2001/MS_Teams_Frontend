@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import showToast from "../../Utils/showToast";
 import { getUserAssignments, getUserProfile, setUserAuthState, userGroups } from "../../Redux/authentication/authSlice";
 import NavbarCoponent from "../NavbarComponet/NavbarCoponent";
+import { setToInitial } from "../../Redux/Group/groupSlice";
 
 export default function RenderingFirst() {
 
@@ -44,6 +45,11 @@ export default function RenderingFirst() {
     dispatch(getUserProfile());
     dispatch(getUserAssignments());
     dispatch(userGroups());
+
+    console.log("intial state started");
+    dispatch(setToInitial());
+    
+    console.log("intial state ended");
 
     setLoading(false);
   }, []);
