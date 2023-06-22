@@ -20,6 +20,7 @@ import TurnInItem from './MeetCards/TurnInItem';
 import showToast from '../../Utils/showToast';
 import SubmissionCard from './MeetCards/SubmissionCard';
 import AuthState from '../../Context/AuthContext/AuthState';
+import { toast } from 'react-hot-toast';
 
 
 const MAX_COUNT = 5;
@@ -42,10 +43,10 @@ const ParticularAssignment = () => {
     const [checkSub, setCheckSub] = useState(false);
 
 
-    const fetchLogDetail = async()=>{
-        while(!UserState){
+    const fetchLogDetail = async () => {
+        while (!UserState) {
         }
-        dispatch(getLoginUserData(params.postid,UserState.data._id));
+        dispatch(getLoginUserData(params.postid, UserState.data._id));
     }
 
 
@@ -121,7 +122,7 @@ const ParticularAssignment = () => {
                 uploaded.unshift(file);
                 if (uploaded.length === MAX_COUNT) setFileLimit(true);
                 if (uploaded.length > MAX_COUNT) {
-                    alert('You can only add a maximum of ${MAX_COUNT} files');
+                    alert(`You can only add a maximum of ${MAX_COUNT} files`);
                     setFileLimit(false);
                     limitExceeded = true;
                     return true;
@@ -162,65 +163,92 @@ const ParticularAssignment = () => {
         const id = params.postid;
 
         setLoading(true);
-        const response = await turnInAssignment(id, uploadedFiles);
+        const result = turnInAssignment(id, uploadedFiles);
 
+        // const result = addAdmin(props.grpid, props.email);
 
+        toast.promise(result, {
+            loading: 'Loading ...',
+            success: (data) => {
+                if (!data.success) {
+                    // showToast({
+                    //     msg: "File too large or Assignment already turned In.",
+                    //     type: "error",
+                    //     duration: 3000
+                    // })
+                    // setLoading(false);
+                    return "File too large or Assignment already turned In.";
+                };
 
-        if (!response) {
-            showToast({
-                msg: "File too large or Assignment already turned In.",
-                type: "error",
-                duration: 3000
-            })
-            setLoading(false);
-            return;
-        }
-        setLoading(false);
-        dispatch(getAssignmentOfAGrp(id));
-        dispatch(getLoginUserData(params.postid,UserState.data._id));
-        // setValue('');
-        // window.scroll(0,0);
-        showToast({
-            msg: "Turned In Successfully.",
-            type: "success",
-            duration: 3000
-        })
-        ref.current.value = "";
-        setUploadedFiles([]);
-        window.scrollTo({
-            top: document.documentElement.scrollHeight,
+                // dispatch(getGrpItems(id));
+                // dispatch(getMembers(props.grpid));
+                // return `${props.email} added to admin.`;
+
+                setLoading(false);
+                dispatch(getAssignmentOfAGrp(id));
+                dispatch(getLoginUserData(params.postid, UserState.data._id));
+                // setValue('');
+                // window.scroll(0,0);
+                // showToast({
+                //     msg: "Turned In Successfully.",
+                //     type: "success",
+                //     duration: 3000
+                // })
+                ref.current.value = "";
+                setUploadedFiles([]);
+                window.scrollTo({
+                    top: document.documentElement.scrollHeight,
+                });
+
+                return "Turn in successfully.";
+            },
+            error: 'Uh oh, there was an error!',
+            duration: 1000
         });
+
+
+
+        // if (!response) {
+        //     showToast({
+        //         msg: "File too large or Assignment already turned In.",
+        //         type: "error",
+        //         duration: 3000
+        //     })
+        //     setLoading(false);
+        //     return;
+        // }
     }
 
     const handleTurnOff = async () => {
         const id = params.postid;
 
-        setLoading(true);
+        const loadingToast = toast.loading('Loading...');
+
         const response = await turnOffAssignment(id);
-        if (!response) {
-            showToast({
-                msg: "File too large or Assignment already turned off.",
-                type: "error",
-                duration: 3000
-            })
+        console.log({response})
+
+        if(response.success){
+            toast.success('Turn off successfully.', {
+                id: loadingToast,
+            });
+
+
             setLoading(false);
-            return;
-        }
-        setLoading(false);
-        dispatch(getAssignmentOfAGrp(id));
-        dispatch(getLoginUserData(params.postid,UserState.data._id));
-        // setValue('');
-        // window.scroll(0,0);
-        showToast({
-            msg: "Turned In Successfully.",
-            type: "success",
-            duration: 3000
-        })
-        ref.current.value = "";
-        setUploadedFiles([]);
-        window.scrollTo({
+            dispatch(getAssignmentOfAGrp(id));
+            dispatch(getLoginUserData(params.postid, UserState.data._id));
+            ref.current.value = "";
+            setUploadedFiles([]);
+            window.scrollTo({
             top: document.documentElement.scrollHeight,
-        });
+            });
+
+            
+        }
+        else{
+            toast.error('Error Occured.', {
+                id: loadingToast,
+                });
+        }
     }
 
     console.log({ email: grpState.adminsEmail })
@@ -247,7 +275,7 @@ const ParticularAssignment = () => {
                         <div className="back pt-[26px] md:pt-[22px] pl-4 order-last justify-end pr-32">
                             <button type="button" className="text-white bg-[#5b5fc7] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 pb:12 dark:bg-[#5b5fc7] dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick={!AssignmentState.logginUserData ? handleTurnIn : handleTurnOff}>{!AssignmentState.logginUserData ? "Turn In" : "Turn Off"}</button>
                         </div> : AssignmentState.data.createdBy === UserState.data._id ? <div className="back pt-[26px] md:pt-[22px] pl-4 order-last justify-end pr-32">
-                            <button type="button" className="text-white bg-[#5b5fc7] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 pb:12 dark:bg-[#5b5fc7] dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick={() => setCheckSub(!checkSub)}>{!checkSub?"Check Submissions":"Student View"}</button>
+                            <button type="button" className="text-white bg-[#5b5fc7] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 pb:12 dark:bg-[#5b5fc7] dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick={() => setCheckSub(!checkSub)}>{!checkSub ? "Check Submissions" : "Student View"}</button>
                         </div> : null}
                 </div>
 
@@ -314,12 +342,12 @@ const ParticularAssignment = () => {
                                             {uploadedFiles.map((item, i) => {
                                                 if (item.type === 'application/pdf') {
                                                     return (<div className='flex' key={i}>
-                                                        <TurnInItem body={item.name} type={"pdf"} key={i} RemoveIcon={RemoveIcon} i={i} />
+                                                        <TurnInItem body={item.name} type={"pdf"} key={i} RemoveIcon={RemoveIcon} i={i} close={true} />
                                                     </div>)
                                                 }
                                                 else if (item.type === 'image/png') {
                                                     return (<div className='flex' key={i}>
-                                                        <TurnInItem body={item.name} type={"img"} key={i} />
+                                                        <TurnInItem body={item.name} type={"img"} key={i} close={true} />
                                                     </div>)
 
                                                 }
@@ -329,12 +357,12 @@ const ParticularAssignment = () => {
                                             {uploadedFiles.map((item, i) => {
                                                 if (item.type === 'application/pdf') {
                                                     return (<div className='flex' key={i}>
-                                                        <TurnInItem body={item.name} type={"pdf"} key={i} />
+                                                        <TurnInItem body={item.name} type={"pdf"} key={i} close={true} />
                                                     </div>)
                                                 }
                                                 else if (item.type === 'image/png') {
                                                     return (<div className='flex' key={i}>
-                                                        <TurnInItem body={item.name} type={"img"} key={i} />
+                                                        <TurnInItem body={item.name} type={"img"} key={i} close={true} />
                                                     </div>)
 
                                                 }
@@ -359,7 +387,7 @@ const ParticularAssignment = () => {
                                             <div className="flex flex-wrap">
                                                 {AssignmentState && AssignmentState.submissionInfo ?
                                                     AssignmentState.submissionInfo.notTurnInBy.map((mem) => {
-                                                        return (<SubmissionCard user_id={mem._id}  key={mem._id} name={mem.firstName + ' ' + mem.lastName} email={mem.email} />)
+                                                        return (<SubmissionCard user_id={mem._id} key={mem._id} name={mem.firstName + ' ' + mem.lastName} email={mem.email} />)
                                                     }) : null}
                                                 <hr className='pb-2' />
                                             </div>
