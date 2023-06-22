@@ -3,10 +3,16 @@ import grp_icon from "../.././Images/grp_icon.jpg"
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 
+
+
 const AssignmentMaterial = (props) => {
 
+    const url = process.env.REACT_APP_BASE_DEV?"http://localhost:5000/":"https://ms-teams.onrender.com/";
+
+    console.log(process.env.REACT_APP_BASE_DEV)
+
     const gotToLink = (link)=>{
-        {link && window.open(' https://ms-teams.onrender.com/'+link, '_blank', 'noreferrer')};
+        {link && window.open(url+link, '_blank', 'noreferrer')};
     }
     return (
         <div className="flex bg-white rounded-lg pt-1 hover:cursor-pointer hover:shadow-lg my-2 border-[3px]" onClick={()=>gotToLink(props.link)}>

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import showToast from "../../Utils/showToast"
 
 // const url = process.env.REACT_APP_BASE_URL;
-const url = process.env.REACT_APP_BASE_DEV_URL;
+const url = process.env.REACT_APP_BASE_DEV?process.env.REACT_APP_BASE_DEV_URL:process.env.REACT_APP_BASE_URL;
 const key = "PLACEMENT-PROJECT"
 
 
@@ -13,7 +13,8 @@ const initialState = {
     error: "none",
     loading: false,
     authenticated:false,
-    user_assignements:null
+    user_assignements:null,
+    user_comp_assignment:null
 }
 
 
@@ -46,13 +47,16 @@ const authSlice = createSlice({
         },
         setUserAssignments(state,action){
             state.user_assignements = action.payload;
+        },
+        setCompletedAssignments(state,action){
+            state.user_comp_assignment = action.payload;
         }
     }
 })
 
 const { reducer, actions } = authSlice;
 
-export const {setData, setError, setLoading, setStatus, setUserGroups, setAuthenticated, setUserAssignments} = actions;
+export const {setData, setError, setLoading, setStatus, setUserGroups, setAuthenticated, setUserAssignments, setCompletedAssignments} = actions;
 
 export default reducer;
 
@@ -99,6 +103,31 @@ export function getUserAssignments(){
                 throw new Error(json.error);
             }
             dispatch(setUserAssignments(json.details));
+        }catch(err){
+            dispatch(setError(err.toString()));
+        }
+    }
+}
+
+
+export function getUserCompAssignments(){
+    return async function fetchProductThunk(dispatch,getState){
+        try{
+            dispatch(setLoading(true));
+            const response = await fetch(`${url}/get-assignment/completed`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'security-key': key,
+                    'auth-token':localStorage.getItem('token')
+                },
+            });
+            const json = await response.json();
+            dispatch(setLoading(false));
+            if(!json.success){
+                throw new Error(json.error);
+            }
+            dispatch(setCompletedAssignments(json.details));
         }catch(err){
             dispatch(setError(err.toString()));
         }

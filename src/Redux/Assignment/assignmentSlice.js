@@ -3,10 +3,13 @@ import showToast from "../../Utils/showToast";
 
 const initialState = {
     data:null,
-    files:[]
+    files:[],
+    logginUserData:null,
+    submissionInfo:null,
+    particularUserData:null
 };
 
-const url = process.env.REACT_APP_BASE_DEV_URL;
+const url = process.env.REACT_APP_BASE_DEV?process.env.REACT_APP_BASE_DEV_URL:process.env.REACT_APP_BASE_URL;
 const key = "PLACEMENT-PROJECT"
 
 
@@ -19,13 +22,23 @@ const assignmentSlice = createSlice({
         },
         setFiles(state,action){
             state.files = action.payload;
+        },
+        setLoginUserData(state,action){
+            state.logginUserData = action.payload;
+        },
+        setSubmittedBy(state,action){
+            state.submissionInfo = action.payload;
+        },
+        setPaticularUserFiles(state,action){
+            state.particularUserData = action.payload;
         }
+
     }
 })
 
 const {reducer,actions} = assignmentSlice;
 
-export const {setAssignment,setFiles} = actions;
+export const {setAssignment,setFiles,setLoginUserData,setSubmittedBy,setPaticularUserFiles} = actions;
 
 export default reducer;
 
@@ -96,5 +109,101 @@ export function deleteFromFileArray(index){
         }
     }
 }
+
+
+export function getLoginUserData(ass_id,user_id){
+    return async function fetchProductThunk(dispatch,getState){
+        try{
+            const response = await fetch(`${url}/grp/assignment/user_files`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'security-key': key,
+                    'auth-token':localStorage.getItem('token')
+                },
+                body: JSON.stringify({ass_id,user_id})
+            });
+            const json = await response.json();
+            if(!json.success){
+                // showToast({
+                //     msg:json.error.substring(json.error.indexOf(':') + 1),
+                //     type:"error",
+                //     duration:3000
+                // })
+                dispatch(setLoginUserData(null));
+            }
+            else{
+                dispatch(setLoginUserData(json.info));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    }
+}
+
+
+export function getPartUserData(ass_id,user_id){
+    return async function fetchProductThunk(dispatch,getState){
+        try{
+            const response = await fetch(`${url}/grp/assignment/user_files`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'security-key': key,
+                    'auth-token':localStorage.getItem('token')
+                },
+                body: JSON.stringify({ass_id,user_id})
+            });
+            const json = await response.json();
+            if(!json.success){
+                // showToast({
+                //     msg:json.error.substring(json.error.indexOf(':') + 1),
+                //     type:"error",
+                //     duration:3000
+                // })
+                dispatch(setLoginUserData(null));
+            }
+            else{
+                dispatch(setPaticularUserFiles(json.info));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    }
+}
+
+
+export function getSubInfo(ass_id){
+    return async function fetchProductThunk(dispatch,getState){
+        try{
+            const response = await fetch(`${url}/assignment/get-turnedinby`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'security-key': key,
+                    'auth-token':localStorage.getItem('token')
+                },
+                body: JSON.stringify({ass_id})
+            });
+            const json = await response.json();
+            if(!json.success){
+                // showToast({
+                //     msg:json.error.substring(json.error.indexOf(':') + 1),
+                //     type:"error",
+                //     duration:3000
+                // })
+                dispatch(setSubmittedBy(null));
+            }
+            else{
+                dispatch(setSubmittedBy(json.details));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    }
+}
+
+
+
 
 

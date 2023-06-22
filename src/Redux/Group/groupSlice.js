@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 
 
 // const url = process.env.REACT_APP_BASE_URL;
-const url = process.env.REACT_APP_BASE_DEV_URL;
+const url = process.env.REACT_APP_BASE_DEV?process.env.REACT_APP_BASE_DEV_URL:process.env.REACT_APP_BASE_URL;
 const key = "PLACEMENT-PROJECT"
 
 const initialState = {
@@ -17,7 +17,8 @@ const initialState = {
     grpCode:"",
     adminsEmail:[],
     assignmentPosted:[],
-    assFile:[]
+    assFile:[],
+    isAdmin:false
 }
 
 
@@ -56,13 +57,16 @@ const grpSlice = createSlice({
         },
         setToInitialState(state,action){
             return initialState
+        },
+        setIsAdmin(state,action){
+            state.isAdmin = action.payload;
         }
     }
 })
 
 const {reducer,actions} = grpSlice;
 
-const {setMembers, setAdmins, setOwner, setGrpName, setGrpItems, setGrpCode, setAdminsEmail, setAssignmentPosted,setToInitialState, reset} = actions;
+const {setMembers, setAdmins, setOwner, setGrpName, setGrpItems, setGrpCode, setAdminsEmail, setAssignmentPosted,setToInitialState, reset, setIsAdmin} = actions;
 
 export default reducer;
 
@@ -98,7 +102,11 @@ export function getMembers(id){
             Grpstate.group.admins.map((mem) => {
                 arr.push(mem.email);
             })
+            
             dispatch(setAdminsEmail(arr));
+            
+
+            
         }catch(err){
             // dispatch(setError(err.toString()));
             console.log(err.toString());

@@ -3,13 +3,12 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 
-const dev_url = "http://localhost:5000/"
-const prod_url = "https://ms-teams.onrender.com/"
+const dev_url = process.env.REACT_APP_BASE_DEV === "true" ?"http://localhost:5000/":"https://ms-teams.onrender.com/";
 
 const Item = (props) => {
     
     const gotToLink = (link)=>{
-        {link && window.open(prod_url+link, '_blank', 'noreferrer')};
+        {link && window.open(dev_url+link, '_blank', 'noreferrer')};
         // {link && window.open(dev_url+link, '_blank', 'noreferrer')};
     }
     return (

@@ -10,7 +10,7 @@ import showToast from './showToast';
 const ProtectedRoute = (props) => {
     
     const key = "PLACEMENT-PROJECT";
-    const url = process.env.REACT_APP_BASE_DEV_URL;
+    const url = process.env.REACT_APP_BASE_DEV?process.env.REACT_APP_BASE_DEV_URL:process.env.REACT_APP_BASE_URL;
     const navigate = useNavigate();
 
     const [check, setCheck] = useState(false);

@@ -11,7 +11,7 @@ const GrpState = (props) => {
     const [click, setClick] = useState("");
 
     // const url = process.env.REACT_APP_BASE_URL;
-    const url = process.env.REACT_APP_BASE_DEV_URL;
+    const url = process.env.REACT_APP_BASE_DEV?process.env.REACT_APP_BASE_DEV_URL:process.env.REACT_APP_BASE_URL;
     // console.log(url)
 
     const key = "PLACEMENT-PROJECT";
@@ -342,7 +342,7 @@ const GrpState = (props) => {
     }
 
 
-    const editAssignment = async(id,title,instructions,deadline,deletedItems, uploadedFiles)=>{
+    const editAssignment = async (id, title, instructions, deadline, deletedItems, uploadedFiles) => {
         let formData = new FormData();    //formdata object
         formData.append('title', title);
         formData.append('instructions', instructions);
@@ -387,10 +387,71 @@ const GrpState = (props) => {
         return json;
     }
 
+    const turnInAssignment = async (id, uploadedFiles) => {
+
+        try {
+            let formData = new FormData();    //formdata object
+            formData.append('ass_id', id);   //append the values with key, value pair
+
+            uploadedFiles.map((file) => {
+                formData.append("assignments", file);
+            })
+
+            const response = await axios({
+                method: "patch",
+                url: `${url}/grp/assignment/turnin`,
+                data: formData,
+                headers: {
+                    "Content-Type": "multipart/form-data", 'security-key': key,
+                    'auth-token': localStorage.getItem('token')
+                },
+            })
+
+
+
+            const json = response.data;
+
+            console.log({ json })
+
+            // if (!json.success) {
+            //     showToast({
+            //         msg: json.error.substring(json.error.indexOf(':') + 1),
+            //         type: "error",
+            //         duration: 3000
+            //     })
+            // }
+            return json;
+        } catch (err) {
+            // console.log({ err });
+            return false;
+        }
+    }
+
+    const turnOffAssignment = async (id) => {
+        const response = await fetch(`${url}/grp/assignment/turnoff`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'security-key': key,
+                'auth-token': localStorage.getItem('token')
+            },
+            body: JSON.stringify({ ass_id:id })
+        });
+        const json = await response.json();
+        if (!json.success) {
+            showToast({
+                msg: json.error.substring(json.error.indexOf(':') + 1),
+                type: "error",
+                duration: 3000
+            })
+        }
+        return json;
+    }
+
 
 
     return (
-        <GrpContext.Provider value={{ grpState, addMemberToGroup, setgrpState, joinTeamByCode, createAGrp, click, setClick, createGrpPost, delAPost, editAGrpPost, addAdmin, removeAdmin, resetGrpCode, postAssignment, getAssignmentById, fetchKeyWordUser, keywordUsers, deleteAssignment, editAssignment }}>
+        <GrpContext.Provider value={{ grpState, addMemberToGroup, setgrpState, joinTeamByCode, createAGrp, click, setClick, createGrpPost, delAPost, editAGrpPost, addAdmin, removeAdmin, resetGrpCode, postAssignment, getAssignmentById, fetchKeyWordUser, keywordUsers, deleteAssignment, editAssignment, turnInAssignment, turnOffAssignment }}>
             {props.children}
         </GrpContext.Provider>
     );

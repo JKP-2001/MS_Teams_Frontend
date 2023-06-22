@@ -5,7 +5,7 @@ import NavbarCoponent from '../NavbarComponet/NavbarCoponent'
 import SideBarComponent from '../SideBarComponent/SideBarComponent'
 import AssignmentCard from './AssignmentCard'
 import { useLocation } from 'react-router-dom'
-import { getUserAssignments, getUserProfile, userGroups } from '../../Redux/authentication/authSlice'
+import { getUserAssignments, getUserCompAssignments, getUserProfile, userGroups } from '../../Redux/authentication/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { setToInitial } from '../../Redux/Group/groupSlice'
 
@@ -37,6 +37,7 @@ const AllAssignment = () => {
       dispatch(getUserAssignments());
       dispatch(userGroups());
       dispatch(setToInitial());
+      dispatch(getUserCompAssignments());
     }
   }, [])
 
@@ -110,16 +111,21 @@ const AllAssignment = () => {
           </div> : <div>
             {auth.user_assignements.map((item, i) => {
               const date = new Date(item.dueDateTime);
-              return (<AssignmentCard key={i} title={item.title} grp_name={item.grp_name} dueDate={date.toLocaleDateString('en-GB', options)} dueTime={date.toLocaleTimeString('en-GB', { hour: "2-digit", minute: "2-digit" })} postId={item._id} grpId={item.grpId} points={item.points ? item.points : null} owner={item.createdBy} date={date}/>)
+              return (<AssignmentCard key={i} title={item.title} grp_name={item.grp_name} dueDate={date.toLocaleDateString('en-GB', options)} dueTime={date.toLocaleTimeString('en-GB', { hour: "2-digit", minute: "2-digit" })} postId={item._id} grpId={item.grpId} points={item.points ? item.points : null} owner={item.createdBy} date={date} />)
             })}
           </div> : null}
       </div> : <div className="min-[713px]:ml-[100px] mx-4 mt-10 min-[713px]:mt-[80px] justify-center items-center pb-20">
-        {/* <AssignmentCard />
-        <AssignmentCard /> */}
-        <div className='text-2xl font-mono'>
-          No completed assignments to show.
-        </div>
-      </div>}
+        {auth.user_comp_assignment ? auth.user_comp_assignment.length === 0 ?
+          <div className='text-2xl font-mono'>
+            No completed assignments to show.
+          </div> : <div>
+            {auth.user_comp_assignment.map((item, i) => {
+              const date = new Date(item.dueDateTime);
+              return (<AssignmentCard key={i} title={item.title} grp_name={item.grp_name} dueDate={date.toLocaleDateString('en-GB', options)} dueTime={date.toLocaleTimeString('en-GB', { hour: "2-digit", minute: "2-digit" })} postId={item._id} grpId={item.grpId} points={item.points ? item.points : null} owner={item.createdBy} date={date} />)
+            })}
+          </div> : null}
+      </div>
+      }
       <GoToTop />
     </div>
   )

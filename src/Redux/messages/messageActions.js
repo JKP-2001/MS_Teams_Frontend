@@ -4,7 +4,7 @@ import chatContext from "../../Context/ChatContext/chatContext";
 
 export const fetchMessages = ({ conversation, friend }) => async dispatch => {
     // const BaseUrl = process.env.REACT_APP_BASE_URL;
-    const BaseUrl = process.env.REACT_APP_BASE_DEV_URL;
+    const BaseUrl = process.env.REACT_APP_BASE_DEV?process.env.REACT_APP_BASE_DEV_URL:process.env.REACT_APP_BASE_URL;
 
     dispatch(fetchMessagesLoading);
     try {

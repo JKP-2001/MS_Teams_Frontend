@@ -11,7 +11,7 @@ import GrpContext from '../../Context/GrpContext/GrpContext';
 import Item from './MeetCards/Item';
 import parse from "html-react-parser"
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAssignment, getLoginUserData, getSubInfo } from '../../Redux/Assignment/assignmentSlice';
+import { fetchAssignment, getLoginUserData, getPartUserData, getSubInfo } from '../../Redux/Assignment/assignmentSlice';
 import { getUserAssignments, getUserProfile, setLoading } from '../../Redux/authentication/authSlice';
 import { getAssignmentOfAGrp, getGrpDetails, getMembers, setToInitial } from '../../Redux/Group/groupSlice';
 
@@ -24,7 +24,7 @@ import AuthState from '../../Context/AuthContext/AuthState';
 
 const MAX_COUNT = 5;
 
-const ParticularAssignment = () => {
+const CheckAssignment = () => {
 
     const dispatch = useDispatch();
     const params = useParams();
@@ -41,13 +41,7 @@ const ParticularAssignment = () => {
 
     const [checkSub, setCheckSub] = useState(false);
 
-
-    const fetchLogDetail = async()=>{
-        while(!UserState){
-        }
-        dispatch(getLoginUserData(params.postid,UserState.data._id));
-    }
-
+    const user_id = params.user_id;
 
 
 
@@ -57,13 +51,10 @@ const ParticularAssignment = () => {
         dispatch(getMembers(params.grpid));
         dispatch(getGrpDetails(params.grpid));
         dispatch(fetchAssignment(params.grpid, params.postid))
-        fetchLogDetail();
-        dispatch(getSubInfo(params.postid));
-        // if(AssignmentState.data && UserState  && AssignmentState.data.createdBy === UserState.data._id){
-        //     dispatch(getSubInfo(params.postid));
-        // }
+        dispatch(getPartUserData(params.postid,params.user_id));
+        dispatch(getSubInfo(params.postid)); 
         setSee(true);
-        // dispatch(setToInitial());
+        
     }, [])
 
     const options = {
@@ -177,7 +168,7 @@ const ParticularAssignment = () => {
         }
         setLoading(false);
         dispatch(getAssignmentOfAGrp(id));
-        dispatch(getLoginUserData(params.postid,UserState.data._id));
+        dispatch(getLoginUserData(params.postid,params.user_id));
         // setValue('');
         // window.scroll(0,0);
         showToast({
@@ -208,7 +199,7 @@ const ParticularAssignment = () => {
         }
         setLoading(false);
         dispatch(getAssignmentOfAGrp(id));
-        dispatch(getLoginUserData(params.postid,UserState.data._id));
+        dispatch(getLoginUserData(params.postid,params.user_id));
         // setValue('');
         // window.scroll(0,0);
         showToast({
@@ -247,7 +238,7 @@ const ParticularAssignment = () => {
                         <div className="back pt-[26px] md:pt-[22px] pl-4 order-last justify-end pr-32">
                             <button type="button" className="text-white bg-[#5b5fc7] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 pb:12 dark:bg-[#5b5fc7] dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick={!AssignmentState.logginUserData ? handleTurnIn : handleTurnOff}>{!AssignmentState.logginUserData ? "Turn In" : "Turn Off"}</button>
                         </div> : AssignmentState.data.createdBy === UserState.data._id ? <div className="back pt-[26px] md:pt-[22px] pl-4 order-last justify-end pr-32">
-                            <button type="button" className="text-white bg-[#5b5fc7] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 pb:12 dark:bg-[#5b5fc7] dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick={() => setCheckSub(!checkSub)}>{!checkSub?"Check Submissions":"Student View"}</button>
+                            <button type="button" className="text-white bg-[#5b5fc7] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 pb:12 dark:bg-[#5b5fc7] dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick={() => setCheckSub(!checkSub)}>{!checkSub?"Return":"Student View"}</button>
                         </div> : null}
                 </div>
 
@@ -278,12 +269,12 @@ const ParticularAssignment = () => {
                                 {!checkSub ? <>
                                     <div className='pt-2' ><span></span></div>
 
-                                    {AssignmentState.data.createdBy !== UserState.data._id ?
+                                    {AssignmentState.data.createdBy === UserState.data._id ?
                                         <>
-                                            <div className='my-2 font-semibold font-["Segoe UI Web", "Segoe UI", "Segoe WP", "Segoe UI Emoji", Tahoma, Arial, sans-serif] text-[#737373]' ><span className='text-inherit'>{AssignmentState.logginUserData ? "My Work"
+                                            <div className='my-2 font-semibold font-["Segoe UI Web", "Segoe UI", "Segoe WP", "Segoe UI Emoji", Tahoma, Arial, sans-serif] text-[#737373]' ><span className='text-inherit'>{AssignmentState.particularUserData ? `${AssignmentState.particularUserData.name}'s Submission`
                                                 : ""}</span></div>
-                                            {AssignmentState.logginUserData ?
-                                                AssignmentState.logginUserData.material.map((item, i) => {
+                                            {AssignmentState.particularUserData ?
+                                                AssignmentState.particularUserData.material.map((item, i) => {
                                                     if (item.type === 'application/pdf') {
                                                         return (<div className='flex' key={i}>
                                                             <TurnInItem body={item.name} type={"pdf"} key={i} close={false} link={item.files} />
@@ -300,10 +291,10 @@ const ParticularAssignment = () => {
 
                                             <div className="flex pt-2 pb-5">
                                                 <div className="attach hover:cursor-pointer">
-                                                    {!AssignmentState.logginUserData && !grpState.adminsEmail.includes(UserState.data.email) ?
+                                                    {!AssignmentState.particularUserData && !grpState.adminsEmail.includes(UserState.data.email) ?
                                                         <>
                                                             <AttachFileIcon fontSize='small' /> <span className='text-[#5b5fc7] font-semibold text-sm'>Attach</span></> : null}
-                                                    {!AssignmentState.logginUserData && !grpState.adminsEmail.includes(UserState.data.email) ? <input id='fileUpload' className='w-full mt-2 mb-2 bg-gray-100 display:block border-slate-400 border rounded-lg' type='file' multiple accept='application/pdf, image/png' onChange={handleFileEvent} disabled={fileLimit} title="Attach File" ref={ref} /> : null}
+                                                    {!AssignmentState.particularUserData && !grpState.adminsEmail.includes(UserState.data.email) ? <input id='fileUpload' className='w-full mt-2 mb-2 bg-gray-100 display:block border-slate-400 border rounded-lg' type='file' multiple accept='application/pdf, image/png' onChange={handleFileEvent} disabled={fileLimit} title="Attach File" ref={ref} /> : null}
 
                                                 </div>
                                             </div></> : null}
@@ -348,7 +339,7 @@ const ParticularAssignment = () => {
                                             <div className="flex flex-wrap">
                                                 {AssignmentState && AssignmentState.submissionInfo ?
                                                     AssignmentState.submissionInfo.turnInBy.map((mem) => {
-                                                        return (<SubmissionCard user_id={mem._id} key={mem._id} name={mem.firstName + ' ' + mem.lastName} email={mem.email} />)
+                                                        return (<SubmissionCard key={mem._id} name={mem.firstName + ' ' + mem.lastName} email={mem.email} />)
                                                     }) : null}
                                                 <hr className='pb-2' />
                                             </div>
@@ -359,7 +350,7 @@ const ParticularAssignment = () => {
                                             <div className="flex flex-wrap">
                                                 {AssignmentState && AssignmentState.submissionInfo ?
                                                     AssignmentState.submissionInfo.notTurnInBy.map((mem) => {
-                                                        return (<SubmissionCard user_id={mem._id}  key={mem._id} name={mem.firstName + ' ' + mem.lastName} email={mem.email} />)
+                                                        return (<SubmissionCard key={mem._id} name={mem.firstName + ' ' + mem.lastName} email={mem.email} />)
                                                     }) : null}
                                                 <hr className='pb-2' />
                                             </div>
@@ -382,4 +373,4 @@ const ParticularAssignment = () => {
     }
 }
 
-export default ParticularAssignment
+export default CheckAssignment

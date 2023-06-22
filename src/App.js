@@ -42,6 +42,7 @@ import { fetchOnlineUsers } from './Redux/onlineUsers/onlineUserActions';
 import { fetchUserSuccess } from './Redux/user.js/userSlice';
 import Profile from './Components/TeamsInternalComponents/Profile';
 import ProtectedRoute from './Utils/ProtectedRoute';
+import CheckAssignment from './Components/TeamsInternalComponents/CheckAssignment';
 
 
 function App() {
@@ -126,6 +127,8 @@ function App() {
                 <Route exact path="/test" element={<ProtectedRoute ele={<Second />}/>} />
 
                 <Route exact path="/createassignment/:id" element={<ProtectedRoute ele={<CreateAssignment />}/>} />
+
+                <Route exact path="/assignment/check/:grpid/:postid/:user_id" element={<ProtectedRoute ele={<CheckAssignment />}/>} />
 
             </Routes>
           </Router>

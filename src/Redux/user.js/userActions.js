@@ -1,6 +1,6 @@
 import {fetchUserLoading,fetchUserSuccess,fetchUserFail} from "./userSlice";
 
-const BASE_URL = process.env.REACT_APP_BASE_DEV_URL;
+const BASE_URL = process.env.REACT_APP_BASE_DEV?process.env.REACT_APP_BASE_DEV_URL:process.env.REACT_APP_BASE_URL;
 
 
 

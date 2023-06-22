@@ -5,7 +5,7 @@ import { useState } from "react";
 const AuthState = (props) => {
 
     // const url = process.env.REACT_APP_BASE_URL;
-    const url = process.env.REACT_APP_BASE_DEV_URL;
+    const url = process.env.REACT_APP_BASE_DEV?process.env.REACT_APP_BASE_DEV_URL:process.env.REACT_APP_BASE_URL;
 
     const key = "PLACEMENT-PROJECT";
 
