@@ -18,13 +18,13 @@ function Message({ own, m }) {
       id={own ? "messageWrapper_own" : "messageWrapper"}
       className=" my-3 flex  min-w-fit w-[100%]"
     >
-      {!own && (
+      
         <img
           className="mt-1 w-[40px] h-[40px] rounded-full hidden md:block"
           src={Avatar}
           alt=""
         />
-      )}
+      
       <div
         id={own ? "message_own" : "message"}
         className="flex flex-col w-fit max-w-[70%]"

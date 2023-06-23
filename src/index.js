@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { ChakraProvider } from '@chakra-ui/react';
 
 
 
@@ -16,7 +17,9 @@ root.render(
 
   <Provider store={store}>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
+      
       <App />
+      
     </LocalizationProvider>
   </Provider>
 

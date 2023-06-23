@@ -43,6 +43,7 @@ import { fetchUserSuccess } from './Redux/user.js/userSlice';
 import Profile from './Components/TeamsInternalComponents/Profile';
 import ProtectedRoute from './Utils/ProtectedRoute';
 import CheckAssignment from './Components/TeamsInternalComponents/CheckAssignment';
+import ChatPage from './Components/Chat/ChatPage';
 
 
 function App() {
@@ -113,7 +114,7 @@ function App() {
               
                 <Route exact path="/home" element={<ProtectedRoute ele={<RenderingFirst />}/>} />
                 <Route exact path="/profile" element={<ProtectedRoute ele={<Profile />}/>} />
-                <Route path='/chats' element={<ProtectedRoute ele={<Chats />}/>}></Route>
+                <Route path='/chats' element={<ProtectedRoute ele={<ChatPage />}/>}></Route>
                 <Route path='/logout' element={<ProtectedRoute ele={<Logout />}/>}></Route>
                 
                 <Route exact path="/grp/:id" element={<ProtectedRoute ele={<GeneralComponent />}/>} />

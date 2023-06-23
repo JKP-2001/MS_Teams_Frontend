@@ -7,6 +7,7 @@ import assignmentReducer from "./Assignment/assignmentSlice"
 import conversationReducer from "./conversations/conversationSlice"
 import messageReducer from "./messages/messageSlics";
 import onlineUserReducer from "./onlineUsers/onlineUserSlice"
+import searchUserReducer from "./SearchUser/searchUserSlice"
 
 
 const store=configureStore({
@@ -18,7 +19,8 @@ const store=configureStore({
         assignment:assignmentReducer,
         conversations:conversationReducer,
         messages:messageReducer,
-        onlineUsers:onlineUserReducer
+        onlineUsers:onlineUserReducer,
+        searchedUsers:searchUserReducer
     }
 })
 

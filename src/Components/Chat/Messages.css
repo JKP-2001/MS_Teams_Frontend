@@ -1,0 +1,14 @@
+#messageWrapper_own{
+    justify-content: flex-end;
+}
+
+#message{
+    background-color: #f5f7fb;
+    margin-left: 5px;
+    border-radius: 5px;
+}
+
+#message_own{
+    background-color: #4e426d;
+    border-radius: 5px;
+}
