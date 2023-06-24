@@ -7,7 +7,7 @@ import SideBar2 from './SideBar2'
 import Conversation from './Conversation'
 import SideDrawer from './SideDrawer'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAllChats } from '../../Redux/SearchUser/searchUserSlice'
+import { fetchAllChats, fetchNotifications } from '../../Redux/SearchUser/searchUserSlice'
 
 import { io } from 'socket.io-client';
 import { useState } from 'react'
@@ -38,6 +38,8 @@ const ChatPage = () => {
 
         
         dispatch(fetchAllChats());
+
+        dispatch(fetchNotifications());
 
     },[])
 

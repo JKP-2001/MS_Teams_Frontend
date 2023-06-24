@@ -8,6 +8,7 @@ const initialState = {
     currentOpenChat:null,
     allChats:[],
     messages:[],
+    notifications:[],
 };
 
 const url = process.env.REACT_APP_BASE_DEV==="true"?process.env.REACT_APP_BASE_SOCKET_DEV_URL:process.env.REACT_APP_BASE_SOCKET_URL;
@@ -33,13 +34,16 @@ const assignmentSlice = createSlice({
         },
         setMessages(state,action){
             state.messages = action.payload
+        },
+        setNotifications(state,action){
+            state.notifications = action.payload
         }
     }
 })
 
 const {reducer,actions} = assignmentSlice;
 
-export const {setSearchUser,setCurrentOpenChat,setAllChats,setMessages} = actions;
+export const {setSearchUser,setCurrentOpenChat,setAllChats,setMessages,setNotifications} = actions;
 
 export default reducer;
 
@@ -162,6 +166,65 @@ export function fetchAllMessages(chatId){
 }
 
 
+export function fetchNotifications(){
+    return async function fetchProductThunk(dispatch,getState){
+        try{
+            const response = await fetch(`${url}/chat/notification/all`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'security-key': key,
+                    'auth-token':localStorage.getItem('token')
+                },
+            });
+            const json = await response.json();
+            if(!json.success){
+                // showToast({
+                //     msg:json.error.substring(json.error.indexOf(':') + 1),
+                //     type:"error",
+                //     duration:3000
+                // })
+            }
+            else{
+                dispatch(setNotifications(json.details));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    }
+}
+
+
+export function setTheNotifications(chatId,number){
+    return async function fetchProductThunk(dispatch,getState){
+        try{
+            const response = await fetch(`${url}/chat/notification`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'security-key': key,
+                    'auth-token':localStorage.getItem('token')
+                },
+                body:JSON.stringify({chatId,number})
+            });
+            const json = await response.json();
+            if(!json.success){
+                // showToast({
+                //     msg:json.error.substring(json.error.indexOf(':') + 1),
+                //     type:"error",
+                //     duration:3000
+                // })
+            }
+            else{
+                dispatch(fetchNotifications());
+            }
+        }catch(err){
+            console.log(err);
+        }
+    }
+}
+
+
 export function SendMessage(chatId,content){
     return async function fetchProductThunk(dispatch,getState){
         try{
@@ -195,6 +258,7 @@ export function SendMessage(chatId,content){
                 // console.log({mesages})
 
                 dispatch(fetchAllChats());
+                dispatch(fetchNotifications());
             }
         }catch(err){
             console.log(err);

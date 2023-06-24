@@ -44,7 +44,7 @@ import Profile from './Components/TeamsInternalComponents/Profile';
 import ProtectedRoute from './Utils/ProtectedRoute';
 import CheckAssignment from './Components/TeamsInternalComponents/CheckAssignment';
 import ChatPage from './Components/Chat/ChatPage';
-import { setMessages } from './Redux/SearchUser/searchUserSlice';
+import { fetchAllChats, setMessages, setTheNotifications } from './Redux/SearchUser/searchUserSlice';
 
 
 function App() {
@@ -71,6 +71,14 @@ function App() {
         Socket.on("connection",()=>{
             // setSocketConnected(true);
     })}
+
+    if(searchUserState.currentOpenChat){
+      localStorage.setItem("currChatId",searchUserState.currentOpenChat._id);
+    }
+
+    else{
+        localStorage.removeItem("currChatId");
+    }
   }, [UserState.data])
 
 
@@ -88,23 +96,28 @@ function App() {
   //   // dispatch(fetchUserSuccess(u));
   // }, [])
 
+  
+
+  
+
   useEffect(() => {
     Socket?.on("message received", (newMessage) => {
-      // if(newMessage._id===searchUserState.cu)
-      // console.log({newMessage})
 
-      const updatedMessages = [...searchUserState.messages, newMessage];
-      dispatch(setMessages(updatedMessages));
-      // if(searchUserState.currentOpenChat && newMessage.chat._id === searchUserState.currentOpenChat._id){
-      //   const updatedMessages = [...searchUserState.messages, newMessage];
-      //   dispatch(setMessages(updatedMessages));
-      // }
-      // else{
-      //   return;
-      // }
+      if(localStorage.getItem("currChatId") && String(newMessage.chat._id) === String(localStorage.getItem("currChatId"))){
+        console.log({newMessage})
+        const updatedMessages = [...searchUserState.messages, newMessage];
+        dispatch(setMessages(updatedMessages));
+      }
+      else{
+        console.log({newMessage})
+        console.log("setting notifications");
+        dispatch(setTheNotifications(newMessage.chat._id,1));
+        dispatch(fetchAllChats());
+        return;
+      }
 
     })
-  }, [searchUserState.messages])
+  }, [searchUserState.messages]);
 
   // useEffect(()=>{
   //   if(arrivalMessage!==null)

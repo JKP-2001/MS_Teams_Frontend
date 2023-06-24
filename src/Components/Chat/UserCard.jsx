@@ -27,7 +27,7 @@ const UserCard = (props) => {
     return (
         <>  
             
-            <div className="relative my-1 px-1 w-full min-[713px]:w-full hover:cursor-pointer" onClick={handleClick} >
+            <div className="relative my-1 px-1 w-full min-[713px]:w-full hover:cursor-pointer" onClick={()=>handleClick} >
                     
                     <article className="overflow-auto rounded-lg border-2 
             hover:shadow-xl bg-white">

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const SideBarFriend = (props) => {
 
+  console.log(props.notifications)
+
   const dispatch = useDispatch();
 
   const searchedUsers = useSelector((state) => state.searchedUsers);
@@ -22,9 +24,9 @@ const SideBarFriend = (props) => {
           <div className="lastMessage text-xs">{props.lastMessangerName ? props.lastMessangerName : null} {props.lastMessage ? ": " + props.lastMessage : null}</div>
         </div>
         <div className="time relative flex-grow mt-2">
-          <div className="text-xs absolute right-6">{"12:00"}</div>
+          <div className="text-xs absolute right-10">{"12:00"}</div>
         </div>
-        <Badge color="red" className="absolute top-2 right-3"/>
+        {props.notifications>0 && <Badge color="green" className="absolute top-4 right-5 h-0 w-0" content={props.notifications.toString()}/>}
         </div>
     </>
   )
