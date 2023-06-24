@@ -6,15 +6,45 @@ import ChatSideBar from './ChatSideBar'
 import SideBar2 from './SideBar2'
 import Conversation from './Conversation'
 import SideDrawer from './SideDrawer'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllChats } from '../../Redux/SearchUser/searchUserSlice'
 
+import { io } from 'socket.io-client';
+import { useState } from 'react'
+import { getUserAssignments, getUserProfile, userGroups } from '../../Redux/authentication/authSlice'
+
+
+
+
 const ChatPage = () => {
+
+    const[socketConnected,setSocketConnected] = useState(false);
+
     const dispatch = useDispatch();
 
+    const UserState = useSelector((state) => state.auth);
+
+
+    
+
+
     useEffect(() => {
-        dispatch(fetchAllChats());    
-    }, [])
+
+        dispatch(getUserProfile());
+        // getUserProfileFetch();
+        dispatch(getUserAssignments());
+        dispatch(userGroups());
+
+
+        
+        dispatch(fetchAllChats());
+
+    },[])
+
+
+    useEffect(() => {
+        
+    },[])
 
     
 

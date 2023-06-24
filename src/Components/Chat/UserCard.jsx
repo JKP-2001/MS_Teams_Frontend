@@ -1,12 +1,34 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { fetchAllChats, fetchOrCreateChat, setAllChats } from '../../Redux/SearchUser/searchUserSlice';
+import { Badge, Button } from "@material-tailwind/react";
 
 const UserCard = (props) => {
     const params = useParams();
-    return (
-        <>
-            <div className="relative my-1 px-1 w-full min-[713px]:w-full">
+    const closeDrawer = props.closeDrawer;
 
+    const searchUserState = useSelector((state) => state.searchedUsers);
+
+
+
+    const dispatch = useDispatch();
+
+    const handleClick = () => { 
+
+        closeDrawer();
+        
+        if(props.userId){
+            dispatch(fetchOrCreateChat(props.userId));
+        }
+
+    }
+
+    return (
+        <>  
+            
+            <div className="relative my-1 px-1 w-full min-[713px]:w-full hover:cursor-pointer" onClick={handleClick} >
+                    
                     <article className="overflow-auto rounded-lg border-2 
             hover:shadow-xl bg-white">
                         {/* <div className="absolute flex justify-between right-3 p-1">
@@ -27,9 +49,7 @@ const UserCard = (props) => {
                             </div>
                         </footer>
                     </article>
-
             </div>
-
 
         </>
     )

@@ -6,11 +6,20 @@ import ChatSideBarFriend from '../ChatSideBarFriend';
 import SideBarFriend from './SideBarFriend';
 import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllChats } from '../../Redux/SearchUser/searchUserSlice';
+import { fetchAllChats, fetchAllMessages, fetchOrCreateChat } from '../../Redux/SearchUser/searchUserSlice';
+
+import { io } from 'socket.io-client';
+import { useState } from 'react';
+import { Socket } from '../../SocketClient';
+
+
+
 
 const ChatSideBar = (props) => {
 
     const dispatch = useDispatch();
+
+    
 
     useEffect(()=>{
         dispatch(fetchAllChats());
@@ -18,6 +27,14 @@ const ChatSideBar = (props) => {
 
     
     const chatState = useSelector((state) => state.searchedUsers);
+
+    const handleClickOnUser = (userId,chatId)=>{
+        dispatch(fetchOrCreateChat(userId));
+        dispatch(fetchAllMessages(chatId));
+        
+        Socket?.emit("join chat",(chatId));
+        
+    }
 
 
     return (
@@ -43,7 +60,7 @@ const ChatSideBar = (props) => {
                 </div> */}
                 <div className='divide-y-[0px] divide-black h-[100vh] overflow-y-auto mb-2'>
                     {chatState.allChats.map((c)=>{
-                        return (<SideBarFriend key={c._id} firstName={c.users[0].firstName} lastName={c.users[0].lastName} lastMessangerName={c.users[0].firstName} lastMessage={"hello google"}/>)
+                        return (<SideBarFriend key={c._id} chatId={c._id} firstName={c.users[0].firstName} lastName={c.users[0].lastName} lastMessangerName={c.latestMessage?c.latestMessage.sender===c.users[1]._id?c.users[1].firstName:c.users[0].firstName:""} lastMessage={c.latestMessage?c.latestMessage.content.length>20?c.latestMessage.content.slice(0,20)+"...":c.latestMessage.content:""} handleClickOnUser={handleClickOnUser} userid={c.users[0]._id}/>)
                     })}
                 </div>
             </div>

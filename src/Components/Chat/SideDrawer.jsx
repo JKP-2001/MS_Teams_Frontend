@@ -9,7 +9,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import ChatSideBar from "./ChatSideBar";
 
 import { Input } from "@material-tailwind/react";
-import { fetchSearchUser, setSearchUser } from "../../Redux/SearchUser/searchUserSlice";
+import { fetchAllChats, fetchSearchUser, setSearchUser } from "../../Redux/SearchUser/searchUserSlice";
 import { useDispatch, useSelector } from "react-redux";
 import UserCard from "./UserCard";
 
@@ -61,7 +61,7 @@ export default function SideDrawer(props) {
                 </div>
                 <div className="mt-4">
                     {searchUserState.users.length>0 ? searchUserState.users.map((user) => {
-                        return(<UserCard key={user._id} name={user.firstName+" "+user.lastName} email={user.email}/>)
+                        return(<UserCard key={user._id} userId={user._id} name={user.firstName+" "+user.lastName} email={user.email} closeDrawer={closeDrawer}/>)
                     }):null}
                 </div>
             </Drawer>

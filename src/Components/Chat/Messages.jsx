@@ -35,7 +35,7 @@ const Messages = (props) => {
           </div>
         </div>
         <div id="messageBottom" className="px-3 pb-3 break-all mt-[8px]">
-          <div className={props.own?"text-white":"text-slate-900"}>{"Helloo googk skjksjks jkks jjdnf jjfn Helloo googk skjksjks jkks jjdnf jjfnHelloo googk skjksjks jkks jjdnf jjfn"}</div>
+          <div className={props.own?"text-white":"text-slate-900"}>{props.m.content}</div>
         </div>
       </div>
     </div>

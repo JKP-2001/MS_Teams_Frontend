@@ -32,7 +32,7 @@ import AuthState from "./Context/AuthContext/AuthState"
 import Logout from "./Components/Auth/Logout"
 import CheckAuth from './Components/CheckAuth';
 import { setUser } from '@sentry/react';
-import { setUserAuthState } from './Redux/authentication/authSlice';
+import { getUserProfile, setUserAuthState } from './Redux/authentication/authSlice';
 import CreateAssignment from './Components/TeamsInternalComponents/MeetCards/CreateAssignment';
 import { fetchConversations } from './Redux/conversations/conversationActions';
 import { addmessage } from './Redux/messages/messageActions';
@@ -44,14 +44,41 @@ import Profile from './Components/TeamsInternalComponents/Profile';
 import ProtectedRoute from './Utils/ProtectedRoute';
 import CheckAssignment from './Components/TeamsInternalComponents/CheckAssignment';
 import ChatPage from './Components/Chat/ChatPage';
+import { setMessages } from './Redux/SearchUser/searchUserSlice';
 
 
 function App() {
   let [arrivalMessage, setArrivalMessage] = useState(null);
   // const { connectSocket, getMessage } = useContext(chatContext);
-  const { user } = useSelector(state => { return state.user });
+  const UserState = useSelector(state => { return state.auth });
   const { messages } = useSelector(state => { return state.messages });
   const dispatch = useDispatch();
+
+  const searchUserState = useSelector(state => { return state.searchedUsers });
+
+  
+
+
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [])
+
+  useEffect(() => {
+    if (UserState.data !== null) {
+      Socket.emit("setup",UserState.data);
+        
+
+        Socket.on("connection",()=>{
+            // setSocketConnected(true);
+    })}
+  }, [UserState.data])
+
+
+  // useEffect(() => {
+
+  
+
+    
 
   // const u = useRef(user)
 
@@ -61,11 +88,23 @@ function App() {
   //   // dispatch(fetchUserSuccess(u));
   // }, [])
 
-  // useEffect(() => {
-  //   Socket?.on("getMessage", (message) => {
-  //     setArrivalMessage(message);
-  //   })
-  // }, [])
+  useEffect(() => {
+    Socket?.on("message received", (newMessage) => {
+      // if(newMessage._id===searchUserState.cu)
+      // console.log({newMessage})
+
+      const updatedMessages = [...searchUserState.messages, newMessage];
+      dispatch(setMessages(updatedMessages));
+      // if(searchUserState.currentOpenChat && newMessage.chat._id === searchUserState.currentOpenChat._id){
+      //   const updatedMessages = [...searchUserState.messages, newMessage];
+      //   dispatch(setMessages(updatedMessages));
+      // }
+      // else{
+      //   return;
+      // }
+
+    })
+  }, [searchUserState.messages])
 
   // useEffect(()=>{
   //   if(arrivalMessage!==null)

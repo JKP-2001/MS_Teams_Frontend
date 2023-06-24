@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import showToast from "../../Utils/showToast";
+import { io } from "socket.io-client";
+import { Socket } from "../../SocketClient";
 
 const initialState = {
     users:[],
     currentOpenChat:null,
-    allChats:[]
+    allChats:[],
+    messages:[],
 };
 
 const url = process.env.REACT_APP_BASE_DEV==="true"?process.env.REACT_APP_BASE_SOCKET_DEV_URL:process.env.REACT_APP_BASE_SOCKET_URL;
@@ -27,15 +30,16 @@ const assignmentSlice = createSlice({
         },
         setAllChats(state,action){
             state.allChats = action.payload
+        },
+        setMessages(state,action){
+            state.messages = action.payload
         }
-
-
     }
 })
 
 const {reducer,actions} = assignmentSlice;
 
-export const {setSearchUser,setCurrentOpenChat,setAllChats} = actions;
+export const {setSearchUser,setCurrentOpenChat,setAllChats,setMessages} = actions;
 
 export default reducer;
 
@@ -96,3 +100,106 @@ export function fetchAllChats(){
         }
     }
 }
+
+
+export function fetchOrCreateChat(userId){
+    return async function fetchProductThunk(dispatch,getState){
+        try{
+            const response = await fetch(`${url}/chat`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'security-key': key,
+                    'auth-token':localStorage.getItem('token')
+                },
+                body:JSON.stringify({userId})
+            });
+            const json = await response.json();
+            if(!json.success){
+                // showToast({
+                //     msg:json.error.substring(json.error.indexOf(':') + 1),
+                //     type:"error",
+                //     duration:3000
+                // })
+            }
+            else{
+                dispatch(setCurrentOpenChat(json.details));
+                dispatch(fetchAllChats());
+            }
+        }catch(err){
+            console.log(err);
+        }
+    }
+}
+
+
+export function fetchAllMessages(chatId){
+    return async function fetchProductThunk(dispatch,getState){
+        try{
+            const response = await fetch(`${url}/chat/allchats/${chatId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'security-key': key,
+                    'auth-token':localStorage.getItem('token')
+                }
+            });
+            const json = await response.json();
+            if(!json.success){
+                // showToast({
+                //     msg:json.error.substring(json.error.indexOf(':') + 1),
+                //     type:"error",
+                //     duration:3000
+                // })
+            }
+            else{
+                dispatch(setMessages(json.details));
+            }
+        }catch(err){
+            console.log(err);
+        }
+    }
+}
+
+
+export function SendMessage(chatId,content){
+    return async function fetchProductThunk(dispatch,getState){
+        try{
+            const response = await fetch(`${url}/chat/chatting`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'security-key': key,
+                    'auth-token':localStorage.getItem('token')
+                },
+                body:JSON.stringify({chatId,content})
+            });
+            const json = await response.json();
+            if(!json.success){
+                // showToast({
+                //     msg:json.error.substring(json.error.indexOf(':') + 1),
+                //     type:"error",
+                //     duration:3000
+                // })
+            }
+            else{
+                let newMessage = json.details;
+                
+                Socket?.emit("new message",newMessage);
+                
+
+                let mesages = getState().searchedUsers.messages;
+                mesages = [...mesages];
+                mesages.push(newMessage);
+                dispatch(setMessages(mesages));
+                // console.log({mesages})
+
+                dispatch(fetchAllChats());
+            }
+        }catch(err){
+            console.log(err);
+        }
+    }
+}
+
+
