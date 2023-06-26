@@ -48,6 +48,8 @@ const ChatPage = () => {
         
     },[])
 
+    const [typing, setTyping] = useState(false);
+    const [isTyping, setIsTyping] = useState(false);
     
 
 
@@ -60,12 +62,12 @@ const ChatPage = () => {
                 <div className={`min-[768px]:ml-[90px] mt-[60px] grid-cols-1 `}>
                     <div className="flex">
                         <div className=''>
-                            <SideDrawer />
+                            <SideDrawer isTyping={isTyping}/>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <Conversation />
+                    <Conversation typing={typing} setIsTyping={setIsTyping} isTyping={isTyping} setTyping={setTyping}/>
                 </div>
             </div>
         </div>

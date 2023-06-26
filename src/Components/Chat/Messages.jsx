@@ -1,10 +1,19 @@
 import React from 'react'
 import "./Messages.css";
+import { useState } from 'react';
 
 const Messages = (props) => {
 
     const user = {firstName:"Jitendra", lastName:"Pandey"}
     const friend = {firstName:"Bittu", lastName:"Kumar"}
+
+    const options = { day: '2-digit', month: 'numeric', year: 'numeric' };
+
+    const [date,setDate] = useState(new Date(props.m.createdAt).toLocaleDateString('en-GB', options))
+
+    const [time,setTime] = useState(new Date(props.m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
+
+
     
   return (
     <div
@@ -24,14 +33,14 @@ const Messages = (props) => {
       >
         <div id="messageTop" className="flex w-[100%] justify-between ">
           <div id="messageSender" className=" px-3 text-[15px] font-medium">
-            <span className={props.own?"text-white mt-2":"text-slate-900 mt-1"}>{props.own?user.firstName+" "+user.lastName:friend.firstName+" "+friend.lastName}</span>
+            {/* <span className={props.own?"text-white mt-2":"text-slate-900 mt-1"}>{props.own?user.firstName+" "+user.lastName:friend.firstName+" "+friend.lastName}</span> */}
           </div>
           <div
             id="messageTime"
             className="flex justify-end  gap-3 px-3 font-light text-sm "
           >
-            <div className={props.own?"text-white":"text-slate-900"+" text-[15px]"}>{"20-11-2001"}</div>
-            <div className={props.own?"text-white":"text-slate-900"+" text-[15px]"}>{"12:00"}</div>
+            <div className={props.own?"text-white":"text-slate-900"+" text-[15px]"}>{date}</div>
+            <div className={props.own?"text-white":"text-slate-900"+" text-[15px]"}>{time}</div>
           </div>
         </div>
         <div id="messageBottom" className="px-3 pb-3 break-all mt-[8px]">

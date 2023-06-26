@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import { getGrpItems } from '../../../Redux/Group/groupSlice'
 import showToast from '../../../Utils/showToast'
 import { getPostItemsArray } from '../../../Redux/Post/postSlice'
+import { Socket } from '../../../SocketClient'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -40,6 +41,8 @@ export default function DropDownMenu(props) {
       })
     }
     dispatch(getGrpItems(id));
+
+    Socket?.emit("group message detected",({grpId:localStorage.getItem('currGrpId'),msg:"delete"}));
   }
 
   const handleEdit = () => {

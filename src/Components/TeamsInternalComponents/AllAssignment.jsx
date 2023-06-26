@@ -8,11 +8,14 @@ import { useLocation } from 'react-router-dom'
 import { getUserAssignments, getUserCompAssignments, getUserProfile, userGroups } from '../../Redux/authentication/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { setToInitial } from '../../Redux/Group/groupSlice'
+import { Socket } from '../../SocketClient'
 
 const AllAssignment = () => {
 
   const [isassign, setIsAssign] = useState(true);
   const dispatch = useDispatch();
+
+  const UserState = useSelector((state) => state.auth);
 
   const clickAssign = () => {
     setIsAssign(true);
@@ -40,6 +43,24 @@ const AllAssignment = () => {
       dispatch(getUserCompAssignments());
     }
   }, [])
+
+
+  useEffect(() => {
+    console.log("Arrival Assignment");
+    Socket?.on("Assignment Assign", (data) => {
+      console.log({msg:"Assignment Assigned Hitted"});
+      let len = data.members.length;
+
+      for(let i=0;i<len;i++){
+        if(String(data.members[i]._id)===String(UserState.data._id)){
+          dispatch(getUserAssignments());
+          break;;
+        }
+      }
+
+    });
+  }, [])
+    
 
   const { auth } = useSelector((state) => {
     return state;

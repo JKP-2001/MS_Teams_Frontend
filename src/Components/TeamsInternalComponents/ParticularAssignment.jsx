@@ -21,6 +21,7 @@ import showToast from '../../Utils/showToast';
 import SubmissionCard from './MeetCards/SubmissionCard';
 import AuthState from '../../Context/AuthContext/AuthState';
 import { toast } from 'react-hot-toast';
+import { Socket } from '../../SocketClient';
 
 
 const MAX_COUNT = 5;
@@ -66,6 +67,25 @@ const ParticularAssignment = () => {
         setSee(true);
         // dispatch(setToInitial());
     }, [])
+
+
+    useEffect(() => {
+        
+
+        
+            
+        console.log('it runs');
+
+        Socket?.on("Assignment Submit",(data)=>{
+
+            console.log({data});
+
+            if(data.assId === params.postid){
+                dispatch(getSubInfo(data.assId));
+            }
+        })
+    },[]);
+
 
     const options = {
         weekday: "long",
@@ -200,6 +220,8 @@ const ParticularAssignment = () => {
                     top: document.documentElement.scrollHeight,
                 });
 
+                Socket.emit('assignment submit',{assId:id})
+
                 return "Turn in successfully.";
             },
             error: 'Uh oh, there was an error!',
@@ -228,11 +250,14 @@ const ParticularAssignment = () => {
         console.log({ response })
 
         if (response.success) {
+
+            Socket.emit('assignment submit',{assId:id})
+
             toast.success('Turn off successfully.', {
                 id: loadingToast,
             });
 
-
+            
             setLoading(false);
             dispatch(getAssignmentOfAGrp(id));
             dispatch(getLoginUserData(params.postid, UserState.data._id));
@@ -241,7 +266,7 @@ const ParticularAssignment = () => {
             window.scrollTo({
                 top: document.documentElement.scrollHeight,
             });
-
+            
 
         }
         else {
@@ -251,7 +276,7 @@ const ParticularAssignment = () => {
         }
     }
 
-    console.log({ email: grpState.adminsEmail })
+    
 
 
 

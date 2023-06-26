@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useNavigate
+  useNavigate,
+  useParams
 } from "react-router-dom";
 import RenderingFirst from "./Components/RenderingPages/RenderingFirst";
 import Chats from './Pages/Chats';
@@ -32,7 +33,7 @@ import AuthState from "./Context/AuthContext/AuthState"
 import Logout from "./Components/Auth/Logout"
 import CheckAuth from './Components/CheckAuth';
 import { setUser } from '@sentry/react';
-import { getUserProfile, setUserAuthState } from './Redux/authentication/authSlice';
+import { getUserAssignments, getUserProfile, setUserAuthState } from './Redux/authentication/authSlice';
 import CreateAssignment from './Components/TeamsInternalComponents/MeetCards/CreateAssignment';
 import { fetchConversations } from './Redux/conversations/conversationActions';
 import { addmessage } from './Redux/messages/messageActions';
@@ -45,6 +46,8 @@ import ProtectedRoute from './Utils/ProtectedRoute';
 import CheckAssignment from './Components/TeamsInternalComponents/CheckAssignment';
 import ChatPage from './Components/Chat/ChatPage';
 import { fetchAllChats, setMessages, setTheNotifications } from './Redux/SearchUser/searchUserSlice';
+import { getGrpItems } from './Redux/Group/groupSlice';
+import showToast from './Utils/showToast';
 
 
 function App() {
@@ -58,10 +61,17 @@ function App() {
 
   
 
+  // const params = useParams
+
+  
+
 
   useEffect(() => {
     dispatch(getUserProfile());
   }, [])
+
+
+  
 
   useEffect(() => {
     if (UserState.data !== null) {
@@ -100,16 +110,24 @@ function App() {
 
   
 
+  /* This `useEffect` hook is listening for incoming messages from the server through a socket
+  connection. When a new message is received, it checks if the current chat ID matches the chat ID
+  of the incoming message. If they match, it updates the messages in the current chat with the new
+  message and fetches all chats. If they don't match, it sets a notification for the chat with the
+  new message and fetches all chats. The `searchUserState.messages` dependency is used to trigger
+  the effect whenever there is a change in the messages state. */
+  
   useEffect(() => {
     Socket?.on("message received", (newMessage) => {
 
       if(localStorage.getItem("currChatId") && String(newMessage.chat._id) === String(localStorage.getItem("currChatId"))){
-        console.log({newMessage})
+        
         const updatedMessages = [...searchUserState.messages, newMessage];
         dispatch(setMessages(updatedMessages));
+        dispatch(fetchAllChats());
+        return;
       }
       else{
-        console.log({newMessage})
         console.log("setting notifications");
         dispatch(setTheNotifications(newMessage.chat._id,1));
         dispatch(fetchAllChats());
@@ -118,6 +136,9 @@ function App() {
 
     })
   }, [searchUserState.messages]);
+
+
+  
 
   // useEffect(()=>{
   //   if(arrivalMessage!==null)

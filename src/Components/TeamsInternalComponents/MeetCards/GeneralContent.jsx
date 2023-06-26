@@ -28,6 +28,9 @@ const GeneralContent = (props) => {
     const {createGrpPost} = useContext(GrpContext)
     const grpstate = useSelector((state)=> state.group);
     let itemsArray = grpstate.grpItems;
+
+    const bottomRef = useRef(null);
+
     const onTop = () => {
         window.scrollTo({
             top: document.documentElement.scrollHeight,
@@ -42,7 +45,13 @@ const GeneralContent = (props) => {
         dispatch(getGrpItems(id));
         dispatch(getUserProfile());
     },[])
+    
 
+    useEffect(() => {
+
+        bottomRef.current?.scrollIntoView();
+
+    }, []);
 
     const [value, setValue] = useState('');
     const [isConver, setIsConver] = useState(false);
@@ -116,6 +125,7 @@ const GeneralContent = (props) => {
                     <NewPostCard hidden={hidden} setHidden={setHidden} toggleModal={toggleModal} />
                 </div> */}
                 <GoToBottom />
+                <div ref={bottomRef} />
             </>)
     }   
     else{

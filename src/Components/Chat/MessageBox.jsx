@@ -31,14 +31,16 @@ const MessageBox = (props) => {
     useEffect(() => {
 
 
-        let chatId = localStorage.getItem("currChatId");
+        // let chatId = localStorage.getItem("currChatId");
 
-        console.log(chatId);
+        // console.log(chatId);
 
-        Socket.on("typing", () => {
+        Socket.on("typing", (chatId) => {
+            if(chatId !== localStorage.getItem("currChatId")) return;
             setIsTyping(true);
         });
-        Socket.on("stop typing", () => {
+        Socket.on("stop typing", (chatId) => {
+            if(chatId !== localStorage.getItem("currChatId")) return;
             setIsTyping(false);
         })
 
@@ -49,6 +51,12 @@ const MessageBox = (props) => {
     const detectChange = (e) => {
         setContent(e.target.value);
         props.bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+
+        if(e.target.value.length === 0) {
+            Socket?.emit("stop typing", localStorage.getItem("currChatId"));
+            setTyping(false);
+            return;
+        }
 
         if (!Socket) return;
 

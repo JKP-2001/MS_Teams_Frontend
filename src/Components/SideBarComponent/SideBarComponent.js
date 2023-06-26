@@ -49,10 +49,15 @@ export default function SideBarComponent() {
                     <div><NotificationsActiveOutlinedIcon /></div>
                     <div>Activity</div>
                 </button>
-                <button className='hover:bg-white ' onClick={() => { navigate("/chats") }}>
+                
+                
+                <button className={!currloc.includes("chats")?"hover:bg-white":"text-[#444791] bg-white"}  onClick={() => { navigate("/chats")}}>
                     <div><ChatBubbleOutlineOutlinedIcon /></div>
-                    <div>Chats</div>
+                    <div className={currloc.includes("chats")?"text-[#444791] font-bold":""}>Chats</div>
                 </button>
+
+
+
                 {currloc.includes("home") || currloc.includes("grp") ? <button className='bg-white text-[#444791]' onClick={() => setgrpState("general")}>
                     <Link to="/home"><div><GroupsOutlinedIcon /></div>
                         <div className='text-[#444791] font-bold '>Teams</div></Link>

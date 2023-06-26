@@ -14,6 +14,7 @@ import showToast from '../../../Utils/showToast'
 import { toast } from 'react-hot-toast'
 import EditAssignment from './EditAssignment'
 import { fetchAssignment } from '../../../Redux/Assignment/assignmentSlice'
+import { Socket } from '../../../SocketClient'
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -65,6 +66,9 @@ export default function AssignmentDropDown(props) {
                 if (data && !data.success) return `${data.error}`;
                 // console.log()
                 dispatch(getAssignmentOfAGrp(grpid));
+                
+                Socket?.emit("assignment detected",{grpId:localStorage.getItem("currGrpId"),msg:"added"});
+
                 return `${data.details}`;
             },
 

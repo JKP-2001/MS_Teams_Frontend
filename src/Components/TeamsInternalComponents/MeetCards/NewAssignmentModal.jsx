@@ -21,6 +21,7 @@ import DateTimePicker from 'react-datetime-picker';
 import BasicDateTimePicker from '../../BasicDateTimePicker';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
+import { Socket } from '../../../SocketClient';
 
 const Quill = ReactQuill.Quill;
 var Font = Quill.import("formats/font");
@@ -192,6 +193,7 @@ const NewAssignmentModal = (props) => {
             type: "success",
             duration: 3000
         })
+
         ref.current.value = "";
         setUploadedFiles([]);
         setData({ title: "" });
@@ -200,7 +202,11 @@ const NewAssignmentModal = (props) => {
         window.scrollTo({
             top: document.documentElement.scrollHeight,
         });
+        // Socket.emit
         // itemsArray = grpstate.grpItems.push(response);
+        Socket?.emit("assignment detected",{grpId:localStorage.getItem("currGrpId"),msg:"added"});
+
+        Socket?.emit("assignment assign",{grpId:localStorage.getItem("currGrpId"),members:grpstate.members});
     }
 
     useEffect(() => {

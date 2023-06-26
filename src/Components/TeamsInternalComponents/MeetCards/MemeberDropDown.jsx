@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addMemberToGroup, getGrpItems, getMembers } from '../../../Redux/Group/groupSlice'
 import showToast from '../../../Utils/showToast'
 import { toast } from 'react-hot-toast'
+import { Socket } from '../../../SocketClient'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -40,11 +41,14 @@ export default function MemberDropDown(props) {
         if (!data.success) return;
         dispatch(getGrpItems(id));
         dispatch(getMembers(props.grpid));
+        Socket?.emit("member added", { grpId: localStorage.getItem('currGrpId'), email: props.email });
         return `${props.email} added to admin.`;
       },
       error: 'Uh oh, there was an error!',
       duration:1000
     });
+
+    
 
   }
 
@@ -59,6 +63,7 @@ export default function MemberDropDown(props) {
         if (!data.success) return;
         dispatch(getGrpItems(id));
         dispatch(getMembers(props.grpid));
+        Socket?.emit("member added", { grpId: localStorage.getItem('currGrpId'), email: props.email });
         return `${props.email} removed from admin.`;
       },
       error: 'Uh oh, there was an error!',
@@ -78,6 +83,7 @@ export default function MemberDropDown(props) {
 
   const handleLeaveOrRemove = (email) => {
     dispatch(addMemberToGroup(id, email, 'delete'));
+    Socket?.emit("member added", { grpId: localStorage.getItem('currGrpId'), email: email});
     if (email === authState.data.email) {
       Navigate('/home');
     }

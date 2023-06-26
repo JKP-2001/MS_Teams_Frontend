@@ -16,6 +16,7 @@ import { useParams } from 'react-router-dom';
 import { getGrpItems } from '../../../Redux/Group/groupSlice';
 import Item from './Item';
 import { deleteFromPostItemsArray, getPostItemsArray } from '../../../Redux/Post/postSlice';
+import { Socket } from '../../../SocketClient';
 
 const Quill = ReactQuill.Quill;
 var Font = Quill.import("formats/font");
@@ -134,6 +135,9 @@ const EditPostCard = (props) => {
         setUploadedFiles([]);
         dispatch(getGrpItems(id));
         dispatch(getPostItemsArray(props.index));
+
+        Socket?.emit("group message detected",({grpId:localStorage.getItem('currGrpId'),msg:"update"}));
+
         // if(response.success){
         //     setValue(value);
         //     showToast({

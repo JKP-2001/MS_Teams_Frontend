@@ -26,6 +26,8 @@ import AllMembers from './MeetCards/AllMembers'
 import AssignmentForm from './MeetCards/AssignmentForm'
 import ReactForm from './MeetCards/ReactForm'
 import NewAssignmentModal from './MeetCards/NewAssignmentModal'
+import { Socket } from '../../SocketClient'
+import showToast from '../../Utils/showToast'
 
 export default function GeneralComponent(props) {
 
@@ -55,8 +57,89 @@ export default function GeneralComponent(props) {
     dispatch(getMembers(grpid));
     dispatch(getAssignmentOfAGrp(grpid));
     setIsAssign(true)
+
     
-  }, [Grpstate.assignmentPosted.length])
+    
+  }, [Grpstate.assignmentPosted.length]);
+
+
+
+  useEffect(()=>{
+    Socket?.on("group message received",(data)=>{
+
+      // console.log({id:grpid});
+      // console.log({dataId:data.grpId});
+      
+      if(localStorage.getItem('currGrpId') && String(localStorage.getItem('currGrpId')) === String(data.grpId)){
+        dispatch(getGrpItems(data.grpId));
+
+        // const displayText = data.msg=="new"?"New post added":data.msg=="delete"?"Post Deleted":"Post Updated";
+        // showToast({
+        //   msg:displayText,
+        //   duration:2000,
+        //   type:"success"
+        // })
+        return;
+      }
+
+    });
+  },[]);
+
+
+  useEffect(()=>{
+    Socket?.on("assignment received",(data)=>{
+
+      // console.log({id:grpid});
+      // console.log({dataId:data.grpId});
+      
+      if(localStorage.getItem('currGrpId') && String(localStorage.getItem('currGrpId')) === String(data.grpId)){
+        dispatch(getAssignmentOfAGrp(data.grpId));
+        
+        // showToast({
+        //   msg:"New Assignment Added or Updated",
+        //   duration:2000,
+        //   type:"success"
+        // })
+
+      }
+
+      return;
+
+    });
+    return;
+  },[]);
+
+
+  useEffect(()=>{
+    Socket?.on("member added to grp",(data)=>{
+      if(localStorage.getItem('currGrpId') && String(localStorage.getItem('currGrpId')) === String(data.grpId)){
+        dispatch(getMembers(data.grpId));
+        // showToast({
+        //   msg:`${data.email} Added`,
+        //   duration:2000,
+        //   type:"success"
+        // })
+      }
+      return;
+    });
+  },[]);
+
+  useEffect(()=>{
+    Socket?.on("code resetted",(data)=>{
+      if(localStorage.getItem('currGrpId') && String(localStorage.getItem('currGrpId')) === String(data.grpId)){
+        dispatch(getGrpDetails(data.grpId));
+        // showToast({
+        //   msg:`${data.email} Added`,
+        //   duration:2000,
+        //   type:"success"
+        // })
+      }
+      return;
+    });
+  },[]);
+
+  
+
 
   
 

@@ -20,6 +20,7 @@ import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { MobileDateTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import { deleteFromFileArray, fetchAssignment } from '../../../Redux/Assignment/assignmentSlice';
+import { Socket } from '../../../SocketClient';
 
 const Quill = ReactQuill.Quill;
 var Font = Quill.import("formats/font");
@@ -165,6 +166,8 @@ const EditAssignment = (props) => {
         setUploadedFiles([]);
         dispatch(getGrpItems(id));
         dispatch(getAssignmentOfAGrp(id));
+
+        Socket?.emit("assignment detected",{grpId:localStorage.getItem("currGrpId"),msg:"added"});
         // if(response.success){
         //     setValue(value);
         //     showToast({

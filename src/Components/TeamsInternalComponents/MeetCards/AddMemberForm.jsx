@@ -9,6 +9,7 @@ import RestartAltOutlinedIcon from '@mui/icons-material/RestartAltOutlined';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import { toast } from 'react-hot-toast';
 import { userGroups } from '../../../Redux/authentication/authSlice';
+import { Socket } from '../../../SocketClient';
 
 const AddMemberForm = (props) => {
   const { createAGrp, resetGrpCode, addMemberToGroup } = useContext(GrpContext);
@@ -55,6 +56,8 @@ const AddMemberForm = (props) => {
         type: 'success',
         duration: 3000
       })
+
+      Socket?.emit("member added", { grpId: props.id, email: data.email });
     }
   }
 
@@ -88,6 +91,8 @@ const AddMemberForm = (props) => {
       })
 
       dispatch(getGrpDetails(id));
+
+      Socket?.emit("code reset", { grpId: id });
     }
   }
 

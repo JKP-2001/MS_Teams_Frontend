@@ -18,6 +18,7 @@ import { useParams } from 'react-router-dom';
 import { getGrpItems } from '../../../Redux/Group/groupSlice';
 import { RemoveCircleOutline } from '@mui/icons-material';
 import Item from './Item';
+import { Socket } from '../../../SocketClient';
 
 const Quill = ReactQuill.Quill;
 var Font = Quill.import("formats/font");
@@ -163,6 +164,7 @@ const NewPostCard = (props) => {
         window.scrollTo({
             top: document.documentElement.scrollHeight,
         });
+        Socket?.emit("group message detected",({grpId:localStorage.getItem('currGrpId'),msg:"new"}));
         // itemsArray = grpstate.grpItems.push(response);
     }
 
