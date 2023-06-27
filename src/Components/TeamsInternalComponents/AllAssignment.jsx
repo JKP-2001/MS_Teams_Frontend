@@ -75,7 +75,7 @@ const AllAssignment = () => {
         </div>
         <div className="min-[713px]:ml-[90px] mt-[48px] bg-[#f5f5f5]  justify-center items-center flex">
           {/* <div ><SecondNav/></div> */}
-          <div className="p-2 min-[713px]:ml-[70px] px-4 justify-center items-center fixed top-10 bg-[#f5f5f5] w-screen border-b-gray-200 border-b-[1px]">
+          <div className="p-2 min-[713px]:ml-[70px] px-4 justify-center items-center  z-20 fixed top-10 bg-[#f5f5f5] w-screen border-b-gray-200 border-b-[1px]">
             <div className="flex space-x-4 pt-3 ">
               {isassign ? <div className="assigned">
                 <span className='text-[#444791] text-sm font-semibold cursor-pointer border-b-[3px] border-indigo-500' onClick={() => clickAssign()}>Assigned</span>

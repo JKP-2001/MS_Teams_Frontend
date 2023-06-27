@@ -69,7 +69,7 @@ const ChatSideBar = (props) => {
                 <div className='divide-y-[0px] divide-black h-[100vh] overflow-y-auto mb-2'>
                     {chatState.allChats.map((c,i)=>{
                         // console.log(chatState.notifications[i].notifications)
-                        console.log({length:c.latestMessage.content.length})
+                        // console.log({length:c.latestMessage.content.length})
                         return (<SideBarFriend key={c._id} chatId={c._id} firstName={c.users[0].firstName} lastName={c.users[0].lastName} lastMessangerName={c.latestMessage?c.latestMessage.sender===c.users[1]._id?c.users[1].firstName:c.users[0].firstName:""} lastMessage={c.latestMessage?c.latestMessage.content.length>10?c.latestMessage.content.slice(0,10)+"...":c.latestMessage.content:""} handleClickOnUser={handleClickOnUser} userid={c.users[0]._id} notifications={chatState?chatState.notifications[i].notifications:0} index={i} lastMessageCreatedAt={c.latestMessage?c.latestMessage.createdAt:""}/>)
                     })}
                 </div>
