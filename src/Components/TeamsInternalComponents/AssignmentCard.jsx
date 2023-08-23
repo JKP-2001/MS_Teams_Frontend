@@ -29,13 +29,13 @@ const AssignmentCard = (props) => {
   }
 
   return (
-    <div className="relative card my-[6px] rounded-xl bg-white hover:shadow-xl border-[3px] hover:cursor-pointer" onClick={handleClick}>
+    <div className="relative card my-[6px] rounded-xl bg-white hover:shadow-xl border-[3px] hover:cursor-pointer" >
       <div className="absolute flex justify-between right-2">
         <div></div>
         {props.postId ? <AssignmentDropDown ass_id={props.ass_id} owner={owner} deadline={props.deadline} title={props.title} files={props.files} inst={props.instruction}/> : null}
       </div>
   
-        <div className="flex item">
+        <div className="flex item" onClick={handleClick}>
           <div className="grp_image mx-4 pt-[32px]">
             <div className="account"><img className="rounded-2xl " src={grp_icon} alt="" /></div>
           </div>

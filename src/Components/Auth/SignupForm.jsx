@@ -62,7 +62,7 @@ const SignupForm = (props) => {
         <>
             <title>Create acount</title>
             {alert && <Alert alert={alert} />}
-            <section className="bg-gray-50 dark:bg-[#e6dad6] h-auto py-40 pb-20 md:py-0">
+            <section className="bg-gray-50 dark:bg-gray-200 h-auto py-40 pb-20 md:py-0">
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -74,20 +74,20 @@ const SignupForm = (props) => {
 
                             <form className="space-y-4 md:space-y-6" action="#">
                                 <div>
-                                    <label htmlFor="first name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-                                    <input type="text" name="firstName" id="first name" placeholder="First Name" value={user.firstName} onChange={detectChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                                    <label htmlFor="first name" className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">First Name</label>
+                                    <input type="text" name="firstName" id="first name" placeholder="First Name" value={user.firstName} onChange={detectChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 font-semibold" required="" />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="last name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-                                    <input type="text" name="lastName" id="last name" placeholder="Last Name" value={user.lastName} onChange={detectChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                                    <label htmlFor="last name" className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Last Name</label>
+                                    <input type="text" name="lastName" id="last name" placeholder="Last Name" value={user.lastName} onChange={detectChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 font-semibold" required="" />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Email</label>
-                                    <input type="email" name="email" id="email" value={user.email} onChange={detectChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
+                                    <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-900 dark:text-white">Enter Email</label>
+                                    <input type="email" name="email" id="email" value={user.email} onChange={detectChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 font-semibold" placeholder="name@company.com" required="" />
                                 </div>
-                                {user.email === "" || user.firstName === "" || user.lastName === "" ? <div type="submit" className="opacity-40 w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Submit</div> :
+                                {user.email === "" || user.firstName === "" || user.lastName === "" ? <div type="submit" className="opacity-40 w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Submit</div> :
                                     !loading ? <button type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={submit}>Submit</button> :
                                         <button disabled type="button" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 inline-flex items-center justify-center">
                                             <svg aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -96,8 +96,8 @@ const SignupForm = (props) => {
                                             </svg>
                                             <div className='text-center'>Loading...</div>
                                         </button>}
-                                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                    Already have an account ? <Link to="/login" className="font-medium text-blue-600 hover:underline dark:text-primary-500">Sign in</Link>
+                                <p className="text-sm font-semibold text-gray-500 dark:text-gray-400">
+                                    Already have an account ? <Link to="/login" className="font-semibold text-blue-600 hover:underline dark:text-primary-500">Sign in</Link>
                                 </p>
                             </form>
                         </div>

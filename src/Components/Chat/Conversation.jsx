@@ -1,5 +1,6 @@
 // import { Label } from '@mui/icons-material'
 import React, { useState } from 'react'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { PermMedia, Label, Room, EmojiEmotions } from "@mui/icons-material"
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
@@ -36,6 +37,7 @@ const Conversation = (props) => {
     const isTyping = props.isTyping;
     const setIsTyping = props.setIsTyping;
 
+    // const 
 
     const chatState = useSelector((state) => state.searchedUsers);
 
@@ -67,6 +69,12 @@ const Conversation = (props) => {
 
 
 
+    useEffect(() => {
+
+        // let chatId = localStorage.getItem("currChatId");
+
+        
+    }, []);
 
 
 
@@ -89,10 +97,11 @@ const Conversation = (props) => {
             <div id='conversation' className='fixed top-[60px] left-[20px] md:left-[450px] right-4 h-[100vh] bg-[#ffffff] border-[3px] rounded-lg shadow-lg'>
                 <div id='conversationTop' className='flex items-center border-b-[1px] border-gray-300 h-[65px]'>
                     <div className='flex w-1/2  items-center space-x-3'>
+                        <ArrowBackIcon fontSize='medium' className='mx-2 cursor-pointer' />
                         <img className='h-[40px] w-[43px] rounded-full ml-3 cursor-pointer' src={"https://picsum.photos/32/32/?random"} alt="Lakshya" />
                         <div className=' '>
                             <div className='font-medium text-[20px] cursor-pointer'>
-                                {chatState.currentOpenChat.users[0].firstName + " " + chatState.currentOpenChat.users[0].lastName}
+                                {chatState.currentOpenChat.users[1].firstName + " " + chatState.currentOpenChat.users[1].lastName}
                             </div>
                             {isTyping ? <div className='font-medium text-xs text-green-500'>
                                 {"typing..."}

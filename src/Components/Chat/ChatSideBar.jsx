@@ -46,7 +46,7 @@ const ChatSideBar = (props) => {
 
 
     return (
-        chatState && chatState.notifications.length>0 && <div>
+        (chatState && chatState.notifications.length>0) ? <div>
             <div id='z-10 hidden md:block chatSideBar' className='fixed border-[#b7b3b36d]  left-[80px] top-[60px] w-[230px] md:w-[350px] flex flex-col bg-[#f0f0f0] min-h-screen border-r-2 shadow-xl border-2 rounded-md'>
                 <div id='chatSideBarTop' className='flex items-center border-b-[1px] border-gray-300 p-4' style={{ "color": "#242424" }}>
                     <div className='w-1/2 justify-start px-3 text-3xl font-mono'>
@@ -74,6 +74,21 @@ const ChatSideBar = (props) => {
                     })}
                 </div>
             </div>
+        </div>:
+        <div id='z-10 hidden md:block chatSideBar' className='fixed border-[#b7b3b36d]  left-[80px] top-[60px] w-[230px] md:w-[350px] flex flex-col bg-[#f0f0f0] min-h-screen border-r-2 shadow-xl border-2 rounded-md'>
+        <div id='chatSideBarTop' className='flex items-center border-b-[1px] border-gray-300 p-4' style={{ "color": "#242424" }}>
+            <div className='w-1/2 justify-start px-3 text-3xl font-mono'>
+                Chat
+            </div>
+            <div className='w-1/2 flex items-center justify-end space-x-3 px-3'>
+                <div>
+                    <FilterListOutlinedIcon />
+                </div>
+                <div>
+                    <SearchIcon onClick={props.openDrawer} className='hover:cursor-pointer'/>
+                </div>
+            </div>
+        </div>
         </div>
     )
         

@@ -18,14 +18,14 @@ import { getUserAssignments, getUserProfile, userGroups } from '../../Redux/auth
 
 const ChatPage = () => {
 
-    const[socketConnected,setSocketConnected] = useState(false);
+    const [socketConnected, setSocketConnected] = useState(false);
 
     const dispatch = useDispatch();
 
     const UserState = useSelector((state) => state.auth);
 
 
-    
+
 
 
     useEffect(() => {
@@ -36,21 +36,21 @@ const ChatPage = () => {
         dispatch(userGroups());
 
 
-        
+
         dispatch(fetchAllChats());
 
         dispatch(fetchNotifications());
 
-    },[])
+    }, [])
 
 
     useEffect(() => {
-        
-    },[])
+
+    }, [])
 
     const [typing, setTyping] = useState(false);
     const [isTyping, setIsTyping] = useState(false);
-    
+
 
 
     return (
@@ -62,12 +62,12 @@ const ChatPage = () => {
                 <div className={`min-[768px]:ml-[90px] mt-[60px] grid-cols-1 `}>
                     <div className="flex">
                         <div className=''>
-                            <SideDrawer isTyping={isTyping}/>
+                            <SideDrawer isTyping={isTyping} />
                         </div>
                     </div>
                 </div>
                 <div>
-                    <Conversation typing={typing} setIsTyping={setIsTyping} isTyping={isTyping} setTyping={setTyping}/>
+                    <Conversation typing={typing} setIsTyping={setIsTyping} isTyping={isTyping} setTyping={setTyping} />
                 </div>
             </div>
         </div>
