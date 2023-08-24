@@ -18,6 +18,9 @@ import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlin
 import TourOutlinedIcon from '@mui/icons-material/TourOutlined';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import NotesIcon from '@mui/icons-material/Notes';
+
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
 import { useDispatch } from 'react-redux';
 
@@ -49,11 +52,11 @@ export default function SideBarComponent() {
                     <div><NotificationsActiveOutlinedIcon /></div>
                     <div>Activity</div>
                 </button>
-                
-                
-                <button className={!currloc.includes("chats")?"hover:bg-white":"text-[#444791] bg-white"}  onClick={() => { navigate("/chats")}}>
+
+
+                <button className={!currloc.includes("chats") ? "hover:bg-white" : "text-[#444791] bg-white"} onClick={() => { navigate("/chats") }}>
                     <div><ChatBubbleOutlineOutlinedIcon /></div>
-                    <div className={currloc.includes("chats")?"text-[#444791] font-bold":""}>Chats</div>
+                    <div className={currloc.includes("chats") ? "text-[#444791] font-bold" : ""}>Chats</div>
                 </button>
 
 
@@ -76,7 +79,7 @@ export default function SideBarComponent() {
 
                 <button className='hover:bg-white '>
                     <Link to="/notes"><div><CalendarMonthOutlinedIcon /></div>
-                    <div>Notes</div></Link>
+                        <div>Notes</div></Link>
                 </button>
                 <button className='hover:bg-white '>
                     <div><CallOutlinedIcon /></div>
@@ -129,15 +132,37 @@ export default function SideBarComponent() {
                         }
 
 
-                        <Link to="/"><div className="item1">
-                            <HomeOutlinedIcon fontSize='medium' />
-                            <div className='text-[10px]'>Home</div>
-                        </div></Link>
+                        {currloc.includes("chats") ?
+                            <Link to="/chats">
+                                <div className=" item1  text-[#444791] items-center" onClick={() => setgrpState("chats")}>
+                                    <ChatBubbleOutlineIcon className='ml-4' fontSize='medium' />
+                                    <div className='text-[10px] ml-4'>Chats</div>
+                                </div>
+                            </Link>
+                            :
+                            <Link to="/chats">
+                                <div className=" item1  items-center" onClick={() => setgrpState("chats")}>
+                                    <ChatBubbleOutlineIcon className='ml-4' fontSize='medium' />
+                                    <div className='text-[10px] ml-4'>Chats</div>
+                                </div>
+                            </Link>
+                        }
 
-                        <div className="item1 items-center">
-                            <GroupsOutlinedIcon className='ml-2' fontSize='medium' />
-                            <div className='text-[10px]'>Trending</div>
-                        </div>
+                        {currloc.includes("notes") ?
+                            <Link to="/notes">
+                                <div className=" item1  text-[#444791] items-center" onClick={() => setgrpState("notes")}>
+                                    <NotesIcon className='ml-4' fontSize='medium' />
+                                    <div className='text-[10px] ml-4'>Notes</div>
+                                </div>
+                            </Link>
+                            :
+                            <Link to="/notes">
+                                <div className=" item1  items-center" onClick={() => setgrpState("notes")}>
+                                    <NotesIcon className='ml-4' fontSize='medium' />
+                                    <div className='text-[10px] ml-4'>Notes</div>
+                                </div>
+                            </Link>
+                        }
                         {/* <div className="item1">
                             <PersonAddAltIcon className="ml-3" fontSize='medium' />
                             <div className='text-[10px]'>Following</div>
