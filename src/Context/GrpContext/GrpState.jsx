@@ -489,9 +489,26 @@ const GrpState = (props) => {
         }
     }
 
+    const delNote = async(note_id)=>{
+        try{
+            const response = await fetch(`${url}/notes/delete`,{
+                method:'DELETE',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'security-key': key,
+                    'auth-token':localStorage.getItem('token')
+                },
+                body:JSON.stringify({id:note_id})
+            });
+            const json = await response.json();
+            return json;
+        }catch(err){
+            console.log(err);
+        }
+    }
 
     return (
-        <GrpContext.Provider value={{ grpState, addMemberToGroup, setgrpState, joinTeamByCode, createAGrp, click, setClick, createGrpPost, delAPost, editAGrpPost, addAdmin, removeAdmin, resetGrpCode, postAssignment, getAssignmentById, fetchKeyWordUser, keywordUsers, deleteAssignment, editAssignment, turnInAssignment, turnOffAssignment, editNote, addNote}}>
+        <GrpContext.Provider value={{ grpState, addMemberToGroup, setgrpState, joinTeamByCode, createAGrp, click, setClick, createGrpPost, delAPost, editAGrpPost, addAdmin, removeAdmin, resetGrpCode, postAssignment, getAssignmentById, fetchKeyWordUser, keywordUsers, deleteAssignment, editAssignment, turnInAssignment, turnOffAssignment, editNote, addNote, delNote}}>
             {props.children}
         </GrpContext.Provider>
     );
