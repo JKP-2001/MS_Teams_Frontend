@@ -75,8 +75,8 @@ export default function SideBarComponent() {
                 </button>}
 
                 <button className='hover:bg-white '>
-                    <div><CalendarMonthOutlinedIcon /></div>
-                    <div>Calendar</div>
+                    <Link to="/notes"><div><CalendarMonthOutlinedIcon /></div>
+                    <div>Notes</div></Link>
                 </button>
                 <button className='hover:bg-white '>
                     <div><CallOutlinedIcon /></div>

@@ -8,7 +8,7 @@ import conversationReducer from "./conversations/conversationSlice"
 import messageReducer from "./messages/messageSlics";
 import onlineUserReducer from "./onlineUsers/onlineUserSlice"
 import searchUserReducer from "./SearchUser/searchUserSlice"
-
+import noteSlice from "./Notes/notesSlice"
 
 const store=configureStore({
     reducer:{
@@ -20,7 +20,8 @@ const store=configureStore({
         conversations:conversationReducer,
         messages:messageReducer,
         onlineUsers:onlineUserReducer,
-        searchedUsers:searchUserReducer
+        searchedUsers:searchUserReducer,
+        notes:noteSlice
     }
 })
 

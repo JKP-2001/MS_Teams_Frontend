@@ -135,7 +135,7 @@ const Conversation = (props) => {
                     <button id="goToBottomButton" class="fixed bottom-24 right-7 p-2 hover:cursor-pointer  text-white rounded-full" onClick={()=>bottomRef.current?.scrollIntoView({behavior: 'smooth'})}>
                         <svg className="w-6 h-6  r-5 hover:cursor-pointer" onClick={()=>bottomRef.current?.scrollIntoView({behavior: 'smooth'})}>
 
-                            <svg class="w-6 h-6 text-violet-500 hover:cursor-pointer" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewBox="0 0 24 24" stroke="currentColor" onClick={()=>bottomRef.current?.scrollIntoView({behavior: 'smooth'})}>
+                            <svg class="w-6 h-6 text-violet-500 hover:cursor-pointer" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor" onClick={()=>bottomRef.current?.scrollIntoView({behavior: 'smooth'})}>
                                 <path d="M19 14l-7 7m0 0l-7-7m7 7V3" className='hover:cursor-pointer'></path>
                             </svg>
                         </svg>

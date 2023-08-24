@@ -449,9 +449,49 @@ const GrpState = (props) => {
     }
 
 
+    const editNote = async(note_id,title,content)=>{
+        try{
+            const response = await fetch(`${url}/notes/update/${note_id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'security-key': key,
+                    'auth-token':localStorage.getItem('token')
+                },
+                body: JSON.stringify({title,content})
+            });
+            const json = await response.json();
+            
+            return json;
+            
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    const addNote = async(title,content)=>{
+        try{
+            const response = await fetch(`${url}/notes/create`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'security-key': key,
+                    'auth-token':localStorage.getItem('token')
+                },
+                body: JSON.stringify({title,content})
+            });
+            const json = await response.json();
+            
+            return json;
+            
+        }catch(err){
+            console.log(err);
+        }
+    }
+
 
     return (
-        <GrpContext.Provider value={{ grpState, addMemberToGroup, setgrpState, joinTeamByCode, createAGrp, click, setClick, createGrpPost, delAPost, editAGrpPost, addAdmin, removeAdmin, resetGrpCode, postAssignment, getAssignmentById, fetchKeyWordUser, keywordUsers, deleteAssignment, editAssignment, turnInAssignment, turnOffAssignment }}>
+        <GrpContext.Provider value={{ grpState, addMemberToGroup, setgrpState, joinTeamByCode, createAGrp, click, setClick, createGrpPost, delAPost, editAGrpPost, addAdmin, removeAdmin, resetGrpCode, postAssignment, getAssignmentById, fetchKeyWordUser, keywordUsers, deleteAssignment, editAssignment, turnInAssignment, turnOffAssignment, editNote, addNote}}>
             {props.children}
         </GrpContext.Provider>
     );

@@ -48,6 +48,7 @@ import ChatPage from './Components/Chat/ChatPage';
 import { fetchAllChats, setMessages, setTheNotifications } from './Redux/SearchUser/searchUserSlice';
 import { getGrpItems } from './Redux/Group/groupSlice';
 import showToast from './Utils/showToast';
+import Notes from './Components/Notes/Notes';
 
 
 function App() {
@@ -203,6 +204,8 @@ function App() {
                 <Route exact path="/createassignment/:id" element={<ProtectedRoute ele={<CreateAssignment />}/>} />
 
                 <Route exact path="/assignment/check/:grpid/:postid/:user_id" element={<ProtectedRoute ele={<CheckAssignment />}/>} />
+
+                <Route exact path="/notes" element={<ProtectedRoute ele={<Notes />}/>} />
 
             </Routes>
           </Router>
