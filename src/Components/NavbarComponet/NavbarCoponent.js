@@ -10,7 +10,7 @@ export default function NavbarCoponent() {
     <>
       <div className=" navbar flex justify-between items-center pl-6 md:pl-20  fixed top-0 left-0 right-0 z-50 bg-[#444791] h-12">
         <div className="logo text-center h-1.5 flex justify-between items-center ">
-          <Link to="/"><div className='w-full font-medium text-xs md:text-sm text-white pl-2'>Microsoft Teams</div></Link>
+          <Link to="/"><div className='w-full font-medium text-xs md:text-sm text-white pl-2'>My Classroom</div></Link>
           {/* <div className="teamsname md:visible md:pl-8 text">Teams</div> */}
         </div>
 
