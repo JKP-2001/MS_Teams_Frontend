@@ -49,6 +49,7 @@ import { fetchAllChats, setMessages, setTheNotifications } from './Redux/SearchU
 import { getGrpItems } from './Redux/Group/groupSlice';
 import showToast from './Utils/showToast';
 import Notes from './Components/Notes/Notes';
+import NotFoundPage from './Components/NotFoundPage';
 
 
 function App() {
@@ -206,6 +207,8 @@ function App() {
                 <Route exact path="/assignment/check/:grpid/:postid/:user_id" element={<ProtectedRoute ele={<CheckAssignment />}/>} />
 
                 <Route exact path="/notes" element={<ProtectedRoute ele={<Notes />}/>} />
+
+                <Route path="*" element={<NotFoundPage />} />
 
             </Routes>
           </Router>
