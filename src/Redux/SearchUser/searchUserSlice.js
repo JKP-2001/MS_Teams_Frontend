@@ -11,7 +11,7 @@ const initialState = {
     notifications:[],
 };
 
-const url = process.env.REACT_APP_BASE_DEV==="true"?process.env.REACT_APP_BASE_SOCKET_DEV_URL:process.env.REACT_APP_BASE_SOCKET_URL;
+const url = process.env.REACT_APP_BASE_DEV==="true"?process.env.REACT_APP_BASE_SOCKET_URL:process.env.REACT_APP_BASE_SOCKET_DEV_URL;
 const key = "PLACEMENT-PROJECT"
 
 // console.log({url})
