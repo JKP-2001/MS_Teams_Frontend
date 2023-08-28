@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const SideBarFriend = (props) => {
 
-  console.log(props.notifications)
 
   const dispatch = useDispatch();
 

@@ -4,17 +4,17 @@ import { useState } from 'react';
 
 const Messages = (props) => {
 
-    const user = {firstName:"Jitendra", lastName:"Pandey"}
-    const friend = {firstName:"Bittu", lastName:"Kumar"}
+  const user = { firstName: "Jitendra", lastName: "Pandey" }
+  const friend = { firstName: "Bittu", lastName: "Kumar" }
 
-    const options = { day: '2-digit', month: 'numeric', year: 'numeric' };
+  const options = { day: '2-digit', month: 'numeric', year: 'numeric' };
 
-    const [date,setDate] = useState(new Date(props.m.createdAt).toLocaleDateString('en-GB', options))
+  const [date, setDate] = useState(new Date(props.m.createdAt).toLocaleDateString('en-GB', options))
 
-    const [time,setTime] = useState(new Date(props.m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
+  const [time, setTime] = useState(new Date(props.m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
 
 
-    
+
   return (
     <div
       id={props.own ? "messageWrapper_own" : "messageWrapper"}
@@ -37,14 +37,14 @@ const Messages = (props) => {
           </div>
           <div
             id="messageTime"
-            className="flex justify-end  gap-3 px-3 font-light text-sm "
+            className="flex justify-end  gap-3 px-3"
           >
-            <div className={props.own?"text-white":"text-slate-900"+" text-[15px]"}>{date}</div>
-            <div className={props.own?"text-white":"text-slate-900"+" text-[15px]"}>{time}</div>
+            <div className={props.own ? "text-white text-xs" : " text-slate-900  text-xs"}>{date}</div>
+            <div className={props.own ? "text-white text-xs" : " text-slate-900 text-xs"}>{time}</div>
           </div>
         </div>
         <div id="messageBottom" className="px-3 pb-3 break-all mt-[8px]">
-          <div className={props.own?"text-white":"text-slate-900"}>{props.m.content}</div>
+          <div className={props.own ? "text-white text-sm font-gSans" : "text-sm font-gSans text-slate-900"}>{props.m.content}</div>
         </div>
       </div>
     </div>

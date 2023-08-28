@@ -29,27 +29,27 @@ const ChatPage = () => {
 
 
     useEffect(() => {
-
         dispatch(getUserProfile());
-        // getUserProfileFetch();
         dispatch(getUserAssignments());
         dispatch(userGroups());
-
-
-
         dispatch(fetchAllChats());
-
         dispatch(fetchNotifications());
-
     }, [])
 
 
-    useEffect(() => {
 
-    }, [])
+    const chatState = useSelector((state) => state.searchedUsers);
+
+    
 
     const [typing, setTyping] = useState(false);
     const [isTyping, setIsTyping] = useState(false);
+
+    let secondUser;
+    
+    if(UserState.data && chatState.currentOpenChat){
+        secondUser = UserState.data._id === chatState.currentOpenChat.users[1]._id?chatState.currentOpenChat.users[0]:chatState.currentOpenChat.users[1];
+    }
 
 
 
@@ -60,14 +60,23 @@ const ChatPage = () => {
                 < NavbarCoponent />
                 <SideBarComponent />
                 <div className={`min-[768px]:ml-[90px] mt-[60px] grid-cols-1 `}>
-                    <div className="flex">
+                    <div className="hidden md:flex">
                         <div className=''>
                             <SideDrawer isTyping={isTyping} />
                         </div>
                     </div>
+
+                    {!chatState.currentOpenChat?<div className="md:hidden">
+                        <div className=''>
+                            <SideDrawer isTyping={isTyping} />
+                        </div>
+                    </div>:
+                    <div>
+                        <Conversation typing={typing} setIsTyping={setIsTyping} isTyping={isTyping} setTyping={setTyping} secondUser={secondUser}/>
+                    </div>}
                 </div>
-                <div>
-                    <Conversation typing={typing} setIsTyping={setIsTyping} isTyping={isTyping} setTyping={setTyping} />
+                <div className='hidden md:block'>
+                    <Conversation typing={typing} setIsTyping={setIsTyping} isTyping={isTyping} setTyping={setTyping} secondUser={secondUser}/>
                 </div>
             </div>
         </div>

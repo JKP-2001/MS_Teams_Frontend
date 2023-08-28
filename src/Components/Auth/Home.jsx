@@ -25,14 +25,14 @@ function Home() {
         <Navbar />
         <section className='bg-white'>
             <div className="topbar h-14 w-full bg-[#4b53bc] justify-center items-center flex">
-                <div className="text-white font-semibold text-center py-3"><h3>The better way to meet: My Classroom Premium Discover more</h3></div>
+                <div className="text-white font-semibold font-gSans text-center py-3"><h3>The better way to meet: My Classroom Premium Discover more</h3></div>
             </div>
 
             <div className=" slider1 flex flex-col-reverse my-14 md:flex-row justify-center items-center px-11">
 
                 <div className="left w-screen">
-                    <div className="text-l4 text-[#4b53bc] text-[1.8125rem] md:text-6xl font-semibold items-baseline px-3 md:w-10">My Classroom</div>
-                    <div className="textl3 text-[1.2rem] md:text-2xl px-3 font-semibold my-4 md:w-64">Make amazing things happen together at home, work, and school.</div>
+                    <div className="text-l4 text-[#4b53bc] text-[1.8125rem] md:text-6xl font-gSans font-semibold items-baseline px-5 md:w-10">My Classroom</div>
+                    <div className="textl3 text-[1.2rem] md:text-2xl px-6 font-semibold my-4 md:w-64 font-gSans">Make amazing things happen together at home, work, and school.</div>
                     <Link to="/signup"><button className="bg-[#4b53bc] hover:bg-[#2a307f] text-white font-bold ml-6 w-11/12 md:w-3/5 my-3 py-2 px-4 border border-blue-700 rounded">
                         SignUp For Free
                     </button></Link>
