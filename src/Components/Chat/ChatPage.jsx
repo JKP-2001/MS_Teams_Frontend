@@ -66,7 +66,7 @@ const ChatPage = () => {
                         </div>
                     </div>
 
-                    {!chatState.currentOpenChat?<div className="md:hidden">
+                    {!chatState.currentOpenChat?<div className="block md:hidden">
                         <div className=''>
                             <SideDrawer isTyping={isTyping} />
                         </div>
