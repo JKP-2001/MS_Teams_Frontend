@@ -6,7 +6,8 @@ module.exports = {
       fontFamily: {
        Rampart: ["Rampart One", "cursive"],
        gSans: ['Open Sans', "sans-serif"],
-       pSans:['PT Sans', 'sans-serif']
+       pSans:['PT Sans', 'sans-serif'],
+       newF:["Yanone Kaffeesatz", "sans-serif"]
       },
     },
   },

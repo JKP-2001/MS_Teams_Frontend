@@ -62,7 +62,7 @@ export default function SideDrawer(props) {
                 <div className="mt-4">
                     {searchUserState.users.length>0 ? searchUserState.users.map((user) => {
                         return(<UserCard key={user._id} userId={user._id} name={user.firstName+" "+user.lastName} email={user.email} closeDrawer={closeDrawer}/>)
-                    }):null}
+                    }):searchValue.length>0?<div className="text-center">No User Found</div>:null}
                 </div>
             </Drawer>
             <ChatSideBar openDrawer={openDrawer} />

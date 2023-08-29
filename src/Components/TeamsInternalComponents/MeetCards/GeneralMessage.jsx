@@ -35,9 +35,9 @@ const GeneralMessage = (props) => {
                         </div> : null}
                     </div>
                     <div className="name px-3 border-black py-2 border-t-[0.2px] bg-white rounded-b-md"></div>
-                    <div className="text break-words py-2 pt-[8px] px-3 rounded-t-md overflow-y-auto">
+                    <div className="text break-words py-2 pt-[8px] px-3 rounded-t-md overflow-y-auto font-newF">
                         {seeMore && props.body.length > 500 ? parse(props.body.slice(0, 500) + '....') : parse(props.body)}
-                        <div className='font-medium text-violet-800 mt-2 hover:cursor-pointer' onClick={() => setSeeMore(!seeMore)}>
+                        <div className=' text-violet-800 mt-2 hover:cursor-pointer' onClick={() => setSeeMore(!seeMore)}>
                             {props.body.length > 500 ? seeMore ? "See More..." : "See Less" : null}
                         </div>
                     </div>
