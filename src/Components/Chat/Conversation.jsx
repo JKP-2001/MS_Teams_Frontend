@@ -116,11 +116,11 @@ const Conversation = (props) => {
 
             <div id='conversation' className='fixed top-[60px] left-[20px] md:left-[450px] right-4 h-[100vh] bg-[#ffffff] border-[3px] rounded-lg shadow-lg'>
                 <div id='conversationTop' className='flex items-center border-b-[1px] border-gray-300 h-[65px]'>
-                    <div className='flex w-1/2  items-center space-x-3'>
+                    <div className='flex items-center space-x-3 justify-end'>
                         <ArrowBackIcon fontSize='medium' className='block md:hidden mx-2 cursor-pointer' onClick={handleArraowBack}/>
                         <img className='h-[40px] w-[43px] rounded-full ml-3 cursor-pointer' src={"https://picsum.photos/32/32/?random"} alt="Lakshya" />
                         <div className=' '>
-                            <div className='font-medium text-[20px] cursor-pointer'>
+                            <div className='font-medium text-[20px] cursor-pointer w-full'>
                                 {secondUser.firstName + " " + secondUser.lastName}
                             </div>
                             {isTyping ? <div className='font-medium text-xs text-green-500'>
