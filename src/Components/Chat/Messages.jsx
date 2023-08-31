@@ -43,8 +43,8 @@ const Messages = (props) => {
             <div className={props.own ? "text-white text-xs" : " text-slate-900 text-xs"}>{time}</div>
           </div>
         </div>
-        <div id="messageBottom" className="px-3 pb-3 break-all mt-[8px]">
-          <div className={props.own ? "text-white text-sm font-gSans" : "text-sm font-gSans text-slate-900"}>{props.m.content}</div>
+        <div id="messageBottom" className="px-3 pb-3 mt-[8px]">
+          <div className={props.own ? "text-white text-sm font-gSans whitespace-normal" : "text-sm font-gSans text-slate-900 whitespace-normal"}>{props.m.content}</div>
         </div>
       </div>
     </div>

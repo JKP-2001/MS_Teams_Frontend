@@ -7,9 +7,8 @@ import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 
 const AssignmentMaterial = (props) => {
 
-    const url = process.env.REACT_APP_BASE_DEV?"http://localhost:5000/":"https://ms-teams.onrender.com/";
+    const url = process.env.REACT_APP_FILE_URL;
 
-    console.log(process.env.REACT_APP_BASE_DEV)
 
     const gotToLink = (link)=>{
         {link && window.open(url+link, '_blank', 'noreferrer')};

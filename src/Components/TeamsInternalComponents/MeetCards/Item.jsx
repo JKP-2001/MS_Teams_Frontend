@@ -3,7 +3,7 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 
-const dev_url = process.env.REACT_APP_BASE_DEV === "true" ?"http://localhost:5000/":"https://ms-teams.onrender.com/";
+const dev_url = process.env.REACT_APP_FILE_URL;
 
 const Item = (props) => {
     
