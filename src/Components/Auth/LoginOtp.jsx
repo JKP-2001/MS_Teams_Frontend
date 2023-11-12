@@ -138,6 +138,10 @@ const LoginOtp = () => {
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400"> Back to sign in page.
                                     <Link to="/login" className="font-medium text-blue-600 hover:underline dark:text-primary-500">Sigin.</Link>
                                 </p>
+                                <p className="text-sm font-semibold text-white dark:text-white">
+                                For home page. <Link to="/" className="font-semibold text-blue-600 hover:underline dark:text-primary-500">Click Here</Link>
+                                
+                                </p>
                             </form>
                         </div>
                     </div>

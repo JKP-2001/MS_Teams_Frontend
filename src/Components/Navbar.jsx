@@ -8,6 +8,8 @@ import user from "../Images/user.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
+import logo_main from "../../Images/logo_main.png"
+
 const Navbar = () => {
   const [humbClicked, sethumbClicked] = useState(false);
   return (
@@ -26,7 +28,7 @@ const Navbar = () => {
         )}
         <div className=" w-28 cursor-pointer md:hidden flex  items-center">
           <img
-            src="https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1Mu3b?ver=5c31"
+            src={logo_main}
             alt=""
           />
         </div>
@@ -34,7 +36,7 @@ const Navbar = () => {
           <div className=" md:mx-5 md:flex  space-x-3 justify-center items-center absolute md:static top-12 left-0">
             <div className="w-28 cursor-pointer hidden md:block">
               <img
-                src="https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1Mu3b?ver=5c31"
+                src={logo_main}
                 alt=""
               />
             </div>

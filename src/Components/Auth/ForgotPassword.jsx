@@ -74,6 +74,10 @@ const ForgotPassword = () => {
                                 <p className="text-sm font-semibold text-white dark:text-white">
                                     Back To Sign in Page. <Link to='/login' className="font-semibold text-blue-600 hover:underline dark:text-primary-500">Sign in</Link>
                                 </p>
+                                <p className="text-sm font-semibold text-white dark:text-white">
+                  For home page. <Link to="/" className="font-semibold text-blue-600 hover:underline dark:text-primary-500">Click Here</Link>
+                  
+                </p>
                             </form>
                         </div>
                     </div>

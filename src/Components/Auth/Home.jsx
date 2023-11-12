@@ -33,10 +33,10 @@ function Home() {
                 <div className="left w-screen">
                     <div className="text-l4 text-[#4b53bc] text-[1.8125rem] md:text-6xl font-gSans font-semibold items-baseline px-5 md:w-10">My Classroom</div>
                     <div className="textl3 text-[1.2rem] md:text-2xl px-6 font-semibold my-4 md:w-64 font-gSans">Make amazing things happen together at home, work, and school.</div>
-                    <Link to="/signup"><button className="bg-[#4b53bc] hover:bg-[#2a307f] text-white font-bold ml-6 w-11/12 md:w-3/5 my-3 py-2 px-4 border border-blue-700 rounded">
+                    <Link to="/signup"><button className="bg-[#4b53bc] hover:bg-[#2a307f] text-white ml-3 font-bold md:ml-6 w-11/12 md:w-3/5 my-3 py-2 px-4 border border-blue-700 rounded">
                         SignUp For Free
                     </button></Link>
-                    <Link to="/login"><button className="bg-[#4b53bc] hover:bg-[#2a307f] text-white font-bold ml-6 w-11/12 md:w-3/5 my-3 py-2 px-4 border border-blue-700 rounded">
+                    <Link to="/login"><button className="bg-[#4b53bc] hover:bg-[#2a307f] text-white font-bold mx-3 md:ml-6 w-11/12 md:w-3/5 my-3 py-2 px-4 border border-blue-700 rounded">
                         Signin 
                     </button></Link>
                     {/* <div className="textl3 text-[#4b53bc] text-[1.2rem] px-3 font-semibold my-4 w-24"><Link to="/login">Sign in.</Link></div> */}
@@ -136,7 +136,7 @@ function Home() {
             </div>
 
             <div className="topbar h-16 w-full bg-[#4b53bc] justify-center flex py-12 items-center">
-                <div className="text-white text-center py-3"><h3>Get started with Microsoft Teams today</h3></div>
+                <div className="text-white text-center py-3"><h3>Get started with My Classroom today</h3></div>
             </div>
         </section>
         </>

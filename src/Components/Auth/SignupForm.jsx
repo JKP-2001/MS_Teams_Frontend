@@ -99,6 +99,9 @@ const SignupForm = (props) => {
                                 <p className="text-sm font-semibold text-gray-500 dark:text-gray-400">
                                     Already have an account ? <Link to="/login" className="font-semibold text-blue-600 hover:underline dark:text-primary-500">Sign in</Link>
                                 </p>
+                                <p className="text-sm font-semibold text-gray-500 dark:text-gray-400">
+                                    For Home Page. <Link to="/" className="font-semibold text-blue-600 hover:underline dark:text-primary-500">Click here.</Link>
+                                </p>
                             </form>
                         </div>
                     </div>

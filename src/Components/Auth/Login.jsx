@@ -99,6 +99,8 @@ const Login = () => {
   return (
     <>
 
+      
+
       <title>Sign in to your account</title>
       {alert && <Alert alert={alert} />}
       <section className="bg-gray-50 dark:bg-gray-200 h-auto py-40 md:py-0">
@@ -138,7 +140,14 @@ const Login = () => {
                     </button>}
                 <p className="text-sm font-semibold text-white dark:text-white">
                   Don’t have an account yet? <Link to="/signup" className="font-semibold text-blue-600 hover:underline dark:text-primary-500">Create One !</Link>
+
                 </p>
+
+                <p className="text-sm font-semibold text-white dark:text-white">
+                  For home page. <Link to="/" className="font-semibold text-blue-600 hover:underline dark:text-primary-500">Click Here</Link>
+                  
+                </p>
+
               </form>
             </div>
           </div>
